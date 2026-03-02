@@ -90,6 +90,11 @@ If you want to stay sharp in agentic engineering, subscribe to these recommended
 - [Armin Ronacher's Blog](https://lucumr.pocoo.org/)
 - [Mitchell Hashimoto's Blog](https://mitchellh.com/)
 
+### Anthropic devs
+
+- [Boris Cherny](https://x.com/bcherny)
+- [Lance Martin](https://x.com/RLanceMartin)
+
 ### Product and engineering blogs
 
 - [OpenAI Engineering News](https://openai.com/news/engineering/)

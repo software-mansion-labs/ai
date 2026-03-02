@@ -122,6 +122,10 @@ Don’t use the `/init` command of your harness of choice (which is meant to set
 
 1. Write a minimal `AGENTS.md` file. The goal is just to steer the agent to do the right thing every time. Here is [Marek Kaput](https://github.com/mkaput)’s example template:
 
+   :::tip[Claude Code]
+   In Claude Code, instead of telling the agent to run linters/typecheckers via AGENTS.md rules, set them up as [PostToolUse hooks](https://code.claude.com/docs/en/hooks). Hooks run automatically after each file edit, so the agent gets instant feedback without burning context on lint/typecheck output from explicit tool calls.
+   :::
+
    ```md
    # [Project name]
 
@@ -225,13 +229,13 @@ As your codebase and AGENTS.md grow, it will make sense to move chunks of that f
 
 Agent Skills is an open standard for extending AI agents with specialized capabilities. Skills package domain-specific knowledge and workflows that agents can use to perform specific tasks.
 
-We can’t tell you upfront what skills you might need without knowing what you’re working on (because skills are domain-specific). What’s even funnier is we can’t tell you how to install skills without knowing which agent harness you are using (because the skill directory location is not standardized, though increasingly many harnesses support `.agents/skills` and `~/.agents/skills`).
+We can’t tell you upfront what skills you might need without knowing what you’re working on (because skills are domain-specific). Fortunately, you don’t need to worry about where to put skill files or how each harness expects them to be structured. The interactive CLI `npx skills` handles all of that — it pulls skills from the [skills.sh](https://skills.sh/) directory and installs them in the right format for 40+ agent harnesses, including Claude Code, Cursor, Amp, Codex, Gemini CLI, GitHub Copilot, and many more.
+
+![npx skills CLI](../../assets/skills-cli.png)
 
 :::caution
 Before you try a new skill, always read its entire source and think about its security considerations. Skills are a powerful mechanism partly because they can be insecure. The surrounding ecosystem is still very young, and many skill-based attacks are happening in the wild.
 :::
-
-You can find many useful skills on [skills.sh](https://skills.sh/). They also provide an interactive CLI (`npx skills`) to pull skills from this directory into your agent harness of choice.
 
 :::tip
 Skills are meant to be amended by you or your agent to tailor to your project, machine, and taste. Don’t be afraid to fork a skill. If the “upstream” skill is updated, tell your agent to update your fork.

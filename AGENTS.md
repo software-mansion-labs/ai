@@ -1,4 +1,4 @@
-# AI Workbook
+# Software Mansion Agentic Engineering Guide
 
 ## Rules
 

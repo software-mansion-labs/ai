@@ -7,7 +7,7 @@ export default defineConfig({
   base: "/ai",
   integrations: [
     starlight({
-      title: "AI Workbook",
+      title: "Software Mansion Agentic Engineering Guide",
       logo: {
         src: "./public/favicon.svg",
       },

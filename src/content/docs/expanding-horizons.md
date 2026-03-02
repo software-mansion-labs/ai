@@ -70,7 +70,7 @@ TL;DR: Compaction extends the effective context length for long-running conversa
 
 ## A few words about MCP
 
-MCP is a tricky beast, and it was actually hard for us to find a good place for it in this workbook.
+MCP is a tricky beast, and it was actually hard for us to find a good place for it in this guide.
 
 MCP is a protocol through which AI applications can connect to data sources (local and remote), tools (applications and services), and workflows (specialized subagents).
 

@@ -5,7 +5,7 @@ description: Set up tools, learn core terminology, and run your first practical 
 
 ## In this chapter you will
 
-- Set up core tools and accounts used in the workbook.
+- Set up core tools and accounts used in the guide.
 - Learn key terms used across all chapters.
 - Practice first practical workflows for shipping with agents.
 - Set up first self-improvement mechanisms (`AGENTS.md` and skills).

@@ -79,15 +79,15 @@ Before Debug Mode existed, the agent tried to guess the most probable root cause
 
 With Debug Mode, instead of guessing, the agent can form clear hypotheses, add instrumentation to collect signals, validate or reject those hypotheses, and fix the actual root cause—not just the symptoms—so let’s see it in action! 🚀 It mimics our good old `console.log` approach.
 
-1. Open Cursor and switch to Debug mode. ![](img/cursor1.png)
-2. Explain the issue you have, send it, and give Cursor a moment. ![](img/cursor2.png)
+1. Open Cursor and switch to Debug mode. ![](../../assets/cursor1.png)
+2. Explain the issue you have, send it, and give Cursor a moment. ![](../../assets/cursor2.png)
 3. Now Cursor should form a few hypotheses (unless the root cause is clear, in which case it may implement a fix straight away).
 4. Here is a fun thing: now it’ll add instrumentation to your code to verify which hypotheses are correct! Most of the time, it works by adding fetch requests to the local Cursor HTTP server, which writes everything to logs. You have to make sure Cursor has access to those logs.
    1. If you are on an Android device, remember that you need to reverse ports to allow the app to access the Cursor server: `adb reverse tcp:7242 tcp:7242`
    2. Sometimes it wants to write logs from the mobile app into your macOS directory - of course this is not possible, so you need to tell it to use a different approach.
-   3. If this can’t be instrumented by writing to file/web (for example, Android native code), it might use ADB logs with custom tags - you might need to copy and paste the logs when you reproduce the issue. ![](img/cursor3.png)
+   3. If this can’t be instrumented by writing to file/web (for example, Android native code), it might use ADB logs with custom tags - you might need to copy and paste the logs when you reproduce the issue. ![](../../assets/cursor3.png)
 
-5. Now it’s your turn - it’ll ask you to reproduce the issue by giving the exact steps you need to follow. Cursor is collecting logs now. ![](img/cursor4.png)
+5. Now it’s your turn - it’ll ask you to reproduce the issue by giving the exact steps you need to follow. Cursor is collecting logs now. ![](../../assets/cursor4.png)
 6. Click Proceed, and Cursor will analyze the logs. If it finds a root cause, it’ll fix it; if it needs one more round of testing, it’ll go back to point 3.
 7. That’s it! It’s an easy but powerful way to address bugs in your code.
 

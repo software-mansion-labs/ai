@@ -15,7 +15,7 @@ title: Expanding Horizons
 
 Models are still just glorified autocomplete. What agent harnesses do is structure agent threads as model inputs (i.e., input strings). Almost every existing harness roughly follows the same framework. It’s dead simple:
 
-![](img/thread-diagram.svg)
+![](../../assets/thread-diagram.svg)
 
 You might ask: what is the context window, then? It is just the maximum length of the input string that the model can ingest. Agent harnesses often reduce this window slightly from actual model limits to reserve space for some tail system messages or a compaction prompt.
 

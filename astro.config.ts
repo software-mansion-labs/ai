@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
+import starlightFullViewMode from "starlight-fullview-mode";
 
 // https://astro.build/config
 export default defineConfig({
@@ -30,6 +31,12 @@ export default defineConfig({
         baseUrl: "https://github.com/software-mansion-labs/ai/edit/main/",
       },
       lastUpdated: true,
+      plugins: [
+        starlightFullViewMode({
+          leftSidebarEnabled: true,
+          rightSidebarEnabled: false,
+        }),
+      ],
     }),
   ],
 });

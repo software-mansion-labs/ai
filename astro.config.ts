@@ -26,6 +26,9 @@ export default defineConfig({
       components: {
         Footer: "./src/components/Footer.astro",
       },
+      editLink: {
+        baseUrl: "https://github.com/software-mansion-labs/ai/edit/main/",
+      },
       lastUpdated: true,
     }),
   ],

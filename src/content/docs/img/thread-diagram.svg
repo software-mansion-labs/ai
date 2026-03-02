@@ -1,0 +1,88 @@
+<svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        :root {
+            color-scheme: light dark;
+            --text: #333333;
+            --frame-bg: #ffffff;
+            --frame-stroke: #d5d5d5;
+            --system-bg: #eaf3e8;
+            --system-stroke: #cde2c9;
+            --agents-bg: #f4f3e6;
+            --agents-stroke: #e1dec0;
+            --skills-bg: #fcf3e6;
+            --skills-stroke: #efddc1;
+            --loop-bg: #fdf2e9;
+            --loop-stroke: #eed6c4;
+            --loop-title: #4a3b32;
+            --loop-note: #a46a48;
+            --msg-bg: #ffffff;
+            --msg-stroke: #eed6c4;
+            --action-bg: rgba(255, 255, 255, 0.4);
+            --action-stroke: #e5bba0;
+            --action-text: #7a553c;
+            --tool-call: #2d52a2;
+            --tool-result: #a24b2d;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text: #e6e9ee;
+                --frame-bg: #191d24;
+                --frame-stroke: #3a404b;
+                --system-bg: #1d2a22;
+                --system-stroke: #31483a;
+                --agents-bg: #2b2a1f;
+                --agents-stroke: #4b4936;
+                --skills-bg: #2b241c;
+                --skills-stroke: #544535;
+                --loop-bg: #2f241d;
+                --loop-stroke: #594234;
+                --loop-title: #f2d3bd;
+                --loop-note: #e8a77a;
+                --msg-bg: #1c2129;
+                --msg-stroke: #594234;
+                --action-bg: rgba(255, 255, 255, 0.05);
+                --action-stroke: #8c664f;
+                --action-text: #f0c7aa;
+                --tool-call: #8fb4ff;
+                --tool-result: #ffb28f;
+            }
+        }
+    </style>
+
+    <text x="400" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="600" fill="var(--text)" text-anchor="middle">Agent Thread Architecture</text>
+
+    <rect x="30" y="60" width="740" height="710" rx="10" fill="var(--frame-bg)" stroke="var(--frame-stroke)" stroke-width="2"/>
+
+    <rect x="50" y="80" width="700" height="55" rx="6" fill="var(--system-bg)" stroke="var(--system-stroke)" stroke-width="1.5"/>
+    <text x="70" y="113" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="var(--text)">System Prompt</text>
+
+    <rect x="50" y="150" width="700" height="55" rx="6" fill="var(--system-bg)" stroke="var(--system-stroke)" stroke-width="1.5"/>
+    <text x="70" y="183" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="var(--text)">System Tools (Read, Write, Bash, etc.)</text>
+
+    <rect x="50" y="220" width="700" height="55" rx="6" fill="var(--agents-bg)" stroke="var(--agents-stroke)" stroke-width="1.5"/>
+    <text x="70" y="253" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="var(--text)">AGENTS.md</text>
+
+    <rect x="50" y="290" width="700" height="55" rx="6" fill="var(--skills-bg)" stroke="var(--skills-stroke)" stroke-width="1.5"/>
+    <text x="70" y="323" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="var(--text)">Available Skills, MCP Tools</text>
+
+    <rect x="50" y="360" width="700" height="390" rx="8" fill="var(--loop-bg)" stroke="var(--loop-stroke)" stroke-width="1.5"/>
+    <text x="70" y="385" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="var(--loop-title)">Conversation Loop</text>
+    <text x="730" y="385" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="var(--loop-note)" text-anchor="end">grows each turn</text>
+
+    <rect x="70" y="405" width="660" height="45" rx="6" fill="var(--msg-bg)" stroke="var(--msg-stroke)" stroke-width="1"/>
+    <text x="90" y="433" font-family="system-ui, -apple-system, sans-serif" font-size="15" fill="var(--text)">User Message</text>
+
+    <rect x="70" y="465" width="660" height="155" rx="6" fill="var(--action-bg)" stroke="var(--action-stroke)" stroke-width="2" stroke-dasharray="6 4"/>
+    <text x="90" y="490" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="var(--action-text)">Agent Action Loop</text>
+    <text x="710" y="490" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-style="italic" fill="var(--action-text)" text-anchor="end">repeats until goal is met</text>
+
+    <rect x="90" y="505" width="620" height="40" rx="4" fill="var(--msg-bg)" stroke="var(--msg-stroke)" stroke-width="1"/>
+    <text x="110" y="530" font-family="monospace" font-size="14" fill="var(--tool-call)">↳ tool_call (Agent)</text>
+
+    <rect x="90" y="560" width="620" height="40" rx="4" fill="var(--msg-bg)" stroke="var(--msg-stroke)" stroke-width="1"/>
+    <text x="110" y="585" font-family="monospace" font-size="14" fill="var(--tool-result)">↳ tool_result (System / Environment)</text>
+
+    <rect x="70" y="635" width="660" height="45" rx="6" fill="var(--msg-bg)" stroke="var(--msg-stroke)" stroke-width="1"/>
+    <text x="90" y="663" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="600" fill="var(--text)">Agent Response Message</text>
+</svg>

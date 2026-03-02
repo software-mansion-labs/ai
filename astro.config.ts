@@ -5,19 +5,24 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: 'My Docs',
+			title: 'AI Workbook',
+			logo: {
+				src: './public/favicon.svg',
+			},
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
 			sidebar: [
 				{
-					label: 'Guides',
+					label: 'AI Workbook',
 					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
+						{ label: 'Home', link: '/' },
+						{ label: 'Getting Started', slug: 'getting-started' },
+						{ label: 'Becoming Productive', slug: 'becoming-productive' },
+						{ label: 'Expanding Horizons', slug: 'expanding-horizons' },
 					],
 				},
 				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
+					label: 'Glossary',
+					link: '/getting-started/#glossary',
 				},
 			],
 		}),

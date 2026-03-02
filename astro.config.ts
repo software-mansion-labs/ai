@@ -15,6 +15,9 @@ export default defineConfig({
 				{ label: 'Becoming Productive', slug: 'becoming-productive' },
 				{ label: 'Expanding Horizons', slug: 'expanding-horizons' },
 			],
+			components: {
+				Footer: './src/components/Footer.astro',
+			},
 		}),
 	],
 });

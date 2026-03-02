@@ -26,6 +26,7 @@ export default defineConfig({
       components: {
         Footer: "./src/components/Footer.astro",
       },
+      lastUpdated: true,
     }),
   ],
 });

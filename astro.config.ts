@@ -11,19 +11,9 @@ export default defineConfig({
 			},
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/software-mansion-labs/ai' }],
 			sidebar: [
-				{
-					label: 'AI Workbook',
-					items: [
-						{ label: 'Home', link: '/' },
-						{ label: 'Getting Started', slug: 'getting-started' },
-						{ label: 'Becoming Productive', slug: 'becoming-productive' },
-						{ label: 'Expanding Horizons', slug: 'expanding-horizons' },
-					],
-				},
-				{
-					label: 'Glossary',
-					link: '/getting-started/#glossary',
-				},
+				{ label: 'Getting Started', slug: 'getting-started' },
+				{ label: 'Becoming Productive', slug: 'becoming-productive' },
+				{ label: 'Expanding Horizons', slug: 'expanding-horizons' },
 			],
 		}),
 	],

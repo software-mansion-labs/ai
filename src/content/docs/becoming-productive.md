@@ -27,7 +27,6 @@ This is not a strict scheme you must follow exactly. Phases can be optional or m
 5. **Human review** - ultimately, you (a human) are responsible for the code. Invest some time in reviewing it so that (a) you know what’s happening and (b) you won’t waste reviewers’ time.
 6. **Agent self-improvement** - talk to your agent: How can you both improve your workflow? What lessons can you learn from recent work? Perhaps some AGENTS.md rule or a new skill needs to be created?
    1. _If you use Claude Code, try the `/insights` command._
-   2. _Check out [https://skills.sh/mitsuhiko/agent-stuff/improve-skill](https://skills.sh/mitsuhiko/agent-stuff/improve-skill)_
 
 ### Red/green TDD
 

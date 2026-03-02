@@ -9,7 +9,7 @@ export default defineConfig({
 			logo: {
 				src: './public/favicon.svg',
 			},
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/software-mansion-labs/ai' }],
 			sidebar: [
 				{
 					label: 'AI Workbook',

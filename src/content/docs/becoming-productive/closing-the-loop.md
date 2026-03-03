@@ -35,9 +35,9 @@ Current frontier models are surprisingly capable of browsing websites, clicking 
 
 Try using one of these tools:
 
-- [https://cursor.com/docs/agent/browser](https://cursor.com/docs/agent/browser)
-- [https://skills.sh/vercel-labs/agent-browser/agent-browser](https://skills.sh/vercel-labs/agent-browser/agent-browser)
-- [https://claude.com/chrome](https://claude.com/chrome)
+- [Cursor Browser](https://cursor.com/docs/agent/browser)
+- [Agent Browser](https://skills.sh/vercel-labs/agent-browser/agent-browser)
+- [Claude for Chrome](https://claude.com/chrome)
 
 Make it easy for agents to spawn a new instance of the app by themselves. Ideally on a separate port so that multiple agents can work in parallel.
 
@@ -53,6 +53,7 @@ Take a look at:
 
 - [Radon AI](https://radon.swmansion.com/docs/features/radon-ai)
 - [XcodeBuildMCP](https://www.xcodebuildmcp.com/)
+- [Agent Device](https://github.com/callstackincubator/agent-device)
 
 Also, have a look at these skills:
 

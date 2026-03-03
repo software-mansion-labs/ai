@@ -22,24 +22,30 @@ If you are short on time, use the learning paths below.
 
 ## Chapters
 
-Read it in order like a short book:
+This guide is divided into three main chapters. Each chapter increases the level of agentic initiation
 
 ### [Getting Started][chapter-getting-started]
 
 **Read this if:** Agentic engineering is new to you, or you need to set up your local environment.
+
 **You will get:** A practical software setup, core terminology, and first workflows (first commit, first bug fix, first design implementation).
+
 **Estimated effort:** 45-75 min (or use as a reference while building).
 
 ### [Becoming Productive][chapter-becoming-productive]
 
 **Read this if:** This is the meat of the guide. We expect everyone to study this section closely. It covers the frameworks that will actually make you a faster engineer. Think of it as a _road to 10x_.
+
 **You will get:** Prompting and workflow patterns that make day-to-day agentic work more reliable and scalable.
+
 **Estimated effort:** 60-90 min.
 
 ### [Expanding Horizons (optional)][chapter-expanding-horizons]
 
 **Read this if:** You’re curious about the "how" and "why" behind the curtain. This is optional extra credit for deep divers.
+
 **You will get:** Deeper mental models for context, compaction, model behavior, and MCP tradeoffs.
+
 **Estimated effort:** 30-45 min.
 
 [chapter-getting-started]: ./getting-started/glossary/

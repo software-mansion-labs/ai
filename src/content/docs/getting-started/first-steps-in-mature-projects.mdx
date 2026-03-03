@@ -2,6 +2,8 @@
 title: First steps in mature projects
 ---
 
+import { Steps } from "@astrojs/starlight/components";
+
 Large, long-lived repositories require a different onboarding flow than greenfield projects. The first objective is
 predictability, not speed.
 
@@ -31,7 +33,10 @@ In [Expensify](https://github.com/Expensify/App), tasks can be created inside re
 place to view all tasks relevant to one user. The feature was a home-screen widget named `Your tasks`, sourcing tasks
 from the self-DM report and rendering only when tasks exist. Here is a rough outline of what was done:
 
+<Steps>
+
 1. Start in **ask** mode and map the current implementation:
+
    ```md
    Before proposing changes, map:
 
@@ -40,8 +45,10 @@ from the self-DM report and rendering only when tasks exist. Here is a rough out
    3. where home widgets are implemented.
       Show exact files and functions.
    ```
+
 2. Summarize the exploration output using `/summarize` to reclaim context window for planning the feature.
    Then ask for a plan with strict constraints.
+
    ```md
    I want to add a "Your tasks" widget to home screen.
    Requirements:
@@ -56,30 +63,45 @@ from the self-DM report and rendering only when tasks exist. Here is a rough out
    Use @TimeSensitiveSection as implementation reference.
    Keep diffs surgical and avoid unrelated refactors.
    ```
+
 3. Review the plan in a separate thread or window before implementation.
-   - This often catches hidden coupling assumptions.
-   - If needed, revise the plan before writing any feature code.
+
+   This often catches hidden coupling assumptions.
+   If needed, revise the plan before writing any feature code.
+
 4. Implement tests first.
-   - Add unit tests and acceptance-path coverage before production code.
-   - Fix ESLint/TypeScript issues immediately to keep feedback clean.
-   - Commit them before proceeding with the next step.
+
+   Add unit tests and acceptance-path coverage before production code.
+   Fix ESLint/TypeScript issues immediately to keep feedback clean.
+   Commit them before proceeding with the next step.
+
 5. Execute implementation steps in parallel when independent.
-   - Keep changes small and traceable.
-   - If reused UI pieces are too tightly coupled to another screen, stop and keep boundaries clean.
+
+   Keep changes small and traceable.
+   If reused UI pieces are too tightly coupled to another screen, stop and keep boundaries clean.
+
 6. Run [Cursor Agent Review](https://cursor.com/docs/agent/review) and then verify manually.
-   - In this case, automated review found an important edge case: deletions are soft deletions, so deleted tasks must
-     be filtered.
+
+   In this case, automated review found an important edge case: deletions are soft deletions, so deleted tasks must
+   be filtered.
+
 7. Use [Cursor Debug Mode](https://cursor.com/docs/agent/modes#debug) to address the issue.
-   - The agent can add `console.log` statements to help with debugging.
-   - The integrated browser with log access enables the agent to inspect changes on the fly in a closed loop.
+
+   The agent can add `console.log` statements to help with debugging.
+   The integrated browser with log access enables the agent to inspect changes on the fly in a closed loop.
+
 8. Ask the agent to fill the PR template based on actual changes.
-   - Because this prompt was run in the same agent thread, the agent had a lot of useful context from the previous
-     steps, which often produces a high-quality draft for further manual writing.
+
+   Because this prompt was run in the same agent thread, the agent had a lot of useful context from the previous
+   steps, which often produces a high-quality draft for further manual writing.
+
    ```md
    Fill our PR template based only on this branch's changes.
    Include: scope, test evidence, risks, and follow-up tasks.
    Do not claim work that was not implemented.
    ```
+
+</Steps>
 
 This flow is intentionally conservative: ask first, plan explicitly, test first, implement surgically, and verify edge
 cases before broadening scope.

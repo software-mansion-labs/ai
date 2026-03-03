@@ -66,6 +66,7 @@ from the self-DM report and rendering only when tasks exist. Here is a rough out
 4. Implement tests first.
    - Add unit tests and acceptance-path coverage before production code.
    - Fix ESLint/TypeScript issues immediately to keep feedback clean.
+   - Commit them before proceeding with the next step.
 5. Execute implementation steps in parallel when independent.
    - Keep changes small and traceable.
    - If reused UI pieces are too tightly coupled to another screen, stop and keep boundaries clean.

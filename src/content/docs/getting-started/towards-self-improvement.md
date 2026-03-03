@@ -1,5 +1,5 @@
 ---
-title: First steps towards self-improvement
+title: Towards self-improvement
 ---
 
 ## AGENTS.md

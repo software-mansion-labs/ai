@@ -87,6 +87,13 @@ from the self-DM report and rendering only when tasks exist. Here is a rough out
 This flow is intentionally conservative: ask first, plan explicitly, test first, implement surgically, and verify edge
 cases before broadening scope.
 
+For more examples, look out on the internet for shared agent threads, some quality ones:
+
+- [Amp: Fix modal height with max-height constraint](https://ampcode.com/threads/T-019b0c24-7de0-7189-97e2-44121fbbbd9b)
+- [Amp: Implement file mentions in command palette](https://ampcode.com/threads/T-d0d0c3c4-4994-4574-9e56-e7f97e88bc33)
+- [Ghostty: Reproduce fuzz crash with test case](https://ampcode.com/threads/T-019cafee-1be2-72ab-bcec-28c6d41b753b)
+- [Tmux: Control mode protocol documentation](https://ampcode.com/threads/T-f02e59f8-e474-493d-9558-11fddf823672)
+
 ## Rules of thumb
 
 There are a few high-level rules you can follow when you jump into a new largeish project.

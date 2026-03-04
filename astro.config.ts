@@ -5,48 +5,6 @@ const site = "https://agentic-engineering.swmansion.com/";
 const repo = `https://github.com/software-mansion/agentic-engineering/`;
 const defaultOgImage = `${site}og-default.png`;
 
-const globalJsonLd = JSON.stringify({
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": `${site}#organization`,
-      name: "Software Mansion",
-      url: "https://swmansion.com/",
-      logo: {
-        "@type": "ImageObject",
-        url: `${site}swm-logo.png`,
-      },
-    },
-    {
-      "@type": "WebSite",
-      "@id": `${site}#website`,
-      url: site,
-      name: "Software Mansion Agentic Engineering Guide",
-      inLanguage: "en",
-      publisher: {
-        "@id": `${site}#organization`,
-      },
-    },
-    {
-      "@type": "Book",
-      "@id": `${site}#book`,
-      name: "Software Mansion Agentic Engineering Guide",
-      description:
-        "Practical guidance for setting up and scaling agentic engineering workflows in real software projects.",
-      url: site,
-      inLanguage: "en",
-      image: defaultOgImage,
-      publisher: { "@id": `${site}#organization` },
-      author: [
-        { "@type": "Person", name: "Marek Kaput" },
-        { "@type": "Person", name: "Jakub Kosmydel" },
-        { "@type": "Person", name: "Adam Grzybowski" },
-      ],
-    },
-  ],
-});
-
 // https://astro.build/config
 export default defineConfig({
   site,
@@ -102,6 +60,7 @@ export default defineConfig({
         },
       ],
       components: {
+        Head: "./src/components/Head.astro",
         Footer: "./src/components/Footer.astro",
       },
       editLink: {
@@ -128,11 +87,6 @@ export default defineConfig({
         {
           tag: "meta",
           attrs: { name: "twitter:creator", content: "@swmansion" },
-        },
-        {
-          tag: "script",
-          attrs: { type: "application/ld+json" },
-          content: globalJsonLd,
         },
       ],
     }),

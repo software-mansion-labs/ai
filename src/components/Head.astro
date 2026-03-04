@@ -1,0 +1,58 @@
+---
+import Default from "@astrojs/starlight/components/Head.astro";
+
+const { lang, siteTitle } = Astro.locals.starlightRoute;
+const organizationId = "https://swmansion.com/#organization";
+const websiteId = new URL("#website", Astro.site);
+const bookId = new URL("#book", Astro.site);
+const defaultOgImage = new URL("og-default.png", Astro.site);
+
+const globalJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": organizationId,
+      name: "Software Mansion",
+      url: "https://swmansion.com/",
+      logo: {
+        "@type": "ImageObject",
+        url: new URL("swm-logo.png", Astro.site),
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": websiteId,
+      url: Astro.site,
+      name: siteTitle,
+      inLanguage: lang,
+      publisher: {
+        "@id": organizationId,
+      },
+    },
+    {
+      "@type": "Book",
+      "@id": bookId,
+      name: siteTitle,
+      description:
+        "Practical guidance for setting up and scaling agentic engineering workflows in real software projects.",
+      url: Astro.site,
+      inLanguage: lang,
+      image: defaultOgImage,
+      publisher: { "@id": organizationId },
+      author: [
+        { "@type": "Person", name: "Marek Kaput" },
+        { "@type": "Person", name: "Jakub Kosmydel" },
+        { "@type": "Person", name: "Adam Grzybowski" },
+      ],
+    },
+  ],
+};
+---
+
+<Default />
+<script
+  type="application/ld+json"
+  is:inline
+  set:html={JSON.stringify(globalJsonLd)}
+/>

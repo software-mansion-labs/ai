@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
+import starlightLlmsTxt from "starlight-llms-txt";
 
 const site = "https://agentic-engineering.swmansion.com/";
 const repo = `https://github.com/software-mansion/agentic-engineering/`;
@@ -89,6 +90,7 @@ export default defineConfig({
           attrs: { name: "twitter:creator", content: "@swmansion" },
         },
       ],
+      plugins: [starlightLlmsTxt()],
     }),
   ],
 });

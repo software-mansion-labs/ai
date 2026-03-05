@@ -4,12 +4,12 @@ import { existsSync } from "node:fs";
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import {
+  type LinkRecord,
   missingRequiredFields,
   normalizeLinkRecord,
   normalizeUrl,
   parseLinksCsv,
   serializeLinksCsv,
-  type LinkRecord,
 } from "../src/lib/links";
 
 type LinkOccurrence = {
@@ -84,6 +84,8 @@ async function main(): Promise<void> {
         recordsByUrl.set(url, emptyLinkRecord(url));
       }
     }
+
+    await populateMissingMetadata(recordsByUrl);
 
     const nextText = serializeLinksCsv([...recordsByUrl.values()]);
     if (normalizeNewlines(currentText) !== nextText) {
@@ -186,6 +188,98 @@ function emptyLinkRecord(rawUrl: string): LinkRecord {
     date: "",
     urldate: "",
   };
+}
+
+async function populateMissingMetadata(
+  recordsByUrl: Map<string, LinkRecord>,
+): Promise<void> {
+  const today = formatTodayIsoDate();
+  let addedUrlDates = 0;
+  const recordsMissingTitle: LinkRecord[] = [];
+
+  for (const record of recordsByUrl.values()) {
+    if (!record.urldate.trim()) {
+      record.urldate = today;
+      addedUrlDates++;
+    }
+
+    if (!record.title.trim()) {
+      recordsMissingTitle.push(record);
+    }
+  }
+
+  if (addedUrlDates > 0) {
+    console.log(`Auto-filled urldate for ${addedUrlDates} link(s).`);
+  }
+
+  if (recordsMissingTitle.length === 0) {
+    return;
+  }
+
+  let filledTitles = 0;
+  const failedUrls: string[] = [];
+
+  await Promise.all(
+    recordsMissingTitle.map(async (record) => {
+      const title = await fetchPageTitle(record.url);
+      if (title) {
+        record.title = title;
+        filledTitles++;
+        return;
+      }
+
+      failedUrls.push(record.url);
+    }),
+  );
+
+  if (filledTitles > 0) {
+    console.log(`Auto-filled title for ${filledTitles} link(s).`);
+  }
+
+  if (failedUrls.length > 0) {
+    console.warn(
+      `Could not auto-fill title for ${failedUrls.length} link(s): ${failedUrls.join(", ")}`,
+    );
+  }
+}
+
+async function fetchPageTitle(url: string): Promise<string> {
+  const timeout = AbortSignal.timeout(10_000);
+
+  try {
+    const response = await fetch(url, {
+      redirect: "follow",
+      signal: timeout,
+      headers: {
+        "user-agent":
+          "software-mansion-link-metadata-bot/1.0 (+https://swmansion.com)",
+      },
+    });
+
+    if (!response.ok) {
+      return "";
+    }
+
+    let title = "";
+    const parser = new HTMLRewriter().on("head > title", {
+      text(chunk) {
+        title += chunk.text;
+      },
+    });
+
+    await parser.transform(response).arrayBuffer();
+    return title.trim().replace(/\s+/g, " ");
+  } catch {
+    return "";
+  }
+}
+
+function formatTodayIsoDate(): string {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = `${now.getMonth() + 1}`.padStart(2, "0");
+  const day = `${now.getDate()}`.padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }
 
 function normalizeNewlines(value: string): string {

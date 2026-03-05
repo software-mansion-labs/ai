@@ -10,7 +10,7 @@ import {
   parseLinksCsv,
   serializeLinksCsv,
   type LinkRecord,
-} from "../src/content/links";
+} from "../src/lib/links";
 
 type LinkOccurrence = {
   file: string;

@@ -26,6 +26,11 @@ bun run preview
 
 We welcome contributions! Please feel free to submit a Pull Request.
 
+## License
+
+This project is dual-licensed. See [LICENSE.md](./LICENSE.md) for scope and details.
+Full license texts: [CC BY-NC-SA 4.0](./LICENSE-CC-BY-NC-SA) and [MIT](./LICENSE-MIT).
+
 ## Agentic Engineering Guide is created by Software Mansion
 
 [![swm](https://logo.swmansion.com/logo?color=white&variant=desktop&width=150&tag=agentic-engineering-github "Software Mansion")](https://swmansion.com)

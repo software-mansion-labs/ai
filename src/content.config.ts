@@ -4,7 +4,7 @@ import { docsSchema } from "@astrojs/starlight/schema";
 import { file } from "astro/loaders";
 import { z } from "astro/zod";
 
-import { linkSchema, parseLinksCsv } from "./content/links";
+import { linkSchema, parseLinksCsv } from "./lib/links";
 
 const jsonLdNodeSchema = z
   .object({

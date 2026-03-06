@@ -1,0 +1,4 @@
+interface:
+  display_name: "Redactor"
+  short_description: "Book redaction and proofreading edits"
+  default_prompt: "Use $redactor to redact a specific book file, chapter, or quoted passage in source."

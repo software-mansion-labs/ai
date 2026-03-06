@@ -43,7 +43,7 @@ if (externalTitleParts) {
   // To get the final dot.
   externalTitleParts.push("");
 }
-const externalTitle = externalTitleParts.join(". ").trim();
+const externalTitle = externalTitleParts.join(". ").trim() || undefined;
 ---
 
 <Fragment
@@ -61,7 +61,8 @@ const externalTitle = externalTitleParts.join(". ").trim();
   >{
     !hasCustomLabel && (
       <>
-        {record.author && <i>{` ${record.author}.`}</i>} {` ${record.date}`}
+        {record.author && <i>{` ${record.author}.`}</i>}
+        {record.date && ` ${record.date}`}
       </>
     )
   }</Fragment

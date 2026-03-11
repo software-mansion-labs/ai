@@ -1,6 +1,6 @@
 ---
 title: Prompting Techniques
-description: Practical prompting patterns for coding agents, including thread structure, multimodal input, TDD loops, and guided review.
+description: Practical prompting patterns for coding agents, from framing and execution guidance to multimodal input and walkthroughs.
 ---
 
 import ExternalLink from "../../../components/ExternalLink.astro";
@@ -33,30 +33,17 @@ This is not a strict scheme you must follow exactly. Phases can be optional or m
 
 </Steps>
 
-## Red/green TDD
+Once you have a sensible workflow, the next question is how to interact with the agent within it.
+Good prompting is less about writing massive instructions and more about giving the right kind of guidance at the right time.
+With a good prompt, the agent can often find the right answers on its own.
 
-TL;DR: Write tests first, confirm they fail (red), then implement until they pass (green); a strong fit for coding agents because it reduces broken or unused code and builds a robust test suite.
+This page collects tactics that help at different moments of engineering.
 
-- <ExternalLink href="https://simonwillison.net/guides/agentic-engineering-patterns/red-green-tdd/" />
+## Clarify the task first
 
-## Multimodal input
+Many prompting failures begin before the agent writes a single line of code. If the task is underspecified, framed too narrowly, or missing the right reference points, the agent will confidently optimize for the wrong thing. These techniques help you align on intent before execution begins.
 
-Screenshot a bug or broken UI in your app. Or record a short video of something changing over time. Drop it into the prompt and say “fix it”. You can even add arrows and annotations in your screenshot tool. GPT-5.3-Codex and Gemini 3.1 Pro handle multimodal input very well; Opus 4.6 is a bit weaker here.
-
-## Socratic prompting
-
-TL;DR: Instead of giving the answer, ask questions that lead the agent to reach it themselves. Example: Rather than “The bug is in the condition,” ask “What are the assumptions?”, “Is this condition always true?”, and “What happens for the edge case?” Goal: surface assumptions, check logic, and arrive at the conclusion through one’s own reasoning.
-
-- <ExternalLink href="https://platform.claude.com/docs/en/resources/prompt-library/socratic-sage" />
-
-## Underprompting
-
-Intentionally omit some element of the prompt so that:
-
-1. The agent explores that area more thoroughly in its own way.
-2. You can see what’s missing in AGENTS.md / codebase / docs from what the agent tried to read.
-
-## Frame first, then implement
+### Frame first, then implement
 
 If the task is vague, do not jump straight to architecture.
 First, ask the agent for a short framing brief covering the problem, desired
@@ -75,7 +62,23 @@ dependencies between decisions one-by-one.
 
 Source: <ExternalLink href="https://github.com/mattpocock/skills/blob/main/grill-me/SKILL.md"/>
 
-## Borrowing from other code
+### Socratic prompting
+
+TL;DR: Instead of giving the answer, ask questions that lead the agent to reach it on their own.
+Example: Rather than “The bug is in the condition,” ask “What are the assumptions?”,
+“Is this condition always true?”, and “What happens for the edge case?”
+The goal is to surface assumptions, check logic, and arrive at the conclusion through the agent's own reasoning.
+
+- <ExternalLink href="https://platform.claude.com/docs/en/resources/prompt-library/socratic-sage" />
+
+### Underprompting
+
+Intentionally omit some element of the prompt so that:
+
+1. The agent explores that area more thoroughly in its own way.
+2. You can see what’s missing in AGENTS.md / codebase / docs from what the agent tried to read.
+
+### Borrowing from other code
 
 If you know you’re working on a problem that has been solved somewhere else, tell your agent to find and borrow the solution.
 
@@ -88,7 +91,53 @@ Depending on the codebase, a useful pattern is to have several _golden_ files th
 - For example, if you have a component library, tell the agent to follow the implementation of the `ui/Button.tsx` component.
 - If you're doing repetitive module refactoring, make the changes in one golden module, then ask the agent to reproduce them in other modules.
 
-## Walkthroughs
+## Steer the execution
+
+Once the task is clear, the next job is to keep execution on useful rails without micromanaging every action.
+That does not require a human to watch every step.
+Much of this can be automated too.
+
+### Red/green TDD
+
+TL;DR: Write tests first, confirm they fail (red), then implement until they pass (green).
+This is a strong fit for coding agents because it reduces broken or unused code and builds a robust test suite.
+
+- <ExternalLink href="https://simonwillison.net/guides/agentic-engineering-patterns/red-green-tdd/" />
+
+## When text and code is not enough
+
+Sometimes the fastest way to explain a problem is not another painfully typed paragraph.
+Other forms of communication can be valuable too.
+
+### Multimodal input
+
+Screenshot a bug or broken UI in your app.
+Or record a short video of something changing over time.
+Drop it into the prompt and say “fix it”.
+You can even add arrows and annotations in your screenshot tool.
+Frontier models handle multimodal input very well.
+
+### Put a human in the loop
+
+Ask the agent to prepare a step-by-step reproduction of a complex manual flow (what to click, in what order);
+you perform the steps (e.g., log in to the browser with your account), report back, and the agent continues or verifies.
+Like augmented manual QA: the agent scripts the scenario, and the human does the sensitive or interactive bits.
+
+### Just talk to it
+
+If typing is tiring, you can use your voice instead.
+Some agent harnesses have built-in voice dictation features.
+Similar things are also provided by accessibility features of operating systems,
+like <ExternalLink href="https://support.apple.com/guide/mac-help/mh40584/mac">Dictation</ExternalLink> on macOS,
+or <ExternalLink href="https://support.microsoft.com/en-us/windows/use-voice-typing-to-talk-instead-of-type-on-your-pc-fec94565-c4bd-329d-e59a-af033fa5689f">Voice Typing</ExternalLink> on Windows,
+and many third-party apps for all platforms.
+
+## Your exoskeleton
+
+Some prompting patterns are less about a single task and more about extending your reach as an engineer.
+They turn the agent into an exoskeleton around your normal workflow: surfacing understanding, handling mechanical work, and exploring unfamiliar systems.
+
+### Walkthroughs
 
 TL;DR: You can tell your agent to explain to you in human language what happens in the code, or to help you review its work by letting the agent showcase it. Example prompt:
 
@@ -102,11 +151,7 @@ you need. Include snippets of code you are talking about.
 - <ExternalLink href="https://simonwillison.net/guides/agentic-engineering-patterns/linear-walkthroughs/" />
 - <ExternalLink href="https://ampcode.com/news/walkthrough" />
 
-## Put a human in the loop
-
-Ask the agent to prepare a step-by-step reproduction of a complex manual flow (what to click, in what order); you perform the steps (e.g., log in to the browser with your account), report back, and the agent continues or verifies. Like augmented manual QA: the agent scripts the scenario, and the human does the sensitive or interactive bits.
-
-## Models are good at Git
+### Models are good at Git
 
 You can tell your agent:
 
@@ -116,12 +161,12 @@ You can tell your agent:
 4. To merge/rebase and fix conflicts (make sure to back up, or ask the agent to use `git reflog` in bad scenarios).
 5. To use the `gh` CLI to read issues/PR comments or GitHub Actions logs.
 
-## Reverse engineer
+### Reverse engineer
 
 Agents are surprisingly good at reverse engineering apps. Minified/compiled code is not such a big cognitive burden for them, and they have broad knowledge of useful tools in this space.
 
 Try pointing your agent at some website or Android APK where there’s something you want to mimic. Initially, you may need to interactively install some tools that the agent would like to use.
 
-## Issue pinpointer
+### Issue pinpointer
 
 Got a huge log file, maybe a screenshot, and you need to identify the bug? Paste everything you have into your agent prompt and tell it to find the exact log lines itself.

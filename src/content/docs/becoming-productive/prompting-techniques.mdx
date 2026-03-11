@@ -50,6 +50,20 @@ Intentionally omit some element of the prompt so that:
 1. The agent explores that area more thoroughly in its own way.
 2. You can see what’s missing in AGENTS.md / codebase / docs from what the agent tried to read.
 
+### Document knowledge
+
+TL;DR: If a fact should survive a reset, handoff, or future task, ask the agent to write it into the repository instead of leaving it in chat.
+Treat `AGENTS.md` as a short map.
+Treat repo-local Markdown as the system of record.
+
+This works well for architecture notes, domain terminology, debugging discoveries, migration constraints, and execution plans.
+A small, focused document is usually better than one giant instruction file.
+The goal is not “more docs”.
+The goal is making the right knowledge discoverable, versioned, and loadable on demand.
+
+- <ExternalLink href="https://lexler.github.io/augmented-coding-patterns/patterns/knowledge-document/" />
+- <ExternalLink href="https://openai.com/index/harness-engineering/" />
+
 ### Borrowing from other code
 
 If you know you’re working on a problem that has been solved somewhere else, tell your agent to find and borrow the solution.

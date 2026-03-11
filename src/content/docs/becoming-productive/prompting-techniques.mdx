@@ -4,34 +4,6 @@ description: Practical prompting patterns for coding agents, from framing and ex
 ---
 
 import ExternalLink from "../../../components/ExternalLink.astro";
-import { Steps } from "@astrojs/starlight/components";
-
-Effective prompts rely on clear structure, explicit constraints, and fast feedback loops rather than sheer length.
-
-## A good thread structure
-
-If you want a baseline for what decent threads for non-trivial tasks should look like, try this framework.
-
-:::note
-This is not a strict scheme you must follow exactly. Phases can be optional or merged. This can all be done in a single thread or in many smaller ones, with past thread references (e.g., `@Past Chat` in Cursor, `@@` in Amp), intermediary Markdown files, or a harness’s handoff feature as means of carrying valuable information.
-:::
-
-<Steps>
-
-1. **Brainstorm** - converse with an agent about how a task (or a part of it) can be done. The goal here is to gather information and collect it in one place. You can run several brainstorming sessions at once and produce summary `*.md` files as outcomes.
-2. **Plan** - go into _plan_ mode and work out a good implementation outline with an agent. Talk to it and refine the plan until it’s 👌
-3. **Execute** - when your agent (not you!) knows how the task should be done, tell it to do it!
-4. **Agent review** - many harnesses have built-in auto-review features.
-   Try using them in the background so the agent spends time finding all the stupid mistakes,
-   not you (you should be doing more valuable work in the meantime).
-   We will discuss this more in detail [later on](../going-10x/#automated-code-reviews).
-5. **Human review** - ultimately, you (a human) are responsible for the code. Invest some time in reviewing it so that (a) you know what’s happening and (b) you won’t waste reviewers’ time.
-6. **Agent self-improvement** - talk to your agent: How can you both improve your workflow? What lessons can you learn from recent work? Perhaps some AGENTS.md rule or a new skill needs to be created?
-   - _If you use Claude Code, try the `/insights` command._
-   - _Use your harness's memory feature (e.g., `/memory` in Claude Code, Memories in Cursor) to persist lessons learned across sessions._
-   - _Try post-mortem diffs: ask the agent to compare its first attempt vs the final version and explain what it got wrong. Great for spotting recurring antipatterns._
-
-</Steps>
 
 Once you have a sensible workflow, the next question is how to interact with the agent within it.
 Good prompting is less about writing massive instructions and more about giving the right kind of guidance at the right time.

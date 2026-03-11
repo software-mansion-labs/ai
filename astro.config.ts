@@ -46,6 +46,7 @@ export default defineConfig({
         {
           label: "Becoming Productive",
           items: [
+            { slug: "becoming-productive/the-workflow" },
             { slug: "becoming-productive/prompting-techniques" },
             { slug: "becoming-productive/closing-the-loop" },
             { slug: "becoming-productive/going-10x" },

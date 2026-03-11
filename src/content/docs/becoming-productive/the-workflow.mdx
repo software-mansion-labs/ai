@@ -1,0 +1,133 @@
+---
+title: The Workflow
+description: "A baseline workflow for non-trivial agent tasks: brainstorm, plan, execute, review, and improve."
+---
+
+import { Steps } from "@astrojs/starlight/components";
+import ExternalLink from "../../../components/ExternalLink.astro";
+
+Let's run a thought experiment and define a framework for efficient agent collaboration.
+You might ask: why?
+Because the goal is not just to memorize a recipe.
+It is to understand why things are structured this way so you can build your own understanding and experiment on your own.
+This matters because the framework we arrive at is a baseline, not a silver bullet.
+
+So let's start by defining what such a framework operates on.
+
+## Threads and context
+
+![Mockup of agent chat UI](../../../assets/chat-ui.png)
+
+The primary unit of work with agents is a _thread_.
+In a nutshell, it's just a conversation between you and an agent.
+We go deeper into how threads are implemented in the
+[next chapter](/expanding-horizons/threads-context-and-caching/).
+
+For each thread, we can reason about what the model knows at a given moment.
+This knowledge splits into two parts:
+
+1. The information the model has been trained on. We call this **model knowledge**.
+2. The entire contents of the current thread, all past messages within it, and the space for future ones.
+   We call this **context**.
+
+## Obstacles
+
+Now that we know the tool we are working with, let's look at the biggest challenges we face when working with agents.
+
+Source: <ExternalLink href="https://lexler.github.io/augmented-coding-patterns/talk/" />
+
+### Knowledge cutoff
+
+The model's built-in world knowledge is frozen at training time, so it may miss recent APIs, tools, and practices.
+It also knows nothing about your private codebase until you put that information into context.
+
+### Agents cannot learn (yet)
+
+Models do not get better at your project just because you told them yesterday that a task should be done in a better way.
+What looks like memory is usually the harness replaying prior context, which means preferences disappear when the session resets or earlier instructions fade out.
+That means the same mistake can reappear, so durable improvement has to live in prompts, docs, lints, tests, and tooling rather than in the model itself.
+
+### Context rot
+
+Context degrades as a thread grows, and earlier instructions gradually lose influence long before you hit the hard context window limit.
+The conversation can still feel productive while important guidance is already being ignored, weakened, or contradicted.
+Over time, long-running threads become less reliable and need resets, summaries, or checkpoints to stay sharp.
+
+### Non-determinism
+
+Agent outputs are not fully repeatable, so the same prompt can produce a strong result, a weaker one, or a wrong turn on a later retry.
+
+### Human-model misalignment
+
+An agent can look aligned while silently building the wrong mental model of your intent.
+Because its reasoning is mostly hidden and it is trained to be helpful, it often complies with unclear or flawed instructions instead of pushing back.
+Left unchecked, misunderstanding can stay invisible until the output breaks and you become frustrated.
+
+### Context is a scarce resource
+
+Context is limited twice: only so much information fits in the window, and the model can attend well to only so much of that information at once.
+As you load more code, rules, plans, and history, some of it must be dropped and the rest competes for attention, especially in large multi-step tasks.
+For that reason, broad, complex prompts often underperform smaller, focused ones even when the nominal context window is huge.
+This is also why the phrase "use small threads" is repeated like a mantra.
+
+## An ideal thread
+
+OK, so we know the tool, a **thread**, and we know the problems that come with it.
+In each _ideal_ thread, we need to align the agent's knowledge with our understanding and expectations, so we need to prepopulate the context with the right information.
+Each _ideal_ thread also needs verification if we want satisfactory results, so we need some post-validation steps.
+
+That suggests an _ideal_ agent thread has an internal structure.
+It naturally breaks into several steps.
+
+This is a baseline workflow for collaborating with coding agents effectively.
+Treat it as a default shape for substantial work, not as a rigid recipe.
+Depending on your intent, some phases can be merged, shortened, or skipped.
+
+<Steps>
+
+1. **Plan** or **Brainstorm** - converse with an agent about how a task (or a part of it) can be done.
+   The goal here is to gather information and collect it in one place.
+   Or try _plan_ mode and work out a solid implementation outline with an agent.
+   Talk to it and refine the plan until it’s&nbsp;👌.
+2. **Execute** - when your agent (not you!) knows how the task should be done, tell it to do it!
+3. **Agent review** - many harnesses have built-in auto-review features.
+   Try using them in the background so the agent spends time finding all the stupid mistakes,
+   not you (you should be doing more valuable work in the meantime).
+   We will discuss this in more detail [later on](../going-10x/#automated-code-reviews).
+4. **Human review** - ultimately, you (a human) are responsible for the code.
+   Invest some time in reviewing it so that (a) you know what's happening and (b) you won't waste reviewers' time.
+
+   :::tip
+   - Most GUI or in-IDE harnesses provide rich diffs computed from model changes.
+   - You can use the Git staging area to mark already reviewed changes.
+     :::
+
+5. **Agent self-improvement** - talk to your agent:
+   How can you both improve your workflow?
+   What lessons can you learn from recent work?
+   Perhaps some AGENTS.md rule or a new skill needs to be created?
+
+   :::tip
+   - If you use Claude Code, try the `/insights` command.
+   - Use your harness's memory feature (e.g., `/memory` in Claude Code, Memories in Cursor) to persist lessons learned across sessions.
+   - Try post-mortem diffs: ask the agent to compare its first attempt vs the final version and explain what it got wrong. Great for spotting recurring antipatterns.
+     :::
+
+</Steps>
+
+## Threads are composable
+
+OK, so now we know how to structure work inside a single thread.
+Are there any tricks for handling work across threads?
+Yes.
+Try to think of threads as composable entities.
+You can, and should, split work into multiple threads.
+
+For example, most harnesses assign unique IDs to threads.
+You can use these IDs to resume past threads or to fork them or hand them off into new threads.
+Such forks can even be run in parallel.
+Some tools allow you to refer to past threads directly (for example `@Past Chat` in Cursor or `@@` in Amp).
+
+If your harness of choice does not provide such niceties, you can always fall back to sharing context through plain Markdown files.
+For example, you can run several brainstorming sessions, each on a different topic, and produce summary `*.md` files as outcomes.
+Then, in the execution thread, you _join_ all of that information when priming the context.

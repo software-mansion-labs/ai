@@ -1,5 +1,6 @@
 url,title,author,date,urldate
 https://agents.md/,AGENTS.md,,,2026-03-04
+https://agentskills.io/,Agent Skills,Anthropic,,2026-03-12
 https://ampcode.com/news,Chronicle,Amp,,2026-03-04
 https://ampcode.com/news/walkthrough,Shareable Walkthroughs,Amp,2026-01-29,2026-03-04
 https://ampcode.com/notes/200k-tokens-is-plenty,200k Tokens Is Plenty,Amp,2025-12-09,2026-03-04
@@ -14,7 +15,6 @@ https://claude.com/blog/category/claude-code,Claude Code Blog,,,2026-03-04
 https://claude.com/chrome,Claude in Chrome,,,2026-03-04
 https://claude.com/pricing,Claude Subscription,,,2026-03-04
 https://code.claude.com/docs/en/best-practices#write-an-effective-claude-md,Best Practices for Claude Code - Claude Code Docs,Anthropic,,2026-03-04
-https://code.claude.com/docs/en/hooks,Hooks reference - Claude Code Docs,Anthropic,,2026-03-04
 https://code.claude.com/docs/en/sub-agents#code-reviewer,Create custom subagents - Claude Code Docs,,,2026-03-05
 https://coderabbit.ai/,CodeRabbit,,,2026-03-05
 https://cursor.com/blog,Cursor Blog,,,2026-03-04
@@ -32,12 +32,16 @@ https://developers.openai.com/codex/integrations/github/,Use Codex in GitHub,,,2
 https://docs.conductor.build/guides/spotlight-testing,Using spotlight testing - Conductor,,,2026-03-10
 https://docs.github.com/en/copilot/how-tos/use-copilot-agents/request-a-code-review,GitHub Copilot code review,,,2026-03-05
 https://factory.ai/pricing,Factory Subscription,,,2026-03-04
+https://github.com/anthropics/skills,anthropics/skills,Anthropic,,2026-03-12
 https://github.com/badlogic/pi-mono/blob/380236a003ec7f0e69f54463b0f00b3118d78f3c/packages/coding-agent/src/core/compaction/compaction.ts#L444-L475,Pi Compaction Prompt,Mario Zechner,,2026-03-04
 https://github.com/callstackincubator/agent-device,callstackincubator/agent-device: CLI to control iOS and Android devices for AI agents,Callstack,,2026-03-04
 https://github.com/Expensify/App,Expensify/App,GitHub,,2026-03-04
 https://github.com/mattpocock/skills/blob/main/grill-me/SKILL.md,grill-me skill,Matt Pocock,2026-02-25,2026-03-06
 https://github.com/mkaput,Marek Kaput,,,2026-03-04
+https://github.com/openai/skills,openai/skills,OpenAI,,2026-03-12
+https://github.com/software-mansion-labs/skills,software-mansion-labs/skills,Software Mansion,,2026-03-12
 https://github.com/steipete/mcporter/,"steipete/mcporter: Call MCPs via TypeScript, masquerading as simple TypeScript API. Or package them as cli.",Peter Steinberger,,2026-03-04
+https://github.com/topics/agent-skills,GitHub Topic: agent-skills,,,2026-03-12
 https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server,Guide to the Figma MCP server,,2025-05-15,2026-03-04
 https://help.figma.com/hc/en-us/articles/35281350665623-Figma-MCP-collection-How-to-set-up-the-Figma-remote-MCP-server,How to set up the Figma remote MCP server,,2025-09-29,2026-03-04
 https://just.systems/man/en/,Just Manual,Casey Rodarmor,,2026-03-04

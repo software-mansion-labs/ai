@@ -1,14 +1,12 @@
 ---
-title: Towards self-improvement
+title: AGENTS.md, Skills and MCP
 description: >-
   Improve agent output over time by codifying project rules in
-  AGENTS.md and adopting reusable skills for recurring tasks.
+  AGENTS.md, adopting reusable skills, and using MCP where it fits.
 ---
 
 import ExternalLink from "../../../components/ExternalLink.astro";
 import { Steps } from "@astrojs/starlight/components";
-
-## AGENTS.md
 
 An essential aspect of becoming productive while working with agents is to
 _blend them with code_.
@@ -17,15 +15,15 @@ the agents.
 For example, you might not necessarily like the commit message that the agent
 has just produced.
 
+## AGENTS.md
+
 One way to steer agents toward doing the right things is to have an `AGENTS.md`
 file in the repository root.
 This file is read by the agent in each thread.
 
-:::note
 This file is standardized and supported by most agent harnesses (except Claude Code).
 There are also harness-specific mechanisms, like `CLAUDE.md`
 or <ExternalLink href="https://cursor.com/docs/context/rules">Cursor Rules</ExternalLink>.
-:::
 
 :::tip
 Don’t use the `/init` command of your harness of choice (which is meant to set
@@ -179,9 +177,13 @@ The surrounding ecosystem is still very young, and many skill-based attacks are
 happening in the wild.
 :::
 
-:::tip
-Skills are meant to be amended by you or your agent to tailor to your project,
-machine, and taste.
-Don’t be afraid to fork a skill.
-If the “upstream” skill is updated, tell your agent to update your fork.
-:::
+
+## MCP
+
+MCP is a protocol through which AI applications can connect to data sources (local and remote), tools (applications and services), and workflows (specialized subagents).
+
+MCP is often mentioned along with skills - but they’re not the same. Truth is, 99% of problems can be solved equally well through MCPs, skills, or plain CLIs.
+
+One cool property of MCP is that it solves auth - you can easily authenticate to MCP services using API keys or OAuth with great UX provided by your harness. But MCP also has downsides, such as higher context pollution (try it yourself: load GitHub MCP and see how much context is already lost in a fresh thread). Claude Code is experimenting with countermeasures to this problem, but funnily enough, you can also wrap any MCP in a skill (through <ExternalLink href="https://github.com/steipete/mcporter/">mcporter</ExternalLink>).
+
+So to answer the question: when should you use MCP, a skill, or a CLI? If possible, try all three and do whatever works best for you and your agents.

@@ -152,31 +152,75 @@ AGENTS.md becomes mostly a table of contents.
 
 ## Skills
 
-Agent Skills is an open standard for extending AI agents with specialized
-capabilities.
-Skills package domain-specific knowledge and workflows that agents can use to
-perform specific tasks.
+<ExternalLink href="https://agentskills.io/">Agent Skills</ExternalLink> is an
+open standard for extending AI agents with specialized capabilities. Skills
+package domain-specific knowledge and workflows that agents can use to perform
+specific tasks.
 
+A skill is just a well named and described directory containing a `SKILL.md`
+file with arbitraty Markdown content.
+Agents initially only see all loadable skill names and descriptions,
+and they need to explicitly _load_ full skill definitions.
+You can mention a skill explicitly, or the model may decide to do it by itself.
+What's inside this skill is up to your imagination.
+
+### Choosing the right skills
+
+Skills by their nature are domain-specific.
 We can’t tell you upfront what skills you might need without knowing what
-you’re working on (because skills are domain-specific).
-Fortunately, you don’t need to worry about where to put skill files or how each
-harness expects them to be structured.
+you’re working on.
+What we can tell you is that unlike other harness-specific mechanisms, skills
+are largely portable and can be used in many creative ways.
+You may use them to save repetitive prompts, build more elaborate rules,
+provide hardly reachable up-to-date documentation about your toolchain or
+dependencies, or define agent personalities.
 
-The interactive CLI `npx skills` handles all of that - it pulls skills from
-the <ExternalLink href="https://skills.sh/">skills.sh</ExternalLink>
-directory and installs them in the right format for 40+ agent harnesses,
-including Claude Code, Cursor, Amp, Codex, Gemini CLI, GitHub Copilot, and many more.
+### Where to find skills
+
+#### skills.sh
+
+The <ExternalLink href="https://skills.sh/">skills.sh</ExternalLink> directory
+is a great place to look for valuable skills.
+The accompanying `npx skills` CLI installs them in the right format for 40+
+agent harnesses, including Claude Code, Cursor, Amp, Codex, Gemini CLI, GitHub
+Copilot, and many more.
 
 ![npx skills CLI](../../../assets/skills-cli.png)
 
-:::caution
+#### Skill repositories
+
+There are many cool GitHub repositories that collect cool skills,
+kinda similar to the _Awesome X_ list repositories.
+Many companies use these repositories as part of their marketing strategy,
+providing skills serving useful guidance to their products.
+
+For example:
+
+- <ExternalLink href="https://github.com/anthropics/skills" />
+- <ExternalLink href="https://github.com/openai/skills" />
+- <ExternalLink href="https://github.com/software-mansion-labs/skills" />
+- <ExternalLink href="https://github.com/topics/agent-skills" />
+
+### Skills are forkable and your own
+
+Skills are meant to be amended by you or your agent to tailor to your project,
+machine, and taste.
+
+- Many harnesses have skills for creating new skills or updating/forking
+  existing ones.
+- Don’t be afraid to fork an third-party skill.
+  If the “upstream” skill is updated, tell your agent to update your fork.
+
+### Security considerations
+
 Before you try a new skill, always read its entire source and think about its
 security considerations.
 Skills are a powerful mechanism partly because they can be insecure.
+
 The surrounding ecosystem is still very young, and many skill-based attacks are
 happening in the wild.
-:::
-
+Especially be cautious about updating third-party skills, you never know when an
+upstream repository becomes compromised and the attacker inserts prompt injections.
 
 ## MCP
 

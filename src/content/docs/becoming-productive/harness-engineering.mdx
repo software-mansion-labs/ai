@@ -276,3 +276,15 @@ Hooks should cover the cases that do not.
 Read more:
 - <ExternalLink href="https://code.claude.com/docs/en/hooks" />
 - <ExternalLink href="https://cursor.com/docs/hooks" />
+
+## When to use what
+
+If you are unsure which mechanism to reach for, use this rule of thumb:
+
+| Tool      | Use it when                                                                                                        |
+|:----------|:-------------------------------------------------------------------------------------------------------------------|
+| AGENTS.md | You constantly repeat specific lightweight information in your prompts.                                            |
+| Skills    | You need reusable, named knowledge or workflows or for anything not covered by other tools.                        |
+| MCP       | You need authenticated access to an external service that you use very frequently.                                 |
+| Subagents | You can delegate a bounded or parallelizable task to keep the main thread smaller.                                 |
+| Hooks     | You have deterministic, mechanical logic meant to happen every time without depending on the model to remember it. |

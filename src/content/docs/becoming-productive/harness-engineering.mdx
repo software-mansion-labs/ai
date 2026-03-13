@@ -1,8 +1,9 @@
 ---
 title: Harness engineering
 description: >-
-  Improve agent output over time by shaping the environment around the model
-  with `AGENTS.md`, reusable skills, and MCP where it fits.
+  Shape the harness around the model with `AGENTS.md`, skills, MCP,
+  subagents, and hooks so good agent behavior becomes easier and more
+  repeatable.
 ---
 
 import ExternalLink from "../../../components/ExternalLink.astro";
@@ -43,10 +44,10 @@ They are pretty good:
 
 On top of that, we would add the following:
 
-| ✅ Include                               | ❌ Exclude                                   |
-| :--------------------------------------- | :------------------------------------------- |
+| ✅ Include                                | ❌ Exclude                                    |
+|:-----------------------------------------|:---------------------------------------------|
 | Only crucial and frequently needed hints | Anything that is one `ls` or `cat` call away |
-| Terser language throughout the file      | Rules automatable, hooks or extensions[^1]   |
+| Terser language throughout the file      | Rules better handled by hooks or extensions  |
 
 As your codebase and AGENTS.md grow, it will make sense to move chunks of that
 file into either skills or separate files in the `docs/` directory, while
@@ -224,3 +225,54 @@ You are unlikely to use many MCPs, and the ones most commonly used are access
 points to well-known services.
 So... in such cases just make sure your agents will not perform destructive
 actions on your behalf 🙂.
+
+## Subagents
+
+![Subagents visualized](../../../assets/subagent.svg)
+
+Subagents are extra agent runs that the main agent starts to handle a narrower
+piece of work.
+Their biggest advantage is not that they magically become a “database expert”
+or a “frontend engineer”.
+It is that they keep context separated.
+
+This matters because long agent conversations degrade quickly.
+Exploration notes, false starts, and verbose tool output all compete with the
+actual task for attention.
+Offloading a bounded investigation to a subagent keeps the main thread smaller
+and gives you a cleaner final result.
+
+Read more:
+- <ExternalLink href="https://code.claude.com/docs/en/sub-agents" />
+- <ExternalLink href="https://cursor.com/docs/subagents" />
+- <ExternalLink href="https://developers.openai.com/codex/multi-agent/" />
+
+## Hooks
+
+Hooks are the part of the harness that runs deterministic logic around the
+agent.
+Different tools expose them differently,
+but the idea is the same:
+when something should happen every time,
+do not rely on the model to remember it.
+
+Hooks are a better home for repetitive enforcement than `AGENTS.md`.
+Formatting code,
+running linters,
+asking for approval before sensitive commands,
+posting notifications,
+or opening a pull request are all examples of work that can often be attached
+to a well-placed hook.
+
+A good hook reduces prompt clutter instead of adding to it.
+If the formatter succeeds, the agent usually does not need to hear about it.
+If a check fails, then the failure should come back with enough detail to guide
+the next step.
+This kind of back-pressure is useful because it keeps routine success paths out
+of the model’s way while still surfacing actionable problems.
+Written instructions should cover the cases that require judgment.
+Hooks should cover the cases that do not.
+
+Read more:
+- <ExternalLink href="https://code.claude.com/docs/en/hooks" />
+- <ExternalLink href="https://cursor.com/docs/hooks" />

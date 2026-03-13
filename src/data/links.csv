@@ -16,6 +16,8 @@ https://claude.com/chrome,Claude in Chrome,,,2026-03-04
 https://claude.com/pricing,Claude Subscription,,,2026-03-04
 https://cli.github.com/,GitHub CLI | Take GitHub to the command line,,,2026-03-13
 https://code.claude.com/docs/en/best-practices#write-an-effective-claude-md,Best Practices for Claude Code - Claude Code Docs,Anthropic,,2026-03-04
+https://code.claude.com/docs/en/hooks,Hooks reference - Claude Code Docs,Anthropic,,2026-03-13
+https://code.claude.com/docs/en/sub-agents,Create custom subagents - Claude Code Docs,Anthropic,,2026-03-13
 https://code.claude.com/docs/en/sub-agents#code-reviewer,Create custom subagents - Claude Code Docs,,,2026-03-05
 https://coderabbit.ai/,CodeRabbit,,,2026-03-05
 https://context7.com/,Context7 - Up-to-date documentation for LLMs and AI code editors,,,2026-03-13
@@ -25,12 +27,15 @@ https://cursor.com/docs/agent/browser,Cursor Browser,,,2026-03-04
 https://cursor.com/docs/agent/modes#debug,Cursor Debug Mode,,,2026-03-04
 https://cursor.com/docs/agent/review,Cursor Review Agent,,,2026-03-04
 https://cursor.com/docs/context/rules,Cursor Rules,,,2026-03-04
+https://cursor.com/docs/hooks,Hooks Docs,Cursor,,2026-03-13
+https://cursor.com/docs/subagents,Cursor Subagents,Cursor,,2026-03-13
 https://cursor.com/for/code-review,Reviewing Code with Cursor | Cursor Docs,,,2026-03-05
 https://cursor.com/pricing,Cursor Subscription,,,2026-03-04
 https://developers.openai.com/api/docs/guides/compaction,Compaction,OpenAI,,2026-03-04
 https://developers.openai.com/codex/app/worktrees/#working-between-local-and-worktree,Worktrees,,,2026-03-10
 https://developers.openai.com/codex/cli/features#run-local-code-review,Codex CLI features (run local code review),,,2026-03-05
 https://developers.openai.com/codex/integrations/github/,Use Codex in GitHub,,,2026-03-05
+https://developers.openai.com/codex/multi-agent/,Codex Multi-agents,OpenAI,,2026-03-13
 https://docs.conductor.build/guides/spotlight-testing,Using spotlight testing - Conductor,,,2026-03-10
 https://docs.github.com/en/copilot/how-tos/use-copilot-agents/request-a-code-review,GitHub Copilot code review,,,2026-03-05
 https://factory.ai/pricing,Factory Subscription,,,2026-03-04

@@ -29,7 +29,8 @@ If you're integrating directly with an LLM API, lowering cost per request/sessio
 - Cap output length when possible (`max_tokens` / equivalent).
 - Keep threads compact. Good cache hit rates help, but each turn still adds some uncached tail tokens, and cache entries can expire/prune over long sessions.
 
-If you're using an agent harness, many of these optimizations are handled internally (prompt layout, caching, compaction). Your main cost levers are usually model choice and keeping tasks/threads scoped.
+If you're using a coding agent, many of these optimizations are handled internally (prompt layout, caching, compaction).
+Your main cost levers are usually model choice and keeping tasks/threads scoped.
 
 ## Subscriptions
 

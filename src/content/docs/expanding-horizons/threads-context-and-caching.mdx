@@ -9,11 +9,16 @@ This page explains how agent threads are transformed into model input and why th
 
 ## From thread to model input
 
-Models are still just glorified autocomplete. What agent harnesses do is structure agent threads as model inputs (i.e., input strings). Almost every existing harness roughly follows the same framework. It’s dead simple:
+Models are still just glorified autocomplete.
+What coding agents do is structure agent threads as model inputs (i.e., input strings).
+Almost every existing coding agent roughly follows the same framework.
+It’s dead simple:
 
 ![](../../../assets/thread-diagram.svg)
 
-You might ask: what is the context window, then? It is just the maximum length of the input string that the model can ingest. Agent harnesses often reduce this window slightly from actual model limits to reserve space for some tail system messages or a compaction prompt.
+You might ask: what is the context window, then?
+It is just the maximum length of the input string that the model can ingest.
+Coding agents often reduce this window slightly from actual model limits to reserve space for some tail system messages or a compaction prompt.
 
 Now (especially if you’re going to work with Anthropic models), go read this article. The author wrote a great overview of context peculiarities and how models behave as context usage grows. TL;DR: Keep your threads short:
 

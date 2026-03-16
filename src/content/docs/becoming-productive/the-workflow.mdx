@@ -44,7 +44,7 @@ It also knows nothing about your private codebase until you put that information
 ### Agents cannot learn (yet)
 
 Models do not get better at your project just because you told them yesterday that a task should be done in a better way.
-What looks like memory is usually the harness replaying prior context, which means preferences disappear when the session resets or earlier instructions fade out.
+What looks like memory is usually the coding agent replaying prior context, which means preferences disappear when the session resets or earlier instructions fade out.
 That means the same mistake can reappear, so durable improvement has to live in prompts, docs, lints, tests, and tooling rather than in the model itself.
 
 ### Context rot
@@ -90,7 +90,7 @@ Depending on your intent, some phases can be merged, shortened, or skipped.
    Or try _plan_ mode and work out a solid implementation outline with an agent.
    Talk to it and refine the plan until it’s&nbsp;👌.
 2. **Execute** - when your agent (not you!) knows how the task should be done, tell it to do it!
-3. **Agent review** - many harnesses have built-in auto-review features.
+3. **Agent review** - many coding agents have built-in auto-review features.
    Try using them in the background so the agent spends time finding all the stupid mistakes,
    not you (you should be doing more valuable work in the meantime).
    We will discuss this in more detail [later on](../going-10x/#automated-code-reviews).
@@ -98,7 +98,7 @@ Depending on your intent, some phases can be merged, shortened, or skipped.
    Invest some time in reviewing it so that (a) you know what's happening and (b) you won't waste reviewers' time.
 
    :::tip
-   - Most GUI or in-IDE harnesses provide rich diffs computed from model changes.
+   - Most GUI or in-IDE coding agents provide rich diffs computed from model changes.
    - You can use the Git staging area to mark already reviewed changes.
      :::
 
@@ -109,7 +109,7 @@ Depending on your intent, some phases can be merged, shortened, or skipped.
 
    :::tip
    - If you use Claude Code, try the `/insights` command.
-   - Use your harness's memory feature (e.g., `/memory` in Claude Code, Memories in Cursor) to persist lessons learned across sessions.
+   - Use your coding agent's memory feature (e.g., `/memory` in Claude Code, Memories in Cursor) to persist lessons learned across sessions.
    - Try post-mortem diffs: ask the agent to compare its first attempt vs the final version and explain what it got wrong. Great for spotting recurring antipatterns.
      :::
 
@@ -123,11 +123,11 @@ Yes.
 Try to think of threads as composable entities.
 You can, and should, split work into multiple threads.
 
-For example, most harnesses assign unique IDs to threads.
+For example, most coding agents assign unique IDs to threads.
 You can use these IDs to resume past threads or to fork them or hand them off into new threads.
 Such forks can even be run in parallel.
 Some tools allow you to refer to past threads directly (for example `@Past Chat` in Cursor or `@@` in Amp).
 
-If your harness of choice does not provide such niceties, you can always fall back to sharing context through plain Markdown files.
+If your coding agent of choice does not provide such niceties, you can always fall back to sharing context through plain Markdown files.
 For example, you can run several brainstorming sessions, each on a different topic, and produce summary `*.md` files as outcomes.
 Then, in the execution thread, you _join_ all of that information when priming the context.

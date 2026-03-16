@@ -16,12 +16,15 @@ Before we start, let us introduce a few terms that we will use a lot:
 
 - **Model**: A particular LLM, like Claude-4.6-Opus, GPT-5.3-Codex, Gemini-3.1-Pro.
 
-- **Agent**: An LLM that runs tools in a loop to achieve a goal.
+- **Agent**: Software that calls an LLM, gives it tools, and runs those tools in a loop to achieve a goal.
 
-- **Agent Harness**: A piece of software that implements an actual agent, like Claude Code or Cursor Agent.
+- **Coding agent**: An agent specialized for software work, like Claude Code or Cursor Agent.
+  In practice, coding agents can inspect repositories, use developer tools, propose changes, and often write and run code as part of a task loop.
 
 - **Vibe coding**: When agents write code and you're in the flow, building PoCs and MVPs, or just having fun.
 
 - **Agentic engineering**: When you use agents to develop codebases professionally, and you are responsible for the output.
 
-- **Gate**: A check that work must pass before it can move forward. The term predates AI agents, but agentic workflows made it much more common because they require explicit checkpoints for reviewing and verifying autonomous work. In practice, a gate can be a lint run, typecheck, test suite, code review, preview deployment, or any other requirement that blocks changes until they meet your quality bar.
+- **Gate**: A check that work must pass before it can move forward.
+  The term predates AI agents, but agentic workflows made it much more common because they require explicit checkpoints for reviewing and verifying autonomous work.
+  In practice, a gate can be a lint run, typecheck, test suite, code review, preview deployment, or any other requirement that blocks changes until they meet your quality bar.

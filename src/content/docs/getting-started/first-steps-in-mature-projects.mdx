@@ -30,9 +30,13 @@ From a distance, these points are strongly correlated. You do not need to addres
 ## A first surgical feature delivery in 8 steps
 
 Let’s walk through a concrete case from a mature codebase using Cursor.
-In <ExternalLink href="https://github.com/Expensify/App">Expensify</ExternalLink>, tasks can be created inside reports (chats), but there was no single
-place to view all tasks relevant to one user. The feature was a home-screen widget named `Your tasks`, sourcing tasks
-from the self-DM report and rendering only when tasks exist. Here is a rough outline of what was done:
+Let's take as an example an open-source React Native application called <ExternalLink href="https://github.com/Expensify/App">Expensify</ExternalLink>.
+In Expensify, <ExternalLink href="https://help.expensify.com/articles/new-expensify/chat/Assign-Tasks">tasks</ExternalLink>
+can be created inside reports (chats), but there was no single place to view all
+tasks relevant to one user.
+The feature was a home-screen widget named `Your tasks`, sourcing tasks from the
+self-DM report and rendering only when tasks exist.
+Here is a rough outline of what was done:
 
 <Steps>
 
@@ -151,7 +155,9 @@ Sometimes mature repositories are missing small tools that make agent workflows 
 command away is easier to use correctly than a long prompt instruction. You can accumulate such helpers for your own
 use.
 
-Where to put these? Often in your own skills. They can also be a `Makefile`, a <ExternalLink href="https://just.systems/man/en/">`justfile`</ExternalLink>, or just a gitignored `local/` directory with a bunch of `*.sh` scripts.
+Where to put these? Often in your own skills. They can also be a `Makefile`,
+a <ExternalLink href="https://just.systems/man/en/">`justfile`</ExternalLink>,
+or just a gitignored `local/` directory with a bunch of Bash scripts.
 
 What can these be?
 

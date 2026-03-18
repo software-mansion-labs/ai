@@ -1,0 +1,80 @@
+---
+title: Legal & Compliance
+description: >-
+  Legal and compliance risks of using coding agents with proprietary code,
+  including data handling, licensing, contracts, and accountability.
+---
+
+While technical sandboxes prevent agents from wiping databases, they do not
+prevent legal and compliance catastrophes.
+As a software engineer, you must be aware that using AI agents introduces
+specific legal risks.
+
+:::note[Important]
+What is acceptable depends on the company, the contract, the data involved, and
+the regulatory context.
+These risks should be evaluated for each professional engagement before agents
+are enabled or proprietary material is shared with a model.
+Always consult these concerns during onboarding.
+:::
+
+## Data leaks and model training
+
+One of the most immediate risks is sending sensitive data, API keys,
+personal data, or proprietary business logic to consumer-tier AI tools that
+retain prompts or use them for training.
+
+Many consumer-facing products often have different retention and training terms
+than enterprise offerings.
+If protected material enters a model context without the right contractual and
+technical safeguards, that disclosure may violate confidentiality obligations or
+data-handling requirements.
+For example, if your agent leaks a proprietary algorithm into a model's context,
+it could eventually be reproduced for a competitor.
+
+Before using an agent, confirm what data may leave the environment, how prompts
+are stored, and whether the vendor terms satisfy the company's requirements.
+Remember that a "do not collect my data" checkbox in settings is not the same
+level of legal security as an explicit zero data retention clause in terms of
+service.
+
+## Copyleft contamination – IP infringement
+
+Another risk is introducing code with license obligations that conflict with the
+product or distribution model.
+
+Coding agents are trained on massive amounts of public code, including strictly
+licensed open-source repositories (like GPL).
+Occasionally, an agent might perfectly regurgitate a block of copyleft code.
+If you blindly merge this into a closed-source, commercial codebase, it can
+create a "viral" license effect, legally compromising their entire product and
+opening you to lawsuits.
+
+In practice, treat suspiciously polished or unusually specific output as a sign
+to slow down and verify provenance.
+Ask the agent to explain the implementation in its own words and run a code
+search if a snippet looks distinctive enough that it may have been copied from a
+public project.
+
+## Breach of contract and AI policies
+
+Many enterprises, especially in heavily regulated industries like fintech or
+healthcare, now include strict "No-AI" or "Approved-AI-Only" clauses in their
+contracts.
+Running an agent on a restricted project could be a direct breach of contract.
+Always ask your manager about your specific project’s AI policy before enabling
+an agent in that workspace.
+
+## Accountability
+
+Agent-generated code does not shift legal or professional responsibility away
+from the engineer or organization that ships it.
+That is the primary difference between agentic engineering and vibecoding after
+all.
+
+If an agent introduces a security flaw, or produces infringing code,
+accountability still sits with the humans who reviewed, approved, and deployed
+it.
+That is why human review, provenance checks, and enterprise-specific compliance
+validation remain essential even when the implementation work is heavily
+automated.

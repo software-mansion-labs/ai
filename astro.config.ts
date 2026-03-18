@@ -51,6 +51,7 @@ export default defineConfig({
             { slug: "becoming-productive/harness-engineering" },
             { slug: "becoming-productive/closing-the-loop" },
             { slug: "becoming-productive/security" },
+            { slug: "becoming-productive/legal-compliance" },
             { slug: "becoming-productive/going-10x" },
           ],
         },

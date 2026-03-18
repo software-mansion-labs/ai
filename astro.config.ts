@@ -37,10 +37,12 @@ export default defineConfig({
           label: "Getting Started",
           items: [
             { slug: "getting-started/glossary" },
+            { slug: "getting-started/how-to-get-started" },
             { slug: "getting-started/what-can-ai-agents-even-do" },
             { slug: "getting-started/how-to-set-up-a-new-repo" },
             { slug: "getting-started/towards-self-improvement" },
             { slug: "getting-started/first-steps-in-mature-projects" },
+            { slug: "getting-started/towards-self-improvement" },
           ],
         },
         {

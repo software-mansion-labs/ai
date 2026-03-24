@@ -6,13 +6,13 @@ description: Common anti-patterns when working with coding agents and how to avo
 import { Steps } from "@astrojs/starlight/components";
 import ExternalLink from "../../../components/ExternalLink.astro";
 
-Now that you know how to work with the agent, there are some negative patterns you want to make sure you don't follow. They may feel natural, but they naturally produce worse results.
+Now that you know how to work with the agent, there are some negative patterns you want to make sure you do not follow. They may feel natural, but they naturally produce worse results.
 
 Source: <ExternalLink href="https://lexler.github.io/augmented-coding-patterns/talk/" />
 
 ## Distraction
 
-You may be tempted to give many responsibilities to an agent in a single thread, as that's how you would talk to a co-developer. 
+You may be tempted to give many responsibilities to an agent in a single thread, as that is how you would talk to a co-developer. 
 Once they finish one task, they would move to the next, then eventually make sure they finished all that was asked of them.
 However, giving an agent too many responsibilities in a single threat is spreading its attention thin.
 Specialisation matters: the same ground rules yield better results when an agent only needs to track one concern.
@@ -30,7 +30,7 @@ Specialisation matters: the same ground rules yield better results when an agent
 
 ## Taking recall for granted
 
-We often expect the model's recall not to be perfect when it comes to the data we provide, but we don't have the same concerns for recall on the model's training data, and you should.
+We often expect the model's recall not to be perfect when it comes to the data we provide, but we do not have the same concerns for recall on the model's training data, and you should.
 Instead, try to confront the agent with the data.
 
 **How to fix it:**
@@ -41,7 +41,7 @@ Instead, try to confront the agent with the data.
    Attach the relevant file or URL to the prompt.
 2. **Try it out** — for less popular APIs, ask the agent to write a small test first and verify if it works. You can give it a playground folder to experiment.
 3. **Write findings into the repository** — once the agent learns something worth keeping, be it a working pattern or factual knowledge, have it write it down in a Markdown file.
-   Knowledge that lives in the codebase survives thread resets. Always remember that agents don't actually learn, they have to be presented with the information.
+   Knowledge that lives in the codebase survives thread resets. Always remember that agents do not actually learn, they have to be presented with the information.
 
 </Steps>
 
@@ -64,7 +64,7 @@ It is the same as a human writing long batches of code without running it.
 
 The agents still have a problem with being too compliant. 
 They want to give an answer that satisfies the user immediately. 
-If your instruction doesn't make sense, or is ambiguous, the agent likely won't tell you this. 
+If your instruction does not make sense, or is ambiguous, the agent likely will not tell you this. 
 Instead, it will comply and generate code that likely fails.
 
 **How to fix it:**
@@ -74,7 +74,7 @@ Instead, it will comply and generate code that likely fails.
 1. **Grant explicit permission to push back** — include a line in your prompt or `AGENTS.md` (`CLAUDE.md` if you use Claude Code) that tells the agent to raise concerns,
    ask clarifying questions, and flag contradictions rather than resolve them silently.
 2. **Ask for a confidence check** — before execution, prompt the agent to state what it understood and whether anything is unclear.
-3. **Look into the reasoning** — if the agent never hesitates on a complex task, that's a red flag—it probably made some unstated assumptions.
+3. **Look into the reasoning** — if the agent never hesitates on a complex task, that is a red flag—it probably made some unstated assumptions.
 
 </Steps>
 
@@ -89,7 +89,7 @@ In Claude Code, you can use the brainstorm mode that automatically asks you clar
 ## Running a thread until it rots
 
 Agents fare better with smaller context.
-When the conversation grows, so does the context—the agent doesn't learn anything, the entire conversation serves as its context each time. 
+When the conversation grows, so does the context—the agent does not learn anything, the entire conversation serves as its context each time. 
 Most often, the info from the beginning of the conversation is not crucial, and only makes it harder for the agent to concentrate on the task at hand.
 The reset is not expensive—continuing the current thread is.
 
@@ -99,7 +99,7 @@ The reset is not expensive—continuing the current thread is.
 
 1. **Watch for degradation signals** — repeated mistakes the agent already fixed, instructions being ignored,
    or outputs that feel slightly off are all signs the thread has run too long.
-2. **Reset proactively, not reactively** — don't wait for something to break.
+2. **Reset proactively, not reactively** — do not wait for something to break.
    When starting a new task, start a new thread.
 3. **Summarise before closing** — before resetting, you can ask the agent to write a short summary of what was decided and what remains. 
    Unless the rot is already significant, the summary should be a good starting point for the new thread.
@@ -125,7 +125,7 @@ Maybe there is a better alternative.
 2. **Ask for options first** — instruct the agent to propose several approaches before picking one.
    Review the list and choose, or ask it to evaluate the trade-offs.
 3. **Introduce your idea late, if at all** — if you have a strong preference, share it after the agent has explored the space.
-   That way you can compare rather than just confirm. The agent can also provide feedback on your solution and point to potential problems (but you have to ask for it, they're too nice on their own).
+   That way you can compare rather than just confirm. The agent can also provide feedback on your solution and point to potential problems (but you have to ask for it, they are too nice on their own).
 
 </Steps>
 
@@ -137,7 +137,7 @@ Remember that agents are not deterministic. Since the outputs on the same input 
 
 <Steps>
 
-1. **Do a human review** — read the output critically before accepting it. If it's wrong in many places, it may be cheaper to try asking it to do the same thing again, rather than trying to debug it.
+1. **Do a human review** — read the output critically before accepting it. If it is wrong in many places, it may be cheaper to try asking it to do the same thing again, rather than trying to debug it.
 2. **Iterate on weak spots** — when a separable part looks off, point it out and ask for another pass.
    A second attempt with targeted feedback is almost always better than the first without it.
 3. **For high-stakes tasks, sample more than once** — run the same task in parallel branches and compare the results.

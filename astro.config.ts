@@ -13,7 +13,8 @@ export default defineConfig({
     starlight({
       title: "Software Mansion Agentic Engineering Guide",
       logo: {
-        src: "./src/assets/logo.svg",
+        light: "./src/assets/logo-nav-light.svg",
+        dark: "./src/assets/logo-nav-dark.svg",
         alt: "The Software Mansion Agentic Engineering Guide",
         replacesTitle: true,
       },

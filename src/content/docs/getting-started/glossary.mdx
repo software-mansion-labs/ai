@@ -21,9 +21,15 @@ Before we start, let us introduce a few terms that we will use a lot:
 - **Coding agent**: An agent specialized for software work, like Claude Code or Cursor Agent.
   In practice, coding agents can inspect repositories, use developer tools, propose changes, and often write and run code as part of a task loop.
 
+- **Harness**: The software layer around an agent model that handles everything except the model itself.
+  In practice, a harness manages context and memory, executes tool calls, and coordinates execution so the agent can work across multi-step tasks.
+
 - **Vibe coding**: When agents write code and you're in the flow, building PoCs and MVPs, or just having fun.
 
 - **Agentic engineering**: When you use agents to develop codebases professionally, and you are responsible for the output.
+
+- **Slop**: Content that takes more effort to consume than it took to produce.
+  In practice, slop usually appears as plausible-looking text or code that creates review and correction work for other people.
 
 - **Gate**: A check that work must pass before it can move forward.
   The term predates AI agents, but agentic workflows made it much more common because they require explicit checkpoints for reviewing and verifying autonomous work.

@@ -1,0 +1,100 @@
+---
+title: High-level harnesses
+description: Beyond individual agent sessions — scheduled automations, parallel agent fleets, and the emerging pattern of AI-driven code pipelines.
+---
+
+import ExternalLink from "../../../components/ExternalLink.astro";
+
+The [harness engineering](/becoming-productive/harness-engineering/) chapter covered shaping a single agent's actions through AGENTS.md, skills, hooks, and subagents.
+This section is one level of abstraction higher—it covers tools and patterns that treat agents as a managable workforce.
+
+:::caution
+Products and feature sets can change significantly between revisions of this guide.
+Treat this page as an orientation, especially for building a solid intuition of the field, not a definitive reference.
+:::
+
+## From conductor to orchestrator
+
+So far in this guide, you have been a **conductor**—you worked interactively with a single agent, steering it turn by turn in real time.
+Now, you will become an **orchestrator**, delegating work to a fleet of agents running in parallel. 
+Instead of supervising each agent individually, you will manage the output queue—a review inbox, an issue tracker, a PR pipeline.
+
+:::note[Remember]
+The key shift is from "what should the agent do?" to "what work should be running right now, and how do I review what came back?"
+:::
+
+## Running agents in parallel
+
+The key difference is running several agents simultaneously, each on an isolated task.
+
+<ExternalLink href="https://conductor.build/">Conductor</ExternalLink> by Melty Labs is a tool built for exactly this.
+It runs multiple AI coding agents at once (both Claude Code and Codex are supported), with each agent working in its own Git worktree.
+A dashboard on the user side shows what each agent is doing and lets you review changes as soon as they come in.
+
+You hand different issues to separate agents at once, come back and review, and merge the ones you like.
+That is qualitatively different from the sequential, one-task-at-a-time conductor workflow from the previous chapters.
+
+## Scheduled and recurring agents
+
+Agents do not always need to wait for you to trigger them—you can also set them up in advance.
+
+OpenAI's <ExternalLink href="https://developers.openai.com/codex/app">Codex App</ExternalLink> includes an <ExternalLink href="https://developers.openai.com/codex/app/automations">Automations</ExternalLink> feature:
+describe a recurring task, set a schedule, and have Codex run it in the background.
+Results end up in a review inbox or are auto-archived if nothing needs attention.
+
+OpenAI uses automations internally for tasks like:
+- Daily issue triage
+- Surfacing and summarizing CI failures
+- Generating release briefs
+- Checking for regressions between versions
+
+With automations, the process becomes closer to a CI pipeline than a chat window—an agent is no longer a tool you reach for and becomes a background process.
+
+## Issue-tracker-driven orchestration
+
+You may also set up the agent(s) to respond to issues as they appear.
+
+<ExternalLink href="https://github.com/openai/symphony">Symphony</ExternalLink> is an open-source orchestration service published by OpenAI.
+It monitors a Linear board, creates an isolated workspace per issue, and runs a Codex agent on each one.
+Engineers decide what issues belong in scope; Symphony handles assignment and execution.
+
+Agent behavior is defined in a `WORKFLOW.md` file in the repository alongside the code. The prompt and runtime settings for each agent run are versioned the same way you version a CI pipeline.
+When an agent finishes, it gathers evidence: CI results, PR review feedback, complexity analysis.
+You can review the output instead of the agent's process.
+
+:::tip
+Symphony is recommended for codebases that have adopted [harness engineering](/becoming-productive/harness-engineering/).
+:::
+
+## The Code Factory pattern
+
+Beyond specific products, there is an emerging pattern popularized by Ryan Carson under the name **Code Factory**.
+The idea is a repository setup where agents autonomously write code, open pull requests, and a separate review agent validates those PRs with machine-verifiable evidence.
+If validation passes, the PR merges without human intervention.
+
+The continuous loop looks like this:
+
+1. Agent writes code and opens a PR.
+2. Risk-aware CI gates check the change.
+3. A review agent inspects the PR and collects evidence — screenshots, test results, static analysis.
+4. If all checks pass, the PR lands automatically.
+5. If anything fails, the agent retries or flags the issue for human review.
+
+:::caution
+A Code Factory is only as good as its quality gates.
+An automated pipeline that merges bad PRs is strictly worse than one that does nothing.
+Invest in solid tests, linters, and CI before automating the merge step.
+:::
+
+- <ExternalLink href="https://x.com/ryancarson" />
+
+## The one-human company
+
+The Code Factory pattern is the technical foundation of a broader idea: that a single person with a well-configured agent fleet can operate at the scale that would previously have required a full engineering team.
+
+Projects like <ExternalLink href="https://myclaw.ai/">OpenClaw</ExternalLink> package infrastructure for connecting AI agents to communication platforms and scheduling systems, turning a single machine into an always-on agent runtime that responds to messages, executes tasks, and ships work continuously.
+
+Steve Yegge, in a widely-read interview with The Pragmatic Engineer, argues that the engineering profession is reorganizing around exactly this spectrum.
+His framing: most engineers are at the low end of AI adoption today, and those who stay there risk being outcompeted by engineers who learn to orchestrate agent fleets—to act as owners of work queues rather than writers of individual functions.
+
+- <ExternalLink href="https://newsletter.pragmaticengineer.com/p/from-ides-to-ai-agents-with-steve" />

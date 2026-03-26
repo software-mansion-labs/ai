@@ -25,6 +25,7 @@ https://code.claude.com/docs/en/security,Security - Claude Code Docs,Anthropic,,
 https://code.claude.com/docs/en/sub-agents,Create custom subagents - Claude Code Docs,Anthropic,,2026-03-13
 https://code.claude.com/docs/en/sub-agents#code-reviewer,Create custom subagents - Claude Code Docs,,,2026-03-05
 https://coderabbit.ai/,CodeRabbit,,,2026-03-05
+https://conductor.build/,Conductor - Run a team of coding agents on your Mac,,,2026-03-25
 https://context7.com/,Context7 - Up-to-date documentation for LLMs and AI code editors,,,2026-03-13
 https://cursor.com/blog,Cursor Blog,,,2026-03-04
 https://cursor.com/bugbot,Cursor Bugbot,,,2026-03-05
@@ -38,6 +39,8 @@ https://cursor.com/for/code-review,Reviewing Code with Cursor | Cursor Docs,,,20
 https://cursor.com/pricing,Cursor Subscription,,,2026-03-04
 https://developers.openai.com/api/docs/guides/compaction,Compaction,OpenAI,,2026-03-04
 https://developers.openai.com/codex/agent-approvals-security,Codex: Agent approvals & security,OpenAI,,2026-03-16
+https://developers.openai.com/codex/app,App – Codex | OpenAI Developers,,,2026-03-25
+https://developers.openai.com/codex/app/automations,Automations – Codex app | OpenAI Developers,,,2026-03-25
 https://developers.openai.com/codex/app/worktrees/#working-between-local-and-worktree,Worktrees,,,2026-03-10
 https://developers.openai.com/codex/cli/features#run-local-code-review,Codex CLI features (run local code review),,,2026-03-05
 https://developers.openai.com/codex/integrations/github/,Use Codex in GitHub,,,2026-03-05
@@ -56,6 +59,7 @@ https://github.com/mcp,GitHub MCP Registry,,,2026-03-13
 https://github.com/microsoft/playwright-mcp,microsoft/playwright-mcp,Microsoft,,2026-03-13
 https://github.com/mkaput,Marek Kaput,,,2026-03-04
 https://github.com/openai/skills,openai/skills,OpenAI,,2026-03-12
+https://github.com/openai/symphony,"GitHub - openai/symphony: Symphony turns project work into isolated, autonomous implementation runs, allowing teams to manage work instead of supervising coding agents. · GitHub",,,2026-03-25
 https://github.com/software-mansion-labs/skills,software-mansion-labs/skills,Software Mansion,,2026-03-12
 https://github.com/steipete/mcporter/,"steipete/mcporter: Call MCPs via TypeScript, masquerading as simple TypeScript API. Or package them as cli.",Peter Steinberger,,2026-03-04
 https://github.com/topics/agent-skills,GitHub Topic: agent-skills,,,2026-03-12
@@ -73,6 +77,8 @@ https://lucumr.pocoo.org/,Thoughts and Writings,Armin Ronacher,,2026-03-04
 https://mcp.grep.app/,mcp.grep.app,Vercel,,2026-03-04
 https://mitchellh.com/,Blog,Mitchell Hashimoto,,2026-03-04
 https://models.dev/,Models.dev - An open-source database of AI models,Opencode,,2026-03-04
+https://myclaw.ai/,OpenClaw &amp; Clawdbot Cloud Hosting — Managed Hosting | MyClaw.ai,,,2026-03-25
+https://newsletter.pragmaticengineer.com/p/from-ides-to-ai-agents-with-steve,From IDEs to AI Agents with Steve Yegge - by Gergely Orosz,,,2026-03-25
 https://openai.com/chatgpt/pricing/,ChatGPT Subscription,,,2026-03-04
 https://openai.com/index/harness-engineering/,Harness engineering: leveraging Codex in an agent-first world,OpenAI,2026-02-11,2026-03-04
 https://openai.com/news/engineering/,OpenAI Engineering News,,,2026-03-04
@@ -110,6 +116,7 @@ https://x.com/GeminiApp,Google Gemini (@GeminiApp) on X,,,2026-03-04
 https://x.com/karpathy,Andrej Karpathy (@karpathy) on X,,,2026-03-04
 https://x.com/opencode,OpenCode (@opencode) on X,,,2026-03-04
 https://x.com/RLanceMartin,Lance Martin (@RLanceMartin) on X,,,2026-03-04
+https://x.com/ryancarson,Ryan Carson (@ryancarson) on X,,,2026-03-25
 https://x.com/thorstenball,Thorsten Ball (@thorstenball) on X,,,2026-03-04
 https://x.com/thsottiaux,Tibo (@thsottiaux) on X,,,2026-03-04
 https://x.com/trq212,Thariq Shihipar (@trq212) on X,,,2026-03-04

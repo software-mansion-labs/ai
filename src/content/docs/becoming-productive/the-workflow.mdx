@@ -3,6 +3,8 @@ title: The Workflow
 description: "A baseline workflow for non-trivial agent tasks: brainstorm, plan, execute, review, and improve."
 ---
 
+import ClapButton from "../../../components/ClapButton.astro";
+
 import { Steps } from "@astrojs/starlight/components";
 import ExternalLink from "../../../components/ExternalLink.astro";
 
@@ -29,6 +31,8 @@ This knowledge splits into two parts:
 1. The information the model has been trained on. We call this **model knowledge**.
 2. The entire contents of the current thread, all past messages within it, and the space for future ones.
    We call this **context**.
+
+<ClapButton slug="becoming-productive/the-workflow/threads-and-context" />
 
 ## Obstacles
 
@@ -69,6 +73,8 @@ Context is limited twice: only so much information fits in the window, and the m
 As you load more code, rules, plans, and history, some of it must be dropped and the rest competes for attention, especially in large multi-step tasks.
 For that reason, broad, complex prompts often underperform smaller, focused ones even when the nominal context window is huge.
 This is also why the phrase "use small threads" is repeated like a mantra.
+
+<ClapButton slug="becoming-productive/the-workflow/obstacles" />
 
 ## An ideal thread
 
@@ -115,6 +121,8 @@ Depending on your intent, some phases can be merged, shortened, or skipped.
 
 </Steps>
 
+<ClapButton slug="becoming-productive/the-workflow/an-ideal-thread" />
+
 ## Threads are composable
 
 OK, so now we know how to structure work inside a single thread.
@@ -131,3 +139,5 @@ Some tools allow you to refer to past threads directly (for example `@Past Chat`
 If your coding agent of choice does not provide such niceties, you can always fall back to sharing context through plain Markdown files.
 For example, you can run several brainstorming sessions, each on a different topic, and produce summary `*.md` files as outcomes.
 Then, in the execution thread, you _join_ all of that information when priming the context.
+
+<ClapButton slug="becoming-productive/the-workflow/threads-are-composable" />

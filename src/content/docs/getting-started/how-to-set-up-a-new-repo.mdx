@@ -3,6 +3,8 @@ title: How to set up a new repo?
 description: Step-by-step setup for starting a new repository with coding agents, from discovery and planning to review and first commit.
 ---
 
+import ClapButton from "../../../components/ClapButton.astro";
+
 import ExternalLink from "../../../components/ExternalLink.astro";
 import { Steps } from "@astrojs/starlight/components";
 
@@ -26,6 +28,8 @@ perspective this thing should just happen in background and have no influence
 over what input/output devices does user set. write me a complete poc
 ```
 
+<ClapButton slug="getting-started/how-to-set-up-a-new-repo/gathering-knowledge" />
+
 ## A first commit in 8 steps
 
 <Steps>
@@ -46,6 +50,8 @@ over what input/output devices does user set. write me a complete poc
 </Steps>
 
 Here is an <ExternalLink href="https://ampcode.com/threads/T-019c999d-a6a6-73db-8970-4804d16814c4">example conversation where the author started building a desktop app</ExternalLink> (used Amp for its thread-sharing feature; used a GPT model to pack more prompts into a single thread, just so it’d be easier for you to read). Notice how gibberish such a conversation can be! Prompts can be misformatted and full of typos. LLMs are very capable of ignoring this noise! Notice how much of this thread is just questions or “do whatever you want” answers.
+
+<ClapButton slug="getting-started/how-to-set-up-a-new-repo/a-first-commit-in-8-steps" />
 
 ## A first bug fixed in 7 steps
 
@@ -74,6 +80,8 @@ With Debug Mode, instead of guessing, the agent can form clear hypotheses, add i
 
 </Steps>
 
+<ClapButton slug="getting-started/how-to-set-up-a-new-repo/a-first-bug-fixed-in-7-steps" />
+
 ## A first design implemented in 4 steps
 
 With the right tools, agents are excellent at turning Figma designs into rough code. If you’re building a web or mobile app, let’s try this.
@@ -94,3 +102,5 @@ That’s it! The output code will very likely be a mess because you probably hav
 If you’re curious, also check out:
 
 - <ExternalLink href="https://www.figma.com/blog/introducing-claude-code-to-figma/" />
+
+<ClapButton slug="getting-started/how-to-set-up-a-new-repo/a-first-design-implemented-in-4-steps" />

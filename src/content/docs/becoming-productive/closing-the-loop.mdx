@@ -3,6 +3,8 @@ title: Closing the loop
 description: How to make agents self-correct faster with autonomous feedback loops across tests, logs, CLIs, and manual QA automation.
 ---
 
+import ClapButton from "../../../components/ClapButton.astro";
+
 import ExternalLink from "../../../components/ExternalLink.astro";
 
 Efficient agent workflows depend on a closed feedback loop. Agents should be able to gather signals from tests, logs, and runtime checks continuously, without waiting for manual input on every step.
@@ -14,11 +16,15 @@ The tips below focus on building that loop so agents can diagnose and fix issues
 1. Make sure your agent writes tests for any regression it finds before attempting to fix actual code. If it doesn’t do this by itself, consider telling it so in your AGENTS.md.
 2. Pay attention to how models assert the expected state. Many models tend to write leaky assertions, which only catch the exact issue they just reasoned about.
 
+<ClapButton slug="becoming-productive/closing-the-loop/tests-tests-tests" />
+
 ## Backend logs and database access
 
 1. Make your app tee logs to a `*.log` file. This will allow agents to observe runtime behavior. Models are also good at adding their own temporary logs while debugging.
 2. Make it easy for an agent to connect to your database via `psql` or `sqlite3`. You can even use this interface in place of database GUIs.
 3. <ExternalLink href="https://tidewave.ai/" />.
+
+<ClapButton slug="becoming-productive/closing-the-loop/backend-logs-and-database-access" />
 
 ## Leverage CLIs
 
@@ -56,6 +62,8 @@ Also, take a look at these skills:
   if you make/use interactive CLIs. Agents are pretty good at using GDB/LLDB via
   tmux.
 
+<ClapButton slug="becoming-productive/closing-the-loop/leverage-clis" />
+
 ## Automating web frontend QA
 
 Current frontier models are surprisingly capable of browsing websites, clicking around, and observing what happens, provided they are given the right tools.
@@ -72,6 +80,8 @@ Also, take a look at these skills:
 
 - <ExternalLink href="https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices" />
 
+<ClapButton slug="becoming-productive/closing-the-loop/automating-web-frontend-qa" />
+
 ## Automating mobile app QA
 
 You can also tell the agent to play with a phone simulator.
@@ -86,3 +96,5 @@ Also, have a look at these skills:
 
 - <ExternalLink href="https://skills.sh/expo/skills" />
 - <ExternalLink href="https://skills.sh/callstackincubator/agent-skills/react-native-best-practices" />
+
+<ClapButton slug="becoming-productive/closing-the-loop/automating-mobile-app-qa" />

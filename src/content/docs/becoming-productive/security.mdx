@@ -3,6 +3,8 @@ title: Security
 description: High-level security model for coding agents, from the Lethal Trifecta to harness defenses and real-world prompt injection failures.
 ---
 
+import ClapButton from "../../../components/ClapButton.astro";
+
 import ExternalLink from "../../../components/ExternalLink.astro";
 
 Security for coding agents is mostly about managing power, not eliminating it.
@@ -55,6 +57,8 @@ The surprising answer is that it is not always some evil hacker.
 In this model, the attacker can also be you or your colleague.
 Sometimes it is just a human doing something careless and unattended.
 
+<ClapButton slug="becoming-productive/security/the-lethal-trifecta" />
+
 ## Cataclysms
 
 Many interesting attacks have already happened in the wild.
@@ -67,6 +71,8 @@ The failure modes differ, but the outcomes are similar: one agent run gets too m
   A Terraform command executed by an AI agent wiped production infrastructure, which is exactly the kind of cataclysm you get when an agent can act on real systems without enough guardrails.
 - <ExternalLink href="https://invariantlabs.ai/blog/mcp-github-vulnerability" />.
   A malicious issue in a public repository coerced an agent into pulling data from private repositories and leaking it through an automatically opened public pull request.
+
+<ClapButton slug="becoming-productive/security/cataclysms" />
 
 ## Agent Security Toolbelt
 
@@ -131,6 +137,8 @@ For example, you can write your own hook to block very specific Bash commands fr
 ![Using PreToolUse Hook for blocking Bash](../../../assets/bash-pre-tool-use-hook.svg)
 </center>
 
+<ClapButton slug="becoming-productive/security/agent-security-toolbelt" />
+
 ## Do I need all of this?
 
 All the security mechanisms described in the previous section can usually be turned off.
@@ -140,3 +148,5 @@ Think of it like living without antivirus software two decades ago.
 
 If you are unsure about the security of your setup, start with the default protections.
 Then gradually tune them or disable the parts that are too annoying for your workflow.
+
+<ClapButton slug="becoming-productive/security/do-i-need-all-of-this" />

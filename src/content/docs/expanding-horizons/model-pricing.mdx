@@ -3,6 +3,8 @@ title: Model pricing
 description: "A concise guide to coding model pricing, including API costs, caching, and subscription tradeoffs."
 ---
 
+import ClapButton from "../../../components/ClapButton.astro";
+
 import ExternalLink from "../../../components/ExternalLink.astro";
 
 There are two very different pricing worlds in AI tools: API pricing (pay per token) and app subscriptions (pay a flat monthly fee with usage limits).
@@ -31,6 +33,8 @@ If you're integrating directly with an LLM API, lowering cost per request/sessio
 
 If you're using a coding agent, many of these optimizations are handled internally (prompt layout, caching, compaction).
 Your main cost levers are usually model choice and keeping tasks/threads scoped.
+
+<ClapButton slug="expanding-horizons/model-pricing/api-pricing" />
 
 ## Subscriptions
 
@@ -66,3 +70,5 @@ Marzena Karpińska from Microsoft, a co-author of the paper, addressed this dire
 > We created a tool for diagnosing language models, checking how well they are able to extract information from very long texts.
 
 A neat example of a fake news cycle born from real research — likely fueled by misunderstood patriotism.
+
+<ClapButton slug="expanding-horizons/model-pricing/subscriptions" />

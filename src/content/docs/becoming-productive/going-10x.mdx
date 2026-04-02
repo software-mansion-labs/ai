@@ -3,6 +3,8 @@ title: Going 10x
 description: Tactics for running multiple coding agents in parallel while managing conflicts, quality, and long-term maintainability.
 ---
 
+import ClapButton from "../../../components/ClapButton.astro";
+
 import ExternalLink from "../../../components/ExternalLink.astro";
 
 {/* NOTE: "sometimes they are, for sure" is a pun, keep it verbatim */}
@@ -21,6 +23,8 @@ Agentic engineering is like multicore CPUs. Agents aren’t always faster than h
    1. Tell your agents to commit frequently, atomically, and only stage stuff from the current thread.
       You can put this as a rule in your `AGENTS.md` file.
    2. Avoid invoking tasks that would write to the same parts of the repository.
+
+<ClapButton slug="becoming-productive/going-10x/conflict-management" />
 
 ## Help! My agents are writing spaghetti!!!
 
@@ -41,6 +45,8 @@ Read more:
 
 - <ExternalLink href="https://openai.com/index/harness-engineering/" />
 - <ExternalLink href="https://bits.logic.inc/p/ai-is-forcing-us-to-write-good-code" />
+
+<ClapButton slug="becoming-productive/going-10x/help-my-agents-are-writing-spaghetti" />
 
 ## Automated code reviews
 
@@ -72,3 +78,5 @@ PR review bots:
 Use these tools to reduce toil, not to skip ownership: don’t ask teammates to review code you haven’t reviewed yourself.
 
 - <ExternalLink href="https://simonwillison.net/guides/agentic-engineering-patterns/anti-patterns/" />
+
+<ClapButton slug="becoming-productive/going-10x/automated-code-reviews" />

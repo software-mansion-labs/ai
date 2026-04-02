@@ -3,6 +3,8 @@ title: Threads, context, and caching
 description: Understand how thread length, context windows, prompt caching, and compaction shape agent reliability, speed, and cost.
 ---
 
+import ClapButton from "../../../components/ClapButton.astro";
+
 import ExternalLink from "../../../components/ExternalLink.astro";
 
 This page explains how agent threads are transformed into model input and why that directly affects reliability, latency, and cost. It covers context windows, prompt caching, and compaction so you can understand what changes as conversations get longer.
@@ -24,12 +26,16 @@ Now (especially if you’re going to work with Anthropic models), go read this a
 
 - <ExternalLink href="https://ampcode.com/notes/200k-tokens-is-plenty" />
 
+<ClapButton slug="expanding-horizons/threads-context-and-caching/from-thread-to-model-input" />
+
 ## Prompt caching
 
 TL;DR: Prompt caching is an optimization for LLM APIs that lets the model _reuse previously computed internal context_ (especially the prefix of prompts like system instructions or examples), so repeated similar requests don’t have to be processed from scratch.
 
 - <ExternalLink href="https://x.com/trq212/status/2024574133011673516" />
 - <ExternalLink href="https://platform.openai.com/docs/guides/prompt-caching?utm_source=chatgpt.com" />
+
+<ClapButton slug="expanding-horizons/threads-context-and-caching/prompt-caching" />
 
 ## Compaction
 
@@ -38,3 +44,5 @@ TL;DR: Compaction extends the effective context length for long-running conversa
 - <ExternalLink href="https://platform.claude.com/docs/en/build-with-claude/compaction" />
 - <ExternalLink href="https://developers.openai.com/api/docs/guides/compaction" />
 - <ExternalLink href="https://github.com/badlogic/pi-mono/blob/380236a003ec7f0e69f54463b0f00b3118d78f3c/packages/coding-agent/src/core/compaction/compaction.ts#L444-L475" />
+
+<ClapButton slug="expanding-horizons/threads-context-and-caching/compaction" />

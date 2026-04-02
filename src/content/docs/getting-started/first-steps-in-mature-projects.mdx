@@ -3,6 +3,8 @@ title: First steps in mature projects
 description: A practical onboarding flow for using coding agents in mature codebases with predictable, low-risk, test-first delivery.
 ---
 
+import ClapButton from "../../../components/ClapButton.astro";
+
 import ExternalLink from "../../../components/ExternalLink.astro";
 import { Steps } from "@astrojs/starlight/components";
 
@@ -26,6 +28,8 @@ agent-friendly. Here are the high-level factors you should address when applying
    - Many projects defer testing to sophisticated CI. Agents need to run checks locally just in time.
 
 From a distance, these points are strongly correlated. You do not need to address each one separately.
+
+<ClapButton slug="getting-started/first-steps-in-mature-projects/why-mature-repos-are-different" />
 
 ## A first surgical feature delivery in 8 steps
 
@@ -118,6 +122,8 @@ For more examples, look out on the internet for shared agent threads, some quali
 - <ExternalLink href="https://ampcode.com/threads/T-019cafee-1be2-72ab-bcec-28c6d41b753b" />
 - <ExternalLink href="https://ampcode.com/threads/T-f02e59f8-e474-493d-9558-11fddf823672" />
 
+<ClapButton slug="getting-started/first-steps-in-mature-projects/a-first-surgical-feature-delivery-in-8-steps" />
+
 ## Rules of thumb
 
 There are a few high-level rules you can follow when you jump into a new largeish project.
@@ -173,6 +179,8 @@ Agents also like running `ls` in directories and calling `--help`; you can use t
 close to the code. A skill may just tell the agent about a utility and ask it to call for help.
 :::
 
+<ClapButton slug="getting-started/first-steps-in-mature-projects/rules-of-thumb" />
+
 ## Agent use must be negotiated
 
 In mature teams, maintainers may not accept higher agent autonomy, and that’s reasonable.
@@ -194,3 +202,5 @@ In the end, you are the one who takes ownership of shipped code.
 :::
 
 [^1]: This is generally a good practice, but this is a good place to repeat it.
+
+<ClapButton slug="getting-started/first-steps-in-mature-projects/agent-use-must-be-negotiated" />

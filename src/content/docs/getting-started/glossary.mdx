@@ -12,6 +12,8 @@ jsonLd:
     publisher: { "@id": "$organizationId" }
 ---
 
+import ClapButton from "../../../components/ClapButton.astro";
+
 Before we start, let us introduce a few terms that we will use a lot:
 
 - **Model**: A particular LLM, like Claude-4.6-Opus, GPT-5.3-Codex, Gemini-3.1-Pro.
@@ -34,3 +36,5 @@ Before we start, let us introduce a few terms that we will use a lot:
 - **Gate**: A check that work must pass before it can move forward.
   The term predates AI agents, but agentic workflows made it much more common because they require explicit checkpoints for reviewing and verifying autonomous work.
   In practice, a gate can be a lint run, typecheck, test suite, code review, preview deployment, or any other requirement that blocks changes until they meet your quality bar.
+
+<ClapButton slug="getting-started/glossary" />

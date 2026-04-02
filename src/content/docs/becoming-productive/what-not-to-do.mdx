@@ -3,6 +3,8 @@ title: What Not to Do
 description: Common anti-patterns when working with coding agents and how to avoid them.
 ---
 
+import ClapButton from "../../../components/ClapButton.astro";
+
 import { Steps } from "@astrojs/starlight/components";
 import ExternalLink from "../../../components/ExternalLink.astro";
 
@@ -28,6 +30,8 @@ Specialisation matters: the same ground rules yield better results when an agent
 
 </Steps>
 
+<ClapButton slug="becoming-productive/what-not-to-do/distraction" />
+
 ## Taking recall for granted
 
 We often expect the model's recall not to be perfect when it comes to the data we provide, but we do not have the same concerns for recall on the model's training data, and you should.
@@ -45,6 +49,8 @@ Instead, try to confront the agent with the data.
 
 </Steps>
 
+<ClapButton slug="becoming-productive/what-not-to-do/taking-recall-for-granted" />
+
 ## Stacking assumptions
 
 Without validating each step, the agent may build on unstated assumptions, and when something goes wrong, the wrong turn is several layers deep.
@@ -59,6 +65,8 @@ It is the same as a human writing long batches of code without running it.
 3. **Checkpoint before complexity** — at any point where the plan branches or grows, commit what you have.
 
 </Steps>
+
+<ClapButton slug="becoming-productive/what-not-to-do/stacking-assumptions" />
 
 ## Accepting silent compliance
 
@@ -86,6 +94,8 @@ Put the push-back permission in `AGENTS.md` once and it applies to every thread,
 In Claude Code, you can use the brainstorm mode that automatically asks you clarifying questions, but at the expense of heightened token usage.
 :::
 
+<ClapButton slug="becoming-productive/what-not-to-do/accepting-silent-compliance" />
+
 ## Running a thread until it rots
 
 Agents fare better with smaller context.
@@ -110,6 +120,8 @@ The reset is not expensive—continuing the current thread is.
 Starting fresh is always cheaper than debugging a degraded thread.
 :::
 
+<ClapButton slug="becoming-productive/what-not-to-do/running-a-thread-until-it-rots" />
+
 ## Embedding your solution in the question
 
 Framing a prompt around your assumed solution narrows the search space before the agent has a chance to explore it.
@@ -129,6 +141,8 @@ Maybe there is a better alternative.
 
 </Steps>
 
+<ClapButton slug="becoming-productive/what-not-to-do/embedding-your-solution-in-the-question" />
+
 ## Treating the first attempt as final
 
 Remember that agents are not deterministic. Since the outputs on the same input differ, there is no guarantee that the first try yields an optimal answer.
@@ -144,3 +158,5 @@ Remember that agents are not deterministic. Since the outputs on the same input 
    The [parallel implementations](/becoming-productive/prompting-techniques/#parallel-implementations) pattern is built exactly for this.
 
 </Steps>
+
+<ClapButton slug="becoming-productive/what-not-to-do/treating-the-first-attempt-as-final" />

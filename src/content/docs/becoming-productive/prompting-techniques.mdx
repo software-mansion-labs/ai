@@ -3,6 +3,8 @@ title: Prompting Techniques
 description: Practical prompting patterns for coding agents, from framing and execution guidance to multimodal input and walkthroughs.
 ---
 
+import ClapButton from "../../../components/ClapButton.astro";
+
 import ExternalLink from "../../../components/ExternalLink.astro";
 
 Once you have a sensible workflow, the next question is how to interact with the agent within it.
@@ -79,6 +81,8 @@ Depending on the codebase, a useful pattern is to have several _golden_ files th
 - For example, if you have a component library, tell the agent to follow the implementation of the `ui/Button.tsx` component.
 - If you're doing repetitive module refactoring, make the changes in one golden module, then ask the agent to reproduce them in other modules.
 
+<ClapButton slug="becoming-productive/prompting-techniques/clarify-the-task-first" />
+
 ## Steer the execution
 
 Once the task is clear, the next job is to keep execution on useful rails without micromanaging every action.
@@ -131,6 +135,8 @@ The pattern is:
 
 Source: <ExternalLink href="https://lexler.github.io/augmented-coding-patterns/patterns/parallel-implementations/" />
 
+<ClapButton slug="becoming-productive/prompting-techniques/steer-the-execution" />
+
 ## When text and code is not enough
 
 Sometimes the fastest way to explain a problem is not another painfully typed paragraph.
@@ -168,6 +174,8 @@ Take a look at these utilities:
 - <ExternalLink href="https://claude.com/plugins/playground" />
 - <ExternalLink href="https://simonwillison.net/2026/Feb/10/showboat-and-rodney/" />
 - <ExternalLink href="https://ampcode.com/notes/feedback-loopable" />
+
+<ClapButton slug="becoming-productive/prompting-techniques/when-text-and-code-is-not-enough" />
 
 ## Your exoskeleton
 
@@ -209,3 +217,5 @@ Try pointing your agent at some website or Android APK where there’s something
 ### Issue pinpointer
 
 Got a huge log file, maybe a screenshot, and you need to identify the bug? Paste everything you have into your agent prompt and tell it to find the exact log lines itself.
+
+<ClapButton slug="becoming-productive/prompting-techniques/your-exoskeleton" />

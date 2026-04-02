@@ -6,6 +6,8 @@ description: >-
   repeatable.
 ---
 
+import ClapButton from "../../../components/ClapButton.astro";
+
 import ExternalLink from "../../../components/ExternalLink.astro";
 
 Harness engineering is the practice of improving a coding agent's output
@@ -87,6 +89,8 @@ up such rules files).
 It tends to produce documents that bring little meaningful value.
 Very often, this produces something akin to what you have just read.
 :::
+
+<ClapButton slug="becoming-productive/harness-engineering/agentsmd" />
 
 ## Skills
 
@@ -170,6 +174,8 @@ These writeups show how this can go wrong in practice:
   Hidden Unicode Tag characters were used to smuggle invisible instructions into
   a skill, which means visual source review alone may miss malicious behavior.
 
+<ClapButton slug="becoming-productive/harness-engineering/skills" />
+
 ## MCP
 
 MCP is a protocol through which AI applications can connect to data sources
@@ -236,6 +242,8 @@ points to well-known services.
 So... in such cases just make sure your agents will not perform destructive
 actions on your behalf 🙂.
 
+<ClapButton slug="becoming-productive/harness-engineering/mcp" />
+
 ## Subagents
 
 ![Subagents visualized](../../../assets/subagent.svg)
@@ -256,6 +264,8 @@ Read more:
 - <ExternalLink href="https://code.claude.com/docs/en/sub-agents" />
 - <ExternalLink href="https://cursor.com/docs/subagents" />
 - <ExternalLink href="https://developers.openai.com/codex/multi-agent/" />
+
+<ClapButton slug="becoming-productive/harness-engineering/subagents" />
 
 ## Hooks
 
@@ -287,6 +297,8 @@ Read more:
 - <ExternalLink href="https://code.claude.com/docs/en/hooks" />
 - <ExternalLink href="https://cursor.com/docs/hooks" />
 
+<ClapButton slug="becoming-productive/harness-engineering/hooks" />
+
 ## When to use what
 
 If you are unsure which mechanism to reach for, use this rule of thumb:
@@ -298,3 +310,5 @@ If you are unsure which mechanism to reach for, use this rule of thumb:
 | MCP       | You need authenticated access to an external service that you use very frequently.                                 |
 | Subagents | You can delegate a bounded or parallelizable task to keep the main thread smaller.                                 |
 | Hooks     | You have deterministic, mechanical logic meant to happen every time without depending on the model to remember it. |
+
+<ClapButton slug="becoming-productive/harness-engineering/when-to-use-what" />

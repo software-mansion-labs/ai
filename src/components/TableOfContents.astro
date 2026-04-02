@@ -1,0 +1,92 @@
+---
+import Default from "@astrojs/starlight/components/TableOfContents.astro";
+import { Icon } from "@astrojs/starlight/components";
+import { feedbackUrl } from "../lib/siteLinks";
+---
+
+<Default />
+<a
+  class="feedback"
+  href={feedbackUrl}
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  <div class="icon" aria-hidden="true">
+    <Icon name="comment" size="1.25rem" />
+  </div>
+  <p class="title">Enjoyed this guide?</p>
+  <p class="sub">Let us know what you think</p>
+  <span class="cta">Share feedback</span>
+</a>
+
+<style>
+  @layer starlight.core {
+    .feedback {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border: 1px solid var(--sl-color-hairline);
+      border-radius: 0.625rem;
+      text-decoration: none;
+      color: var(--sl-color-white);
+    }
+
+    .feedback:focus-visible {
+      outline: 2px solid var(--sl-color-text-accent);
+      outline-offset: 3px;
+    }
+
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 0.5rem;
+      background-color: var(--sl-color-accent-low);
+      color: var(--sl-color-text-accent);
+      flex-shrink: 0;
+      margin-bottom: 0.25rem;
+    }
+
+    .title {
+      margin: 0;
+      font-size: var(--sl-text-sm);
+      font-weight: 600;
+      color: var(--sl-color-white);
+      line-height: 1.3;
+    }
+
+    .sub {
+      margin: 0;
+      font-size: var(--sl-text-xs);
+      color: var(--sl-color-gray-3);
+      line-height: 1.4;
+    }
+
+    .cta {
+      display: block;
+      margin-top: 0.375rem;
+      padding: 0.4rem 0.75rem;
+      background-color: var(--sl-color-accent);
+      color: var(--sl-color-white);
+      font-size: var(--sl-text-xs);
+      font-weight: 600;
+      text-align: center;
+      border-radius: 0.375rem;
+      transition: opacity 0.15s ease;
+    }
+
+    .feedback:hover .cta {
+      opacity: 0.82;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cta {
+        transition: none;
+      }
+    }
+  }
+</style>

@@ -71,6 +71,7 @@ export default defineConfig({
         Head: "./src/components/Head.astro",
         Footer: "./src/components/Footer.astro",
         SkipLink: "./src/components/SkipLink.astro",
+        TableOfContents: "./src/components/TableOfContents.astro",
       },
       editLink: {
         baseUrl: `${repo}edit/main/`,

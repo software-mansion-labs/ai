@@ -27,45 +27,53 @@ The key shift is from "what should the agent do?" to "what work should be runnin
 ## Running agents in parallel
 
 The key difference is running several agents simultaneously, each on an isolated task.
-
-<ExternalLink href="https://conductor.build/">Conductor</ExternalLink> by Melty Labs is a tool built for exactly this.
-It runs multiple AI coding agents at once (both Claude Code and Codex are supported), with each agent working in its own Git worktree.
-A dashboard on the user side shows what each agent is doing and lets you review changes as soon as they come in.
-
 You hand different issues to separate agents at once, come back and review, and merge the ones you like.
 That is qualitatively different from the sequential, one-task-at-a-time conductor workflow from the previous chapters.
 
+[Subagents](/becoming-productive/harness-engineering/#subagents) are also parallel, but they are different: a subagent is spawned **by the agent** to partition a single task's context.
+The agent decides when to spawn one, waits for the result, and folds it back into its own session.
+You as the human still trigger one top-level session and review one result.
+
+What is described here is different: **you** spawn multiple fully independent agent sessions, each assigned to a separate task.
+No session knows about the others.
+You are not waiting on any one of them — you come back later and review the queue of results in bulk.
+
+In practice, each agent needs its own isolated workspace — typically a separate Git worktree — so their changes do not interfere.
+A dashboard or queue then surfaces results as agents finish, letting you review and merge at your own pace.
+
+For example, <ExternalLink href="https://conductor.build/">Conductor</ExternalLink> is a tool built around this model,
+running multiple AI coding agents (Claude Code and Codex) in parallel worktrees with a shared review dashboard.
+
 ## Scheduled and recurring agents
 
-Agents do not always need to wait for you to trigger them — you can also set them up in advance.
+Agents do not always need to wait for you to trigger them — you can set them up in advance to run on a schedule.
+The pattern is similar to a cron job or a CI pipeline: describe a recurring task, define when it should run, and have an agent execute it in the background.
+Results land in a review inbox or are auto-archived if nothing needs attention.
 
-OpenAI's <ExternalLink href="https://developers.openai.com/codex/app">Codex App</ExternalLink> includes an <ExternalLink href="https://developers.openai.com/codex/app/automations">Automations</ExternalLink> feature:
-describe a recurring task, set a schedule, and have Codex run it in the background.
-Results end up in a review inbox or are auto-archived if nothing needs attention.
-
-OpenAI uses automations internally for tasks like:
+This is well-suited for tasks like:
 - Daily issue triage
 - Surfacing and summarizing CI failures
 - Generating release briefs
 - Checking for regressions between versions
 
-With automations, the process becomes closer to a CI pipeline than a chat window — an agent is no longer a tool you reach for and becomes a background process.
+With scheduled agents, the process becomes closer to a CI pipeline than a chat window — an agent is no longer a tool you reach for, but a background process.
+
+As an example, OpenAI's <ExternalLink href="https://developers.openai.com/codex/app">Codex App</ExternalLink> includes an <ExternalLink href="https://developers.openai.com/codex/app/automations">Automations</ExternalLink> feature built around exactly this model.
 
 ## Issue-tracker-driven orchestration
 
-You may also set up agents to respond to issues as they appear.
+A natural extension of scheduled agents is wiring them directly to your issue tracker.
+Instead of manually assigning tasks to agents, the system monitors a board and automatically spawns an agent for each new issue in scope.
+Engineers decide what issues belong in scope; the orchestrator handles assignment and execution.
 
-<ExternalLink href="https://github.com/openai/symphony">Symphony</ExternalLink> is an open-source orchestration service published by OpenAI.
-It monitors a Linear board, creates an isolated workspace per issue, and runs a Codex agent on each one.
-Engineers decide what issues belong in scope; Symphony handles assignment and execution.
+Agent behavior can be defined in a workflow file versioned alongside the code — the same way you version a CI pipeline.
+When an agent finishes, it gathers evidence (CI results, PR review feedback, complexity analysis) for human review.
 
-Agent behavior is defined in a `WORKFLOW.md` file in the repository alongside the code.
-The prompt and runtime settings for each agent run are versioned the same way you version a CI pipeline.
-When an agent finishes, it gathers evidence: CI results, PR review feedback, complexity analysis.
-You can review the output instead of the agent's process.
+For example, <ExternalLink href="https://github.com/openai/symphony">Symphony</ExternalLink> is an open-source orchestration service published by OpenAI that implements this pattern,
+monitoring a Linear board and running a Codex agent per issue in an isolated workspace.
 
 :::tip
-Symphony is recommended for codebases that have adopted [harness engineering](/becoming-productive/harness-engineering/).
+Issue-tracker-driven orchestration works best on codebases that have adopted [harness engineering](/becoming-productive/harness-engineering/).
 :::
 
 ## The Code Factory pattern
@@ -94,8 +102,9 @@ Invest in solid tests, linters, and CI before automating the merge step.
 
 The Code Factory pattern is the technical foundation of a broader idea: that a single person with a well-configured agent fleet can operate at the scale that would previously have required a full engineering team.
 
-Projects like <ExternalLink href="https://myclaw.ai/">OpenClaw</ExternalLink> package infrastructure for connecting AI agents to communication platforms and scheduling systems, turning a single machine into an always-on agent runtime that responds to messages, executes tasks, and ships work continuously.
-x
+This requires connecting agents to communication platforms, scheduling systems, and external services — turning a single machine into an always-on runtime that responds to messages, executes tasks, and ships work continuously.
+As an example of tooling in this space, see <ExternalLink href="https://openclaw.ai/">OpenClaw</ExternalLink>, which packages infrastructure for exactly this kind of setup.
+
 Steve Yegge, in a widely-read interview with The Pragmatic Engineer, argues that the engineering profession is reorganizing around exactly this spectrum.
 His framing: most engineers are at the low end of AI adoption today, and those who stay there risk being outcompeted by engineers who learn to orchestrate agent fleets — to act as owners of work queues rather than writers of individual functions.
 

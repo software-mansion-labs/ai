@@ -19,12 +19,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/configure-pages@v5
-      - uses: oven-sh/setup-bun@v2
+      - uses: actions/checkout@v6.0.2
+      - uses: actions/configure-pages@v6.0.0
+      - uses: actions/setup-node@v6.3.0
+        with:
+          node-version-file: .nvmrc
+      - uses: oven-sh/setup-bun@v2.2.0
       - run: bun install --frozen-lockfile
       - run: bun run build
-      - uses: actions/upload-pages-artifact@v4
+      - uses: actions/upload-pages-artifact@v4.0.0
         with:
           path: ./dist
 
@@ -36,4 +39,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4.0.5

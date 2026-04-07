@@ -28,6 +28,28 @@ The tips below focus on building that loop so agents can diagnose and fix issues
    2. In a non-interactive language (Go, Rust, Swift, etc.), consider asking your agent to whip up a quick CLI on top of your code.
    3. In JS, Python, Elixir, or Ruby, agents can efficiently use REPLs or one-off scripts.
 
+If you're building a CLI that agents will use, design it for non-interactive use from the start:
+
+- **Make it non-interactive.** Every input needs a flag equivalent.
+  Don't drop into interactive prompts mid-execution — agents can't press arrow keys.
+- **Make `--help` useful.** Include examples in every subcommand's help output.
+  Agents pattern-match off examples faster than they read descriptions.
+- **Accept stdin.** Agents think in pipelines and want to chain commands.
+  Don't require positional args in unusual orders.
+- **Fail fast with actionable errors.** If a required flag is missing, show the correct invocation immediately.
+  Agents self-correct well when you give them something to work with.
+- **Make commands idempotent.** Agents retry often.
+  Running the same command twice should be a no-op, not a duplicate action.
+- **Add `--dry-run` for destructive actions.** Let agents validate a plan before committing to it.
+- **Add `--yes` to skip confirmations.** Make the safe path the default, but allow bypassing it.
+- **Use a predictable command structure.** Pick a pattern (e.g. resource + verb) and use it everywhere.
+  If an agent learns `mycli service list`, it should be able to guess `mycli deploy list`.
+- **Return data on success.** Output IDs and URLs, not just a success message.
+
+Read more:
+
+- <ExternalLink href="https://x.com/ericzakariasson/status/2036762680401223946" />
+
 Also, take a look at these skills:
 
 - <ExternalLink href="https://skills.sh/mitsuhiko/agent-stuff/tmux" /> - useful

@@ -1,0 +1,24 @@
+---
+import Default from "@astrojs/starlight/components/Pagination.astro";
+import FeedbackBanner from "./FeedbackBanner.astro";
+---
+
+<div class="banner">
+  <FeedbackBanner />
+</div>
+
+<Default />
+
+<style>
+  @layer starlight.core {
+    .banner {
+      margin-bottom: 1.5rem;
+    }
+
+    @media (min-width: 72rem) {
+      .banner {
+        display: none;
+      }
+    }
+  }
+</style>

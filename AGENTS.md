@@ -4,6 +4,8 @@
 
 - you may be running in parallel with other agents; cooperate to avoid conflicts, but avoid committing changes made by others
 - in markdown, try to put each sentence on a separate line. do not wrap lines after commas.
+- prefer `<ExternalLink href="..."/>` over `<ExternalLink href="...">manually crafted text</ExternalLink>`.
+  custom link texts are meant for very rare occasions when a link is not explicitly calling the linked resource.
 - `<ExternalLink>` component is whitespace sensitive; when reformatting make sure it stays within flowing text inline:
 
   ```md

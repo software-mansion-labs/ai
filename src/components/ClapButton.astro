@@ -23,6 +23,7 @@ const { slug } = Astro.props;
 
 <script>
   import { z } from "astro/zod";
+  import { logger } from "../utils/logger";
 
   const ClapsResponse = z.object({
     count: z.number().int().nonnegative(),
@@ -59,17 +60,20 @@ const { slug } = Astro.props;
       void fetch(clapsUrl)
         .then((response) => response.json())
         .then((data: unknown) => {
-          const parsed = ClapsResponse.safeParse(data);
+          const parsing = ClapsResponse.safeParse(data);
 
-          if (!parsed.success) {
+          if (!parsing.success) {
+            logger.error("[ClapButton] Parsing failed", parsing.error);
             return;
           }
 
-          remote = parsed.data;
+          remote = parsing.data;
 
           render();
         })
-        .catch(() => {});
+        .catch((fetchError) => {
+          logger.error("[ClapButton] Fetch failed", fetchError);
+        });
 
       function render() {
         const localClaps = local.claps + remote.user_claps;

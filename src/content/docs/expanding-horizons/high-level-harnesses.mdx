@@ -11,7 +11,7 @@ This page is one level of abstraction up — it covers tools and patterns that t
 
 ## From engineering to managing
 
-So far in this guide, you have been an **engineer** — you worked interactively with a single agent, steering it turn by turn in real time.
+So far in this guide, you have been an **engineer** — you have worked interactively with a single agent, steering it turn by turn in real time.
 Now, you will become a **manager**, delegating work to a fleet of agents running in parallel.
 Instead of supervising each agent individually, you will manage the output queue — a review inbox, an issue tracker, a PR pipeline.
 Your coding assistant no longer serves as a conductor, but as an orchestrator.
@@ -32,7 +32,7 @@ You as the human still trigger one top-level session and review one result.
 
 What is described here is different: **you** spawn multiple fully independent agent sessions, each assigned to a separate task.
 No session knows about the others.
-You are not waiting on any one of them — you come back later and review the queue of results in bulk.
+You do not need to wait for any single agent — you come back later and review the queue of results in bulk.
 
 In practice, each agent needs its own isolated workspace — typically a separate Git worktree — so their changes do not interfere.
 A dashboard or queue then surfaces results as agents finish, letting you review and merge at your own pace.
@@ -128,7 +128,7 @@ The Code Factory pattern is the technical foundation of a broader idea: that a s
 This requires connecting agents to communication platforms, scheduling systems, and external services — turning a single machine into an always-on runtime that responds to messages, executes tasks, and ships work continuously.
 As an example of tooling in this space, see <ExternalLink href="https://openclaw.ai/">OpenClaw</ExternalLink>, which packages infrastructure for exactly this kind of setup.
 
-Steve Yegge, in a widely-read interview with The Pragmatic Engineer, argues that the engineering profession is reorganizing around exactly this spectrum.
+Steve Yegge, in a widely read interview with The Pragmatic Engineer, argues that the engineering profession is reorganizing around exactly this spectrum.
 His framing: most engineers are at the low end of AI adoption today, and those who stay there risk being outcompeted by engineers who learn to orchestrate agent fleets — to act as owners of work queues rather than writers of individual functions.
 
 - <ExternalLink href="https://newsletter.pragmaticengineer.com/p/from-ides-to-ai-agents-with-steve" />

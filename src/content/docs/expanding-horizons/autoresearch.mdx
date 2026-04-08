@@ -1,0 +1,45 @@
+---
+title: Autoresearch
+description: A pattern where a coding agent runs semi-autonomous experiments to discover performance improvements or other optimizations.
+---
+
+import ExternalLink from "../../../components/ExternalLink.astro";
+// import ClapButton from "../../../components/ClapButton.astro";
+
+You've already seen how a closed feedback loop makes agents more autonomous — tests and scripts let them self-correct without waiting for you.
+Autoresearch takes that idea further.
+Instead of fixing one known problem, the agent explores a space of potential improvements on its own, running experiments and keeping what works.
+
+It's particularly effective for optimization tasks where you can express the goal as a number.
+
+## How it works
+
+You give the agent two things:
+
+- A **task description** — what to optimize, what constraints to respect, and what "success" means.
+- A **benchmark script** — something the agent runs after each experiment to get a measurable result.
+
+The agent then runs a loop: propose a change, apply it, measure it, keep it or revert it, repeat.
+Each experiment is isolated, so results stay interpretable.
+
+{/* <ClapButton slug="expanding-horizons/autoresearch/how-it-works" /> */}
+
+## Why it works
+
+Three conditions make autoresearch effective:
+
+- **A measurable goal.** "Make it faster" becomes actionable when the agent can run a script and read a number.
+  Without a benchmark, there's no feedback loop.
+- **A robust test suite.** Tests let the agent discard changes that break correctness.
+  Without them, the agent can't safely move fast.
+- **Isolated experiments.** Trying one change at a time keeps results interpretable.
+  If everything changes at once, you can't tell what worked.
+
+These conditions apply broadly — autoresearch works for performance, but also for any goal you can express as a script output.
+
+Read more:
+
+- <ExternalLink href="https://github.com/karpathy/autoresearch" />
+- <ExternalLink href="https://simonwillison.net/2026/Mar/13/liquid/" />
+
+{/* <ClapButton slug="expanding-horizons/autoresearch/why-it-works" /> */}

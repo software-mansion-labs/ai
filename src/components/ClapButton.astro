@@ -1,0 +1,262 @@
+---
+export interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+---
+
+<div class="clap-wrapper" data-slug={slug}>
+  <div class="clap-ring">
+    <button
+      class="clap-button"
+      aria-label="Clap for this content"
+      aria-pressed="false"
+    >
+      <span class="clap-icon" aria-hidden="true">👏</span>
+      <span class="clap-plus" aria-hidden="true">+1</span>
+    </button>
+  </div>
+
+  <span class="clap-count" aria-live="polite">…</span>
+</div>
+
+<script>
+  import { z } from "astro/zod";
+
+  const ClapsResponse = z.object({
+    count: z.number().int().nonnegative(),
+    max_claps: z.number().int().positive(),
+    user_claps: z.number().int().nonnegative(),
+  });
+
+  const MAX_CLAPS = 16 as const;
+  const API = import.meta.env.PUBLIC_API_URL;
+
+  document
+    .querySelectorAll<HTMLDivElement>(".clap-wrapper")
+    .forEach((wrapperElement) => {
+      const slug = wrapperElement.dataset.slug!;
+      const buttonElement =
+        wrapperElement.querySelector<HTMLButtonElement>(".clap-button")!;
+      const countElement =
+        wrapperElement.querySelector<HTMLElement>(".clap-count")!;
+
+      const local = { claps: 0, sentClaps: 0 };
+      let remote: z.infer<typeof ClapsResponse> = {
+        count: 0,
+        max_claps: MAX_CLAPS,
+        user_claps: 0,
+      };
+
+      if (!API) {
+        return;
+      }
+
+      const clapsUrl = new URL("/claps", API);
+      clapsUrl.searchParams.set("slug", slug);
+
+      void fetch(clapsUrl)
+        .then((response) => response.json())
+        .then((data: unknown) => {
+          const parsing = ClapsResponse.safeParse(data);
+
+          if (!parsing.success) {
+            console.error("[ClapButton] Parsing failed", parsing.error);
+            return;
+          }
+
+          remote = parsing.data;
+          remote.count += local.claps;
+
+          render();
+        })
+        .catch((fetchError) => {
+          console.error("[ClapButton] Fetch failed", fetchError);
+        });
+
+      function render() {
+        const localClaps = local.claps + remote.user_claps;
+
+        const total = String(remote.count);
+        const progress = String(localClaps / remote.max_claps);
+
+        const wasPressed = localClaps > 0;
+        const isDisabled = localClaps >= remote.max_claps;
+
+        countElement.textContent = total;
+        wrapperElement.style.setProperty("--clap-progress", progress);
+        buttonElement.setAttribute("aria-pressed", String(wasPressed));
+        buttonElement.toggleAttribute("disabled", isDisabled);
+      }
+
+      function animateClap() {
+        buttonElement.classList.remove("clap-pop");
+        // Reading offsetWidth forces a reflow, resetting the animation so it replays on every click.
+        void buttonElement.offsetWidth;
+        buttonElement.classList.add("clap-pop");
+      }
+
+      buttonElement.addEventListener("click", () => {
+        if (remote.user_claps + local.claps >= remote.max_claps) {
+          return;
+        }
+
+        local.claps++;
+        // Optimistic UI Update — keeps the displayed count in sync without a round-trip.
+        remote.count++;
+
+        animateClap();
+        render();
+      });
+
+      function sendClaps() {
+        const toSend = local.claps - local.sentClaps;
+
+        if (toSend <= 0) {
+          return;
+        }
+
+        local.sentClaps = local.claps;
+        navigator.sendBeacon(clapsUrl, JSON.stringify({ claps: toSend }));
+      }
+
+      window.addEventListener("pagehide", sendClaps);
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState !== "hidden") {
+          return;
+        }
+
+        sendClaps();
+      });
+    });
+</script>
+
+<style>
+  @layer starlight.core {
+    .clap-wrapper {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .clap-ring {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 50%;
+      padding: 3px;
+      background: conic-gradient(
+        var(--sl-color-text-accent) calc(var(--clap-progress, 0) * 360deg),
+        var(--sl-color-hairline) 0deg
+      );
+      transition: background 0.2s;
+    }
+
+    .clap-button {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: none;
+      background: var(--sl-color-bg);
+      cursor: pointer;
+      overflow: visible;
+      transition: background 0.15s;
+
+      &:hover:not(:disabled) {
+        background: color-mix(
+          in srgb,
+          var(--sl-color-bg),
+          var(--sl-color-text-accent) 8%
+        );
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+      }
+
+      &:not(:disabled) .clap-icon {
+        filter: grayscale(0);
+      }
+
+      &.clap-pop .clap-icon {
+        animation: clap-pop 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+      }
+
+      &.clap-pop .clap-plus {
+        animation: clap-plus-float 0.55s ease-out forwards;
+      }
+    }
+
+    .clap-icon {
+      font-size: 1.4rem;
+      line-height: 1;
+      display: block;
+      filter: grayscale(0.4);
+      transition: filter 0.2s;
+    }
+
+    .clap-plus {
+      position: absolute;
+      top: -0.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--sl-color-text-accent);
+      pointer-events: none;
+      opacity: 0;
+      white-space: nowrap;
+    }
+
+    .clap-count {
+      font-size: var(--sl-text-sm);
+      color: var(--sl-color-gray-3);
+      min-width: 2ch;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    @keyframes clap-pop {
+      0% {
+        transform: scale(1) rotate(0deg);
+      }
+
+      25% {
+        transform: scale(1.35) rotate(-14deg);
+      }
+
+      55% {
+        transform: scale(0.9) rotate(5deg);
+      }
+
+      75% {
+        transform: scale(1.08) rotate(-3deg);
+      }
+
+      100% {
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes clap-plus-float {
+      0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      20% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-1.75rem);
+      }
+    }
+  }
+</style>

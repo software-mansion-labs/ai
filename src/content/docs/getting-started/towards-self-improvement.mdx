@@ -17,79 +17,83 @@ has just produced.
 
 One way to steer agents toward doing the right things is to have an `AGENTS.md`
 file in the repository root.
-This file is read by the agent in each thread.
+This file is read by the agent in each thread and defines basic guidance for how it should operate.
 
-This file is standardized and supported by most coding agents, except Claude Code.
-There are also tool-specific mechanisms, like `CLAUDE.md`
-or <ExternalLink href="https://cursor.com/docs/context/rules">Cursor Rules</ExternalLink>.
+You might see different variants of this file across tools — `GEMINI.md`, `COPILOT.md`, `AGENT.md`, `CLAUDE.md`, and others. 
+**In practice, one file is enough: `AGENTS.md`.**
+It’s supported by nearly all coding agents except Claude Code, which still expects a separate `CLAUDE.md`.
 
-<Steps>
+The simplest solution to keep both files in sync is to create a symlink (symbolic link) from `AGENTS.md` to `CLAUDE.md` — see the command below.
 
-1.  Write a minimal `AGENTS.md` file.
-    The goal is just to steer the agent to do the right thing every time.
-    Here are some good examples:
+Keep this file minimal. Its role is to make sure the agent “does the right thing” every time — not to over‑specify every step.
 
-    <Tabs>
-      <TabItem label="Example1">
-        ```md
-        # [Project name]
 
-        ## Rules
+<Tabs>
+  <TabItem label="Example1">
+    ```md
+    # [Project name]
 
-        - you may be running in parallel with other agents; cooperate to avoid
-          conflicts, but avoid committing changes made by others
-        - add test coverage for new logic and regression fixes where practical
-        - run `npm lint` to format code and run linters; run `npm test` to run tests
-        - ignore any backward compatibility - break stuff everywhere if needed
-        ```
+    ## Rules
 
-        Source: <ExternalLink href="https://github.com/mkaput">Marek Kaput</ExternalLink>’s template.
-      </TabItem>
-      <TabItem label="Example 2">
-        ```md
-        # Sample AGENTS.md file
+    - you may be running in parallel with other agents; cooperate to avoid
+      conflicts, but avoid committing changes made by others
+    - add test coverage for new logic and regression fixes where practical
+    - run `npm lint` to format code and run linters; run `npm test` to run tests
+    - ignore any backward compatibility - break stuff everywhere if needed
+    ```
 
-        ## Dev environment tips
+    Source: <ExternalLink href="https://github.com/mkaput">Marek Kaput</ExternalLink>’s template.
+  </TabItem>
+  <TabItem label="Example 2">
+    ```md
+    # Sample AGENTS.md file
 
-        - Use `pnpm dlx turbo run where «project_name»` to jump to a package
-          instead of scanning with `ls`.
-        - Run `pnpm install --filter «project_name»` to add the package to your
-          workspace so Vite, ESLint, and TypeScript can see it.
-        - Use `pnpm create vite@latest «project_name» -- --template react-ts` to
-          spin up a new React + Vite package with TypeScript checks ready.
-        - Check the name field inside each package's package.json to confirm the
-          right name - skip the top-level one.
+    ## Dev environment tips
 
-        ## Testing instructions
+    - Use `pnpm dlx turbo run where «project_name»` to jump to a package
+      instead of scanning with `ls`.
+    - Run `pnpm install --filter «project_name»` to add the package to your
+      workspace so Vite, ESLint, and TypeScript can see it.
+    - Use `pnpm create vite@latest «project_name» -- --template react-ts` to
+      spin up a new React + Vite package with TypeScript checks ready.
+    - Check the name field inside each package's package.json to confirm the
+      right name - skip the top-level one.
 
-        - Find the CI plan in the .github/workflows folder.
-        - Run `pnpm turbo run test --filter «project_name»` to run every check
-          defined for that package.
-        - From the package root you can just call `pnpm test`. The commit should
-          pass all tests before you merge.
-        - To focus on one step, add the Vitest pattern:
-          `pnpm vitest run -t "«test name»"`.
-        - Fix any test or type errors until the whole suite is green.
-        - After moving files or changing imports, run
-          `pnpm lint --filter «project_name»` to be sure ESLint and TypeScript
-          rules still pass.
-        - Add or update tests for the code you change, even if nobody asked.
+    ## Testing instructions
 
-        ## PR instructions
+    - Find the CI plan in the .github/workflows folder.
+    - Run `pnpm turbo run test --filter «project_name»` to run every check
+      defined for that package.
+    - From the package root you can just call `pnpm test`. The commit should
+      pass all tests before you merge.
+    - To focus on one step, add the Vitest pattern:
+      `pnpm vitest run -t "«test name»"`.
+    - Fix any test or type errors until the whole suite is green.
+    - After moving files or changing imports, run
+      `pnpm lint --filter «project_name»` to be sure ESLint and TypeScript
+      rules still pass.
+    - Add or update tests for the code you change, even if nobody asked.
 
-        - Title format: [«project_name»] «Title»
-        - Always run `pnpm lint` and `pnpm test` before committing.
-        ```
+    ## PR instructions
 
-        Source: <ExternalLink href="https://agents.md">agents.md</ExternalLink> website.
-      </TabItem>
-    </Tabs>
+    - Title format: [«project_name»] «Title»
+    - Always run `pnpm lint` and `pnpm test` before committing.
+    ```
 
-2.  Run `ln -s AGENTS.md CLAUDE.md` because Anthropic refuses to adopt someone else’s standards.
+    Source: <ExternalLink href="https://agents.md">agents.md</ExternalLink> website.
+  </TabItem>
+</Tabs>
 
-3.  Commit both files to the repo (if you can).
+### Claude integration 
+Create a symbolic link for Claude:
+```
+ln -s AGENTS.md CLAUDE.md
+```
 
-</Steps>
+This command creates a file `CLAUDE.md` that points to `AGENTS.md`. Claude will then read the same rules as all other agents without needing a separate copy.
+
+If possible, commit both files to your repository.
+
 
 ## More utilities await
 
@@ -99,7 +103,7 @@ leverage without adding much complexity.
 As you get comfortable with that baseline, you can introduce more advanced
 utilities around the agent:
 skills for reusable workflows,
-more structured guidance for larger codebases,
+more structured guidance such as <ExternalLink href="https://cursor.com/docs/context/rules">Cursor Rules</ExternalLink> for larger codebases,
 and MCP integrations for connecting the model to external tools and services.
 
 You do not need all of that on day one.

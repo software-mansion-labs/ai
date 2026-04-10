@@ -18,6 +18,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      variables: read
     steps:
       - uses: actions/checkout@v6.0.2
       - uses: actions/configure-pages@v6.0.0
@@ -25,6 +28,10 @@ jobs:
         with:
           node-version-file: .nvmrc
       - uses: oven-sh/setup-bun@v2.2.0
+      - name: Load repository variables
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh variable list --json name,value -q '.[] | "\(.name)=\(.value)"' >> $GITHUB_ENV
       - run: bun install --frozen-lockfile
       - run: bun run build
       - uses: actions/upload-pages-artifact@v4.0.0

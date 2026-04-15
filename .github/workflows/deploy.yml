@@ -27,6 +27,8 @@ jobs:
       - uses: oven-sh/setup-bun@v2.2.0
       - run: bun install --frozen-lockfile
       - run: bun run build
+        env:
+          PUBLIC_API_URL: ${{ vars.PUBLIC_API_URL }}
       - uses: actions/upload-pages-artifact@v4.0.0
         with:
           path: ./dist

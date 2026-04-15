@@ -1,4 +1,5 @@
 url,title,author,date,urldate
+https://addyosmani.com/blog/factory-model/,AddyOsmani.com - The Factory Model: How Coding Agents Changed Software Engineering,,,2026-04-14
 https://agents.md/,AGENTS.md,,,2026-03-04
 https://agentskills.io/,Agent Skills,Anthropic,,2026-03-12
 https://alexeyondata.substack.com/p/how-i-dropped-our-production-database,How I Dropped Our Production Database and Now Pay 10% More for AWS,Alexey Grigorev,2026-03-06,2026-03-16
@@ -20,18 +21,21 @@ https://claude.com/plugins/playground,Playground Claude Plugin,Anthropic,,2026-0
 https://claude.com/pricing,Claude Subscription,,,2026-03-04
 https://cli.github.com/,GitHub CLI | Take GitHub to the command line,,,2026-03-13
 https://cline.bot/blog/post-mortem-unauthorized-cline-cli-npm,Unauthorized Cline CLI npm publish,Saoud Rizwan,2026-02-24,2026-03-16
+https://code.claude.com/docs/en/agent-teams,Claude Code Agent Teams,Anthropic,,2026-04-08
 https://code.claude.com/docs/en/best-practices#write-an-effective-claude-md,Best Practices for Claude Code - Claude Code Docs,Anthropic,,2026-03-04
 https://code.claude.com/docs/en/hooks,Hooks reference - Claude Code Docs,Anthropic,,2026-03-13
 https://code.claude.com/docs/en/security,Security - Claude Code Docs,Anthropic,,2026-03-16
 https://code.claude.com/docs/en/sub-agents,Create custom subagents - Claude Code Docs,Anthropic,,2026-03-13
 https://code.claude.com/docs/en/sub-agents#code-reviewer,Create custom subagents - Claude Code Docs,,,2026-03-05
 https://coderabbit.ai/,CodeRabbit,,,2026-03-05
+https://conductor.build/,Conductor,Melty Labs,,2026-03-25
 https://context7.com/,Context7 - Up-to-date documentation for LLMs and AI code editors,,,2026-03-13
 https://cursor.com/blog,Cursor Blog,,,2026-03-04
 https://cursor.com/bugbot,Cursor Bugbot,,,2026-03-05
 https://cursor.com/docs/agent/browser,Cursor Browser,,,2026-03-04
 https://cursor.com/docs/agent/modes#debug,Cursor Debug Mode,,,2026-03-04
 https://cursor.com/docs/agent/review,Cursor Review Agent,,,2026-03-04
+https://cursor.com/docs/cloud-agent/automations,Cloud Agents Automations,Cursor,,2026-04-08
 https://cursor.com/docs/context/rules,Cursor Rules,,,2026-03-04
 https://cursor.com/docs/hooks,Hooks Docs,Cursor,,2026-03-13
 https://cursor.com/docs/subagents,Cursor Subagents,Cursor,,2026-03-13
@@ -39,6 +43,7 @@ https://cursor.com/for/code-review,Reviewing Code with Cursor | Cursor Docs,,,20
 https://cursor.com/pricing,Cursor Subscription,,,2026-03-04
 https://developers.openai.com/api/docs/guides/compaction,Compaction,OpenAI,,2026-03-04
 https://developers.openai.com/codex/agent-approvals-security,Codex: Agent approvals & security,OpenAI,,2026-03-16
+https://developers.openai.com/codex/app/automations,Automations in Codex app,OpenAI,,2026-03-25
 https://developers.openai.com/codex/app/worktrees/#working-between-local-and-worktree,Worktrees,,,2026-03-10
 https://developers.openai.com/codex/cli/features#run-local-code-review,Codex CLI features (run local code review),,,2026-03-05
 https://developers.openai.com/codex/integrations/github/,Use Codex in GitHub,,,2026-03-05
@@ -58,6 +63,7 @@ https://github.com/mcp,GitHub MCP Registry,,,2026-03-13
 https://github.com/microsoft/playwright-mcp,microsoft/playwright-mcp,Microsoft,,2026-03-13
 https://github.com/mkaput,Marek Kaput,,,2026-03-04
 https://github.com/openai/skills,openai/skills,OpenAI,,2026-03-12
+https://github.com/openai/symphony,Symphony,OpenAI,,2026-03-25
 https://github.com/software-mansion-labs/skills,software-mansion-labs/skills,Software Mansion,,2026-03-12
 https://github.com/steipete/mcporter/,"steipete/mcporter: Call MCPs via TypeScript, masquerading as simple TypeScript API. Or package them as cli.",Peter Steinberger,,2026-03-04
 https://github.com/topics/agent-skills,GitHub Topic: agent-skills,,,2026-03-12
@@ -75,9 +81,11 @@ https://lucumr.pocoo.org/,Thoughts and Writings,Armin Ronacher,,2026-03-04
 https://mcp.grep.app/,mcp.grep.app,Vercel,,2026-03-04
 https://mitchellh.com/,Blog,Mitchell Hashimoto,,2026-03-04
 https://models.dev/,Models.dev - An open-source database of AI models,Opencode,,2026-03-04
+https://newsletter.pragmaticengineer.com/p/from-ides-to-ai-agents-with-steve,From IDEs to AI Agents with Steve Yegge,Gergely Orosz,,2026-03-25
 https://openai.com/chatgpt/pricing/,ChatGPT Subscription,,,2026-03-04
 https://openai.com/index/harness-engineering/,Harness engineering: leveraging Codex in an agent-first world,OpenAI,2026-02-11,2026-03-04
 https://openai.com/news/engineering/,OpenAI Engineering News,,,2026-03-04
+https://openclaw.ai/,OpenClaw,Peter Steinberger,,2026-04-02
 https://opencode.ai/docs/go/,Opencode Go,,,2026-03-04
 https://platform.claude.com/docs/en/build-with-claude/compaction,Compaction,Anthropic,,2026-03-04
 https://platform.claude.com/docs/en/resources/prompt-library/socratic-sage,Prompting best practices,Anthropic,,2026-03-04
@@ -98,6 +106,7 @@ https://skills.sh/mitsuhiko/agent-stuff/tmux,tmux skill,Armin Ronacher,2026-01-2
 https://skills.sh/vercel-labs/agent-browser/agent-browser,agent-browser,Vercel,2026-01-16,2026-03-04
 https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices,vercel-react-best-practices skill,Vercel,2026-01-16,2026-03-04
 https://support.apple.com/guide/mac-help/mh40584/mac,Dictate messages and documents on Mac - Apple Support,,,2026-03-10
+https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-cowork,Schedule recurring tasks in Cowork,Anthropic,,2026-04-08
 https://support.microsoft.com/en-us/windows/use-voice-typing-to-talk-instead-of-type-on-your-pc-fec94565-c4bd-329d-e59a-af033fa5689f,Use voice typing to talk instead of type on your PC - Microsoft Support,,,2026-03-10
 https://swmansion.com/,Software Mansion,,,2026-03-04
 https://tidewave.ai/,Tidewave,,,2026-03-04

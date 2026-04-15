@@ -64,6 +64,7 @@ export default defineConfig({
           items: [
             { slug: "expanding-horizons/threads-context-and-caching" },
             { slug: "expanding-horizons/model-pricing" },
+            { slug: "expanding-horizons/high-level-harnesses" },
             { slug: "expanding-horizons/autoresearch" },
             { slug: "expanding-horizons/what-to-read-next" },
           ],

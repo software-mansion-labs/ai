@@ -5,7 +5,7 @@ import { remarkClapButtons } from "./src/plugins/remark-clap-buttons";
 
 const site = "https://agentic-engineering.swmansion.com/";
 const repo = `https://github.com/software-mansion/agentic-engineering/`;
-const defaultOgImage = `${site}og-default.png`;
+const defaultOgImage = `${site}og-default.png?v0`;
 
 // https://astro.build/config
 export default defineConfig({

@@ -40,6 +40,3 @@ experience in building web and mobile apps. We are Core React Native
 Contributors and experts in dealing with all kinds of React Native issues. We
 can help you build your next dream product –
 [Hire us](https://swmansion.com/contact/projects?utm_source=agentic-engineering&utm_medium=readme).
-
-Made by [@software-mansion](https://github.com/software-mansion) and
-[community](https://github.com/software-mansion/agentic-engineering/graphs/contributors) 💛

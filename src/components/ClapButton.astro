@@ -24,112 +24,155 @@ const { slug } = Astro.props;
 <script>
   import { z } from "astro/zod";
 
-  const ClapsResponse = z.object({
-    count: z.number().int().nonnegative(),
+  const ClapsBatchResponse = z.object({
     max_claps: z.number().int().positive(),
-    user_claps: z.number().int().nonnegative(),
+    items: z.array(
+      z.object({
+        slug: z.string(),
+        count: z.number().int().nonnegative(),
+        user_claps: z.number().int().nonnegative(),
+      }),
+    ),
   });
 
-  const MAX_CLAPS = 16 as const;
   const API = import.meta.env.PUBLIC_API_URL;
 
-  document
-    .querySelectorAll<HTMLDivElement>(".clap-wrapper")
-    .forEach((wrapperElement) => {
-      const slug = wrapperElement.dataset.slug!;
-      const buttonElement =
-        wrapperElement.querySelector<HTMLButtonElement>(".clap-button")!;
-      const countElement =
-        wrapperElement.querySelector<HTMLElement>(".clap-count")!;
+  const wrappers = Array.from(
+    document.querySelectorAll<HTMLDivElement>(".clap-wrapper"),
+  );
 
-      const local = { claps: 0, sentClaps: 0 };
-      let remote: z.infer<typeof ClapsResponse> = {
-        count: 0,
-        max_claps: MAX_CLAPS,
-        user_claps: 0,
-      };
+  if (API && wrappers.length > 0) {
+    const batchUrl = new URL("/claps/batch", API);
+    const updates = new Map<
+      string,
+      (maxClaps: number, remote: { count: number; user_claps: number }) => void
+    >();
+    const senders: (() => void)[] = [];
 
-      if (!API) {
+    window.addEventListener("pagehide", () => {
+      for (const send of senders) send();
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState !== "hidden") return;
+      for (const send of senders) send();
+    });
+
+    for (const wrapper of wrappers) {
+      const slug = wrapper.dataset.slug!;
+      batchUrl.searchParams.append("slugs", slug);
+      const { update, sendClaps } = initButton(API, wrapper, slug);
+      updates.set(slug, update);
+      senders.push(sendClaps);
+    }
+
+    void fetch(batchUrl)
+      .then((response) => response.json())
+      .then((data: unknown) => {
+        const parsing = ClapsBatchResponse.safeParse(data);
+
+        if (!parsing.success) {
+          console.error("[ClapButton] Batch parse failed", parsing.error);
+          return;
+        }
+
+        const { max_claps, items } = parsing.data;
+        const bySlug = new Map(items.map((item) => [item.slug, item]));
+
+        for (const wrapper of wrappers) {
+          const slug = wrapper.dataset.slug!;
+          const item = bySlug.get(slug);
+
+          updates.get(slug)!(max_claps, {
+            count: item?.count ?? 0,
+            user_claps: item?.user_claps ?? 0,
+          });
+        }
+      })
+      .catch((err) => {
+        console.error("[ClapButton] Batch fetch failed", err);
+      });
+  }
+
+  function initButton(
+    api: string,
+    wrapperElement: HTMLDivElement,
+    slug: string,
+  ) {
+    const buttonElement =
+      wrapperElement.querySelector<HTMLButtonElement>(".clap-button")!;
+    const countElement =
+      wrapperElement.querySelector<HTMLElement>(".clap-count")!;
+
+    const local = { claps: 0, sentClaps: 0 };
+    const remote = { count: 0, user_claps: 0 };
+    let maxClaps = Number.MAX_SAFE_INTEGER;
+    let loaded = false;
+
+    function render() {
+      const localClaps = local.claps + remote.user_claps;
+
+      const wasPressed = localClaps > 0;
+      const isDisabled = loaded && localClaps >= maxClaps;
+
+      if (loaded) {
+        countElement.textContent = String(remote.count);
+        wrapperElement.style.setProperty(
+          "--clap-progress",
+          String(localClaps / maxClaps),
+        );
+      }
+      buttonElement.setAttribute("aria-pressed", String(wasPressed));
+      buttonElement.toggleAttribute("disabled", isDisabled);
+    }
+
+    function animateClap() {
+      buttonElement.classList.remove("clap-pop");
+      // Reading offsetWidth forces a reflow, resetting the animation so it replays on every click.
+      void buttonElement.offsetWidth;
+      buttonElement.classList.add("clap-pop");
+    }
+
+    buttonElement.addEventListener("click", () => {
+      if (loaded && remote.user_claps + local.claps >= maxClaps) {
         return;
       }
 
-      const clapsUrl = new URL("/claps", API);
-      clapsUrl.searchParams.set("slug", slug);
+      local.claps++;
+      // Optimistic UI Update — keeps the displayed count in sync without a round-trip.
+      remote.count++;
 
-      void fetch(clapsUrl)
-        .then((response) => response.json())
-        .then((data: unknown) => {
-          const parsing = ClapsResponse.safeParse(data);
-
-          if (!parsing.success) {
-            console.error("[ClapButton] Parsing failed", parsing.error);
-            return;
-          }
-
-          remote = parsing.data;
-          remote.count += local.claps;
-
-          render();
-        })
-        .catch((fetchError) => {
-          console.error("[ClapButton] Fetch failed", fetchError);
-        });
-
-      function render() {
-        const localClaps = local.claps + remote.user_claps;
-
-        const total = String(remote.count);
-        const progress = String(localClaps / remote.max_claps);
-
-        const wasPressed = localClaps > 0;
-        const isDisabled = localClaps >= remote.max_claps;
-
-        countElement.textContent = total;
-        wrapperElement.style.setProperty("--clap-progress", progress);
-        buttonElement.setAttribute("aria-pressed", String(wasPressed));
-        buttonElement.toggleAttribute("disabled", isDisabled);
-      }
-
-      function animateClap() {
-        buttonElement.classList.remove("clap-pop");
-        // Reading offsetWidth forces a reflow, resetting the animation so it replays on every click.
-        void buttonElement.offsetWidth;
-        buttonElement.classList.add("clap-pop");
-      }
-
-      buttonElement.addEventListener("click", () => {
-        if (remote.user_claps + local.claps >= remote.max_claps) {
-          return;
-        }
-
-        local.claps++;
-        // Optimistic UI Update — keeps the displayed count in sync without a round-trip.
-        remote.count++;
-
-        animateClap();
-        render();
-      });
-
-      function sendClaps() {
-        const toSend = local.claps - local.sentClaps;
-
-        if (toSend <= 0) {
-          return;
-        }
-
-        local.sentClaps = local.claps;
-        navigator.sendBeacon(clapsUrl, JSON.stringify({ claps: toSend }));
-      }
-
-      window.addEventListener("pagehide", sendClaps);
-      document.addEventListener("visibilitychange", () => {
-        if (document.visibilityState !== "hidden") {
-          return;
-        }
-
-        sendClaps();
-      });
+      animateClap();
+      render();
     });
+
+    const clapsUrl = new URL("/claps", api);
+    clapsUrl.searchParams.set("slug", slug);
+
+    function sendClaps() {
+      const toSend = local.claps - local.sentClaps;
+
+      if (toSend <= 0) {
+        return;
+      }
+
+      local.sentClaps = local.claps;
+      navigator.sendBeacon(clapsUrl, JSON.stringify({ claps: toSend }));
+    }
+
+    function update(
+      newMaxClaps: number,
+      newRemote: { count: number; user_claps: number },
+    ) {
+      loaded = true;
+      maxClaps = newMaxClaps;
+      // Merge real server count with optimistic local claps accumulated before batch returned.
+      remote.count = newRemote.count + local.claps;
+      remote.user_claps = newRemote.user_claps;
+      render();
+    }
+
+    return { update, sendClaps };
+  }
 </script>
 
 <style>

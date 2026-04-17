@@ -22,6 +22,10 @@ What makes it engineering, rather than just vibe coding, is the standard of work
 
 This guide is about that professional layer: how to set up the environment around agents, how to collaborate with them effectively, and how to keep code quality under control as their role in the workflow grows.
 
+👏 +1
+
+…
+
 ## Learning paths
 
 [Section titled “Learning paths”](#learning-paths)
@@ -31,6 +35,10 @@ If you are short on time, use the learning paths below.
 * **New to agentic engineering**: Start with [Getting Started](./getting-started/how-to-get-started/), then [Becoming Productive](./becoming-productive/the-workflow/). Read [Expanding Horizons](./expanding-horizons/threads-context-and-caching/) as optional deep-dive material.
 
 * **Already experienced**: Skim [Getting Started](./getting-started/how-to-get-started/), read [Becoming Productive](./becoming-productive/the-workflow/) in full, then jump to selected sections in [Expanding Horizons](./expanding-horizons/threads-context-and-caching/).
+
+👏 +1
+
+…
 
 ## Chapters
 
@@ -68,6 +76,10 @@ This guide is divided into three main chapters. Each chapter increases the level
 
 **Estimated effort:** 30-45 min.
 
+👏 +1
+
+…
+
 # Closing the loop
 
 > How to make agents self-correct faster with autonomous feedback loops across tests, logs, CLIs, and manual QA automation.
@@ -83,6 +95,10 @@ The tips below focus on building that loop so agents can diagnose and fix issues
 1. Make sure your agent writes tests for any regression it finds before attempting to fix actual code. If it doesn’t do this by itself, consider telling it so in your AGENTS.md.
 2. Pay attention to how models assert the expected state. Many models tend to write leaky assertions, which only catch the exact issue they just reasoned about.
 
+👏 +1
+
+…
+
 ## Backend logs and database access
 
 [Section titled “Backend logs and database access”](#backend-logs-and-database-access)
@@ -90,6 +106,10 @@ The tips below focus on building that loop so agents can diagnose and fix issues
 1. Make your app tee logs to a `*.log` file. This will allow agents to observe runtime behavior. Models are also good at adding their own temporary logs while debugging.
 2. Make it easy for an agent to connect to your database via `psql` or `sqlite3`. You can even use this interface in place of database GUIs.
 3. [Tidewave](https://tidewave.ai/) .
+
+👏 +1
+
+…
 
 ## Leverage CLIs
 
@@ -103,9 +123,29 @@ The tips below focus on building that loop so agents can diagnose and fix issues
    2. In a non-interactive language (Go, Rust, Swift, etc.), consider asking your agent to whip up a quick CLI on top of your code.
    3. In JS, Python, Elixir, or Ruby, agents can efficiently use REPLs or one-off scripts.
 
+If you’re building a CLI that agents will use, design it for non-interactive use from the start:
+
+* **Make it non-interactive.** Every input needs a flag equivalent. Don’t drop into interactive prompts mid-execution — agents can’t press arrow keys.
+* **Make `--help` useful.** Include examples in every subcommand’s help output. Agents pattern-match off examples faster than they read descriptions.
+* **Accept stdin.** Agents think in pipelines and want to chain commands. Don’t require positional args in unusual orders.
+* **Fail fast with actionable errors.** If a required flag is missing, show the correct invocation immediately. Agents self-correct well when you give them something to work with.
+* **Make commands idempotent.** Agents retry often. Running the same command twice should be a no-op, not a duplicate action.
+* **Add `--dry-run` for destructive actions.** Let agents validate a plan before committing to it.
+* **Add `--yes` to skip confirmations.** Make the safe path the default, but allow bypassing it.
+* **Use a predictable command structure.** Pick a pattern (e.g. resource + verb) and use it everywhere. If an agent learns `mycli service list`, it should be able to guess `mycli deploy list`.
+* **Return data on success.** Output IDs and URLs, not just a success message.
+
+Read more:
+
+* [Building CLIs for agents](https://x.com/ericzakariasson/status/2036762680401223946)&#x20;*&#x20;Eric Zakariasson.* 2026-03-25
+
 Also, take a look at these skills:
 
 * [tmux skill](https://skills.sh/mitsuhiko/agent-stuff/tmux)&#x20;*&#x20;Armin Ronacher.* 2026-01-23 - useful if you make/use interactive CLIs. Agents are pretty good at using GDB/LLDB via tmux.
+
+👏 +1
+
+…
 
 ## Automating web frontend QA
 
@@ -125,6 +165,10 @@ Also, take a look at these skills:
 
 * [vercel-react-best-practices skill](https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices)&#x20;*&#x20;Vercel.* 2026-01-16
 
+👏 +1
+
+…
+
 ## Automating mobile app QA
 
 [Section titled “Automating mobile app QA”](#automating-mobile-app-qa)
@@ -141,6 +185,10 @@ Also, have a look at these skills:
 
 * [expo/skills](https://skills.sh/expo/skills)&#x20;*&#x20;Expo.*
 * [react-native-best-practices skill](https://skills.sh/callstackincubator/agent-skills/react-native-best-practices)&#x20;*&#x20;Callstack.*
+
+👏 +1
+
+…
 
 # Going 10x
 
@@ -167,6 +215,10 @@ Agentic engineering is like multicore CPUs. Agents aren’t always faster than h
    1. Tell your agents to commit frequently, atomically, and only stage stuff from the current thread. You can put this as a rule in your `AGENTS.md` file.
    2. Avoid invoking tasks that would write to the same parts of the repository.
 
+👏 +1
+
+…
+
 ## Help! My agents are writing spaghetti!!!
 
 [Section titled “Help! My agents are writing spaghetti!!!”](#help-my-agents-are-writing-spaghetti)
@@ -188,6 +240,10 @@ Read more:
 
 * [Harness engineering: leveraging Codex in an agent-first world](https://openai.com/index/harness-engineering/)&#x20;*&#x20;OpenAI.* 2026-02-11
 * [AI Is Forcing Us To Write Good Code](https://bits.logic.inc/p/ai-is-forcing-us-to-write-good-code)&#x20;*&#x20;Steve Krenzel.* 2025-12-29
+
+👏 +1
+
+…
 
 ## Automated code reviews
 
@@ -217,6 +273,10 @@ PR review bots:
 Use these tools to reduce toil, not to skip ownership: don’t ask teammates to review code you haven’t reviewed yourself.
 
 * [Anti-patterns: things to avoid](https://simonwillison.net/guides/agentic-engineering-patterns/anti-patterns/)&#x20;*&#x20;Simon Willison.* 2026-03-04
+
+👏 +1
+
+…
 
 # Harness engineering
 
@@ -296,6 +356,10 @@ Tip
 
 Don’t use the `/init` command of your harness of choice (which is meant to set up such rules files). It tends to produce documents that bring little meaningful value. Very often, this produces something akin to what you have just read.
 
+👏 +1
+
+…
+
 ## Skills
 
 [Section titled “Skills”](#skills)
@@ -357,6 +421,10 @@ These writeups show how this can go wrong in practice:
 * [Weaponizing Claude Skills with MedusaLocker](https://www.catonetworks.com/blog/cato-ctrl-weaponizing-claude-skills-with-medusalocker/)&#x20;*&#x20;Inga Cherny.* 2025-12-02. A seemingly harmless skill step in a GIF workflow was used to fetch and execute MedusaLocker ransomware, showing how a reviewed skill can still hide second-stage execution.
 * [Hidden Unicode Instructions in Skills](https://embracethered.com/blog/posts/2026/scary-agent-skills/)&#x20;*&#x20;Johann Rehberger.* 2026-02-11. Hidden Unicode Tag characters were used to smuggle invisible instructions into a skill, which means visual source review alone may miss malicious behavior.
 
+👏 +1
+
+…
+
 ## MCP
 
 [Section titled “MCP”](#mcp)
@@ -396,6 +464,10 @@ Some MCPs used to be popular, but now have more efficient alternatives in the fo
 
 MCP servers have security considerations similar to those of Skills and any other CLI or remote service. You are unlikely to use many MCPs, and the ones most commonly used are access points to well-known services. So… in such cases just make sure your agents will not perform destructive actions on your behalf 🙂.
 
+👏 +1
+
+…
+
 ## Subagents
 
 [Section titled “Subagents”](#subagents)
@@ -412,6 +484,10 @@ Read more:
 * [Cursor Subagents](https://cursor.com/docs/subagents)&#x20;*&#x20;Cursor.*
 * [Codex Multi-agents](https://developers.openai.com/codex/multi-agent/)&#x20;*&#x20;OpenAI.*
 
+👏 +1
+
+…
+
 ## Hooks
 
 [Section titled “Hooks”](#hooks)
@@ -427,6 +503,10 @@ Read more:
 * [Hooks reference - Claude Code Docs](https://code.claude.com/docs/en/hooks)&#x20;*&#x20;Anthropic.*
 * [Hooks Docs](https://cursor.com/docs/hooks)&#x20;*&#x20;Cursor.*
 
+👏 +1
+
+…
+
 ## When to use what
 
 [Section titled “When to use what”](#when-to-use-what)
@@ -440,6 +520,10 @@ If you are unsure which mechanism to reach for, use this rule of thumb:
 | MCP       | You need authenticated access to an external service that you use very frequently.                                 |
 | Subagents | You can delegate a bounded or parallelizable task to keep the main thread smaller.                                 |
 | Hooks     | You have deterministic, mechanical logic meant to happen every time without depending on the model to remember it. |
+
+👏 +1
+
+…
 
 # Legal & Compliance
 
@@ -461,6 +545,10 @@ Many consumer-facing products often have different retention and training terms 
 
 Before using an agent, confirm what data may leave the environment, how prompts are stored, and whether the vendor terms satisfy the company’s requirements. Remember that a “do not collect my data” checkbox in settings is not the same level of legal security as an explicit zero data retention clause in terms of service.
 
+👏 +1
+
+…
+
 ## Copyleft contamination – IP infringement
 
 [Section titled “Copyleft contamination – IP infringement”](#copyleft-contamination--ip-infringement)
@@ -471,11 +559,19 @@ Coding agents are trained on massive amounts of public code, including strictly 
 
 In practice, treat suspiciously polished or unusually specific output as a sign to slow down and verify provenance. Ask the agent to explain the implementation in its own words and run a code search if a snippet looks distinctive enough that it may have been copied from a public project.
 
+👏 +1
+
+…
+
 ## Breach of contract and AI policies
 
 [Section titled “Breach of contract and AI policies”](#breach-of-contract-and-ai-policies)
 
 Many enterprises, especially in heavily regulated industries like fintech or healthcare, now include strict “No-AI” or “Approved-AI-Only” clauses in their contracts. Running an agent on a restricted project could be a direct breach of contract. Always ask your manager about your specific project’s AI policy before enabling an agent in that workspace.
+
+👏 +1
+
+…
 
 ## Accountability
 
@@ -484,6 +580,10 @@ Many enterprises, especially in heavily regulated industries like fintech or hea
 Agent-generated code does not shift legal or professional responsibility away from the engineer or organization that ships it. That is the primary difference between agentic engineering and vibecoding after all.
 
 If an agent introduces a security flaw, or produces infringing code, accountability still sits with the humans who reviewed, approved, and deployed it. That is why human review, provenance checks, and enterprise-specific compliance validation remain essential even when the implementation work is heavily automated.
+
+👏 +1
+
+…
 
 # Prompting Techniques
 
@@ -560,6 +660,10 @@ Depending on the codebase, a useful pattern is to have several *golden* files th
 * For example, if you have a component library, tell the agent to follow the implementation of the `ui/Button.tsx` component.
 * If you’re doing repetitive module refactoring, make the changes in one golden module, then ask the agent to reproduce them in other modules.
 
+👏 +1
+
+…
+
 ## Steer the execution
 
 [Section titled “Steer the execution”](#steer-the-execution)
@@ -610,6 +714,10 @@ The pattern is:
 
 Source: [Parallel Implementations - Augmented Coding Patterns](https://lexler.github.io/augmented-coding-patterns/patterns/parallel-implementations/)&#x20;*&#x20;Lada Kesseler.* 2025-10-01
 
+👏 +1
+
+…
+
 ## When text and code is not enough
 
 [Section titled “When text and code is not enough”](#when-text-and-code-is-not-enough)
@@ -645,6 +753,10 @@ Take a look at these utilities:
 * [Playground Claude Plugin](https://claude.com/plugins/playground)&#x20;*&#x20;Anthropic.*
 * [Introducing Showboat and Rodney, so agents can demo what they’ve built](https://simonwillison.net/2026/Feb/10/showboat-and-rodney/)&#x20;*&#x20;Simon Willison.* 2026-02-10
 * [Feedback Loopable](https://ampcode.com/notes/feedback-loopable)&#x20;*&#x20;Lewis Metcalf.* 2026-02-05
+
+👏 +1
+
+…
 
 ## Your exoskeleton
 
@@ -696,6 +808,10 @@ Try pointing your agent at some website or Android APK where there’s something
 
 Got a huge log file, maybe a screenshot, and you need to identify the bug? Paste everything you have into your agent prompt and tell it to find the exact log lines itself.
 
+👏 +1
+
+…
+
 # Security
 
 > High-level security model for coding agents, from the Lethal Trifecta to harness defenses and real-world prompt injection failures.
@@ -734,6 +850,10 @@ As you can see, coding agents are useful precisely because they satisfy the cond
 
 The final question is: **who is the attacker?** The surprising answer is that it is not always some evil hacker. In this model, the attacker can also be you or your colleague. Sometimes it is just a human doing something careless and unattended.
 
+👏 +1
+
+…
+
 ## Cataclysms
 
 [Section titled “Cataclysms”](#cataclysms)
@@ -743,6 +863,10 @@ Many interesting attacks have already happened in the wild. We have collected a 
 * [Unauthorized Cline CLI npm publish](https://cline.bot/blog/post-mortem-unauthorized-cline-cli-npm)&#x20;*&#x20;Saoud Rizwan.* 2026-02-24. An attacker-controlled issue reached an AI-powered workflow with too much authority, which then escalated into cache poisoning and a malicious package publish.
 * [How I Dropped Our Production Database and Now Pay 10% More for AWS](https://alexeyondata.substack.com/p/how-i-dropped-our-production-database)&#x20;*&#x20;Alexey Grigorev.* 2026-03-06. A Terraform command executed by an AI agent wiped production infrastructure, which is exactly the kind of cataclysm you get when an agent can act on real systems without enough guardrails.
 * [GitHub MCP Exploited: Accessing private repositories via MCP](https://invariantlabs.ai/blog/mcp-github-vulnerability)&#x20;*&#x20;Marco Milanta and Luca Beurer-Kellner.* 2025-05-26. A malicious issue in a public repository coerced an agent into pulling data from private repositories and leaking it through an automatically opened public pull request.
+
+👏 +1
+
+…
 
 ## Agent Security Toolbelt
 
@@ -801,6 +925,10 @@ For example, you can write your own hook to block very specific Bash commands fr
 
 ![Using PreToolUse Hook for blocking Bash](/pr-preview/pr-17/_astro/bash-pre-tool-use-hook.CWyK52Wd_hBea.svg)
 
+👏 +1
+
+…
+
 ## Do I need all of this?
 
 [Section titled “Do I need all of this?”](#do-i-need-all-of-this)
@@ -808,6 +936,10 @@ For example, you can write your own hook to block very specific Bash commands fr
 All the security mechanisms described in the previous section can usually be turned off. This is often called **YOLO** mode. You can work this way if you are confident that you can trust your prompts and that your harness will not let the agent do harmful things. Think of it like living without antivirus software two decades ago.
 
 If you are unsure about the security of your setup, start with the default protections. Then gradually tune them or disable the parts that are too annoying for your workflow.
+
+👏 +1
+
+…
 
 # The Workflow
 
@@ -829,6 +961,10 @@ For each thread, we can reason about what the model knows at a given moment. Thi
 
 1. The information the model has been trained on. We call this **model knowledge**.
 2. The entire contents of the current thread, all past messages within it, and the space for future ones. We call this **context**.
+
+👏 +1
+
+…
 
 ## Obstacles
 
@@ -874,6 +1010,10 @@ An agent can look aligned while silently building the wrong mental model of your
 
 Context is limited twice: only so much information fits in the window, and the model can attend well to only so much of that information at once. As you load more code, rules, plans, and history, some of it must be dropped and the rest competes for attention, especially in large multi-step tasks. For that reason, broad, complex prompts often underperform smaller, focused ones even when the nominal context window is huge. This is also why the phrase “use small threads” is repeated like a mantra.
 
+👏 +1
+
+…
+
 ## An ideal thread
 
 [Section titled “An ideal thread”](#an-ideal-thread)
@@ -905,6 +1045,10 @@ This is a baseline workflow for collaborating with coding agents effectively. Tr
    * Use your coding agent’s memory feature (e.g., `/memory` in Claude Code, Memories in Cursor) to persist lessons learned across sessions.
    * Try post-mortem diffs: ask the agent to compare its first attempt vs the final version and explain what it got wrong. Great for spotting recurring antipatterns.
 
+👏 +1
+
+…
+
 ## Threads are composable
 
 [Section titled “Threads are composable”](#threads-are-composable)
@@ -914,6 +1058,10 @@ OK, so now we know how to structure work inside a single thread. Are there any t
 For example, most coding agents assign unique IDs to threads. You can use these IDs to resume past threads or to fork them or hand them off into new threads. Such forks can even be run in parallel. Some tools allow you to refer to past threads directly (for example `@Past Chat` in Cursor or `@@` in Amp).
 
 If your coding agent of choice does not provide such niceties, you can always fall back to sharing context through plain Markdown files. For example, you can run several brainstorming sessions, each on a different topic, and produce summary `*.md` files as outcomes. Then, in the execution thread, you *join* all of that information when priming the context.
+
+👏 +1
+
+…
 
 # What Not to Do
 
@@ -935,6 +1083,10 @@ You may be tempted to give many responsibilities to an agent in a single thread,
 2. **Open a new thread per concern** — lateral problems get their own threads.
 3. **Prime the context for that concern only** — only load the files, rules, and background that are relevant to the task at hand. Everything else is noise that competes for attention.
 
+👏 +1
+
+…
+
 ## Taking recall for granted
 
 [Section titled “Taking recall for granted”](#taking-recall-for-granted)
@@ -947,6 +1099,10 @@ We often expect the model’s recall not to be perfect when it comes to the data
 2. **Try it out** — for less popular APIs, ask the agent to write a small test first and verify if it works. You can give it a playground folder to experiment.
 3. **Write findings into the repository** — once the agent learns something worth keeping, be it a working pattern or factual knowledge, have it write it down in a Markdown file. Knowledge that lives in the codebase survives thread resets. Always remember that agents do not actually learn, they have to be presented with the information.
 
+👏 +1
+
+…
+
 ## Stacking assumptions
 
 [Section titled “Stacking assumptions”](#stacking-assumptions)
@@ -958,6 +1114,10 @@ Without validating each step, the agent may build on unstated assumptions, and w
 1. **Set a short validation loop** — after each meaningful step, check the output before moving forward. You can have the agent do it.
 2. **Make assumptions explicit** — when planning, ask the agent to list its assumptions before it starts. This is the time to correct them.
 3. **Checkpoint before complexity** — at any point where the plan branches or grows, commit what you have.
+
+👏 +1
+
+…
 
 ## Accepting silent compliance
 
@@ -979,6 +1139,10 @@ Tip
 
 In Claude Code, you can use the brainstorm mode that automatically asks you clarifying questions, but at the expense of heightened token usage.
 
+👏 +1
+
+…
+
 ## Running a thread until it rots
 
 [Section titled “Running a thread until it rots”](#running-a-thread-until-it-rots)
@@ -995,6 +1159,10 @@ Remember
 
 Starting fresh is always cheaper than debugging a degraded thread.
 
+👏 +1
+
+…
+
 ## Embedding your solution in the question
 
 [Section titled “Embedding your solution in the question”](#embedding-your-solution-in-the-question)
@@ -1007,6 +1175,10 @@ Framing a prompt around your assumed solution narrows the search space before th
 2. **Ask for options first** — instruct the agent to propose several approaches before picking one. Review the list and choose, or ask it to evaluate the trade-offs.
 3. **Introduce your idea late, if at all** — if you have a strong preference, share it after the agent has explored the space. That way you can compare rather than just confirm. The agent can also provide feedback on your solution and point to potential problems (but you have to ask for it, they are too nice on their own).
 
+👏 +1
+
+…
+
 ## Treating the first attempt as final
 
 [Section titled “Treating the first attempt as final”](#treating-the-first-attempt-as-final)
@@ -1018,6 +1190,197 @@ Remember that agents are not deterministic. Since the outputs on the same input 
 1. **Do a human review** — read the output critically before accepting it. If it is wrong in many places, it may be cheaper to try asking it to do the same thing again, rather than trying to debug it.
 2. **Iterate on weak spots** — when a separable part looks off, point it out and ask for another pass. A second attempt with targeted feedback is almost always better than the first without it.
 3. **For high-stakes tasks, sample more than once** — run the same task in parallel branches and compare the results. The [parallel implementations](/becoming-productive/prompting-techniques/#parallel-implementations) pattern is built exactly for this.
+
+👏 +1
+
+…
+
+# Autoresearch
+
+> A pattern where a coding agent runs semi-autonomous experiments to discover performance improvements or other optimizations.
+
+You’ve already seen how a closed feedback loop makes agents more autonomous — tests and scripts let them self-correct without waiting for you. Autoresearch takes that idea further. Instead of fixing one known problem, the agent explores a space of potential improvements on its own, running experiments and keeping what works.
+
+It’s particularly effective for optimization tasks where you can express the goal as a number.
+
+## How it works
+
+[Section titled “How it works”](#how-it-works)
+
+You give the agent two things:
+
+* A **task description** — what to optimize, what constraints to respect, and what “success” means.
+* A **benchmark script** — something the agent runs after each experiment to get a measurable result.
+
+The agent then runs a loop: propose a change, apply it, measure it, keep it or revert it, repeat. Each experiment is isolated, so results stay interpretable.
+
+👏 +1
+
+…
+
+## Why it works
+
+[Section titled “Why it works”](#why-it-works)
+
+Three conditions make autoresearch effective:
+
+* **A measurable goal.** “Make it faster” becomes actionable when the agent can run a script and read a number. Without a benchmark, there’s no feedback loop.
+* **A robust test suite.** Tests let the agent discard changes that break correctness. Without them, the agent can’t safely move fast.
+* **Isolated experiments.** Trying one change at a time keeps results interpretable. If everything changes at once, you can’t tell what worked.
+
+These conditions apply broadly — autoresearch works for performance, but also for any goal you can express as a script output.
+
+Read more:
+
+* [karpathy/autoresearch](https://github.com/karpathy/autoresearch)&#x20;*&#x20;Andrej Karpathy.* 2026-03-06
+* [Shopify/liquid: Performance: 53% faster parse+render, 61% fewer allocations](https://simonwillison.net/2026/Mar/13/liquid/)&#x20;*&#x20;Simon Willison.* 2026-03-13
+
+👏 +1
+
+…
+
+# High-level harnesses
+
+> Beyond individual agent sessions — scheduled automations, parallel agent fleets, and the emerging pattern of AI-driven code pipelines.
+
+The [harness engineering](/becoming-productive/harness-engineering/) chapter covered shaping a single agent’s actions through AGENTS.md, skills, hooks, and subagents. This page is one level of abstraction up — it covers tools and patterns that treat agents as a manageable workforce.
+
+## From engineering to managing
+
+[Section titled “From engineering to managing”](#from-engineering-to-managing)
+
+So far in this guide, you have been an **engineer** — you have worked interactively with a single agent, steering it turn by turn in real time. Now, you will become a **manager**, delegating work to a fleet of agents running in parallel. Instead of supervising each agent individually, you will manage the output queue — a review inbox, an issue tracker, a PR pipeline. Your coding assistant no longer serves as a conductor, but as an orchestrator.
+
+Remember
+
+The key shift is from “what should the agent do?” to “what work should be running right now, and how do I review what came back?”
+
+👏 +1
+
+…
+
+## Running agents in parallel
+
+[Section titled “Running agents in parallel”](#running-agents-in-parallel)
+
+The key difference is running several agents simultaneously, each on an isolated task. You hand different issues to separate agents at once, come back and review, and merge the ones you like. That is qualitatively different from the sequential, one-task-at-a-time conductor workflow from the previous chapters.
+
+[Subagents](/becoming-productive/harness-engineering/#subagents) are also parallel, but they are different: a subagent is spawned **by the agent** to partition a single task’s context. The agent decides when to spawn one, waits for the result, and folds it back into its own session. You as the human still trigger one top-level session and review one result.
+
+What is described here is different: **you** spawn multiple fully independent agent sessions, each assigned to a separate task. No session knows about the others. You do not need to wait for any single agent — you come back later and review the queue of results in bulk.
+
+In practice, each agent needs its own isolated workspace — typically a separate Git worktree — so their changes do not interfere. A dashboard or queue then surfaces results as agents finish, letting you review and merge at your own pace.
+
+For example, [Conductor](https://conductor.build/)&#x20;*&#x20;Melty Labs.* is a tool built around this model, running multiple AI coding agents (Claude Code and Codex) in parallel worktrees with a shared review dashboard.
+
+👏 +1
+
+…
+
+## Scheduled and recurring agents
+
+[Section titled “Scheduled and recurring agents”](#scheduled-and-recurring-agents)
+
+Agents do not always need to wait for you to trigger them — you can set them up in advance to run on a schedule. The pattern is similar to a cron job or a CI pipeline: describe a recurring task, define when it should run, and have an agent execute it in the background. Results land in a review inbox or are auto-archived if nothing needs attention.
+
+This is well-suited for tasks like:
+
+* Daily issue triage
+* Surfacing and summarizing CI failures
+* Generating release briefs
+* Checking for regressions between versions
+
+With scheduled agents, the process becomes closer to a CI pipeline than a chat window — an agent is no longer a tool you reach for, but a background process.
+
+Example application features built around this pattern:
+
+* [Automations in Codex app](https://developers.openai.com/codex/app/automations)&#x20;*&#x20;OpenAI.*
+* [Schedule recurring tasks in Cowork](https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-cowork)&#x20;*&#x20;Anthropic.*
+* [Cloud Agents Automations](https://cursor.com/docs/cloud-agent/automations)&#x20;*&#x20;Cursor.*
+
+👏 +1
+
+…
+
+## Issue-tracker-driven orchestration
+
+[Section titled “Issue-tracker-driven orchestration”](#issue-tracker-driven-orchestration)
+
+A natural extension of scheduled agents is wiring them directly to your issue tracker. Instead of manually assigning tasks to agents, the system monitors a board and automatically spawns an agent for each new issue in scope. Engineers decide what issues belong in scope; the orchestrator handles assignment and execution.
+
+Agent behavior can be defined in a workflow file versioned alongside the code — the same way you version a CI pipeline. When an agent finishes, it gathers evidence (CI results, PR review feedback, complexity analysis) for human review.
+
+For example, [Symphony](https://github.com/openai/symphony)&#x20;*&#x20;OpenAI.* is an open-source orchestration service that implements this pattern, monitoring a Linear board and running a Codex agent per issue in an isolated workspace.
+
+Tip
+
+Issue-tracker-driven orchestration works best on codebases that have adopted [harness engineering](/becoming-productive/harness-engineering/).
+
+👏 +1
+
+…
+
+## Agent communication
+
+[Section titled “Agent communication”](#agent-communication)
+
+Running multiple agents in parallel may create coordination problems — agents must exchange information without overloading any one context window. Two broad patterns have emerged.
+
+The simpler one is **hub-and-spoke orchestration**, where a lead agent spawns workers, collects their outputs, and consolidates them. Workers never communicate directly. The benefit is simplicity, as the full picture is present in one place. The cost is that every intermediate result, log line, and failed attempt flows back through the orchestrator’s context, degrading its reasoning quality over time.
+
+The more capable pattern is **collaborative teaming**, where agents share a task list, claim work independently, and can send messages directly to one another. A worker can flag a dependency, request a peer review, or broadcast a finding without routing it through the lead. The lead’s context stays clean; coordination happens at the edges.
+
+In practice, most pipelines fall somewhere on a spectrum between these extremes, often organized into three levels:
+
+1. **Isolated workers** — each agent runs independently and returns its output to the caller.
+2. **Orchestrated workflows** — outputs become inputs for the next stage via shared files or aggregated results.
+3. **Collaborative teams** — agents share a task graph, can send direct or broadcast messages, and notify the lead when work completes.
+
+The right level depends on how tightly coupled the tasks are. Independent parallel tasks — security scans, test runs, lint checks — fit level 1 or 2 well. Tasks that need to challenge or build on each other’s intermediate findings call for level 3.
+
+For reference, [Claude Code Agent Teams](https://code.claude.com/docs/en/agent-teams)&#x20;*&#x20;Anthropic.* implements level 3 with a shared task list, file-locked claiming, mailboxes for direct and broadcast messages, and idle notifications back to the lead.
+
+👏 +1
+
+…
+
+## Code factories
+
+[Section titled “Code factories”](#code-factories)
+
+Beyond specific products, there is an emerging pattern known as the **Code Factory**. The idea is a repository setup where agents autonomously write code, open pull requests, and a separate review agent validates those PRs with machine-verifiable evidence. If validation passes, the PR merges without human intervention.
+
+The continuous loop looks like this:
+
+1. Agent writes code and opens a PR.
+2. Risk-aware CI gates check the change.
+3. A review agent inspects the PR and collects evidence — screenshots, test results, static analysis.
+4. If all checks pass, the PR lands automatically.
+5. If anything fails, the agent retries or flags the issue for human review.
+
+Caution
+
+A Code Factory is only as good as its quality gates. An automated pipeline that merges bad PRs is strictly worse than one that does nothing. Invest in solid tests, linters, and CI before automating the merge step.
+
+* [AddyOsmani.com - The Factory Model: How Coding Agents Changed Software Engineering](https://addyosmani.com/blog/factory-model/)
+
+👏 +1
+
+…
+
+## One-human companies
+
+[Section titled “One-human companies”](#one-human-companies)
+
+The code factory pattern is the technical foundation of a broader idea: that a single person with a well-configured agent fleet can operate at the scale that would previously have required a full engineering team.
+
+This requires connecting agents to communication platforms, scheduling systems, and external services — turning a single machine into an always-on runtime that responds to messages, executes tasks, and ships work continuously. As an example of tooling in this space, [OpenClaw](https://openclaw.ai/)&#x20;*&#x20;Peter Steinberger.* packages infrastructure for exactly this kind of setup.
+
+In [From IDEs to AI Agents with Steve Yegge](https://newsletter.pragmaticengineer.com/p/from-ides-to-ai-agents-with-steve)&#x20;*&#x20;Gergely Orosz.*, Yegge argues that the engineering profession is reorganizing around exactly this spectrum. His framing: most engineers are at the low end of AI adoption today, and those who stay there risk being outcompeted by engineers who learn to orchestrate agent fleets — to act as owners of work queues rather than writers of individual functions.
+
+👏 +1
+
+…
 
 # Model pricing
 
@@ -1051,6 +1414,10 @@ If you’re integrating directly with an LLM API, lowering cost per request/sess
 
 If you’re using a coding agent, many of these optimizations are handled internally (prompt layout, caching, compaction). Your main cost levers are usually model choice and keeping tasks/threads scoped.
 
+👏 +1
+
+…
+
 ## Subscriptions
 
 [Section titled “Subscriptions”](#subscriptions)
@@ -1066,6 +1433,10 @@ Common subscription options:
 * [Cursor Subscription](https://cursor.com/pricing)
 * [Factory Subscription](https://factory.ai/pricing)
 * [Opencode Go](https://opencode.ai/docs/go/)
+
+👏 +1
+
+…
 
 ## Language choice and token cost
 
@@ -1085,6 +1456,10 @@ It’s also a good occasion to debunk a myth that spread in Polish media in earl
 > No. We didn’t study that at all. We created a tool for diagnosing language models, checking how well they are able to extract information from very long texts.
 
 A neat example of a fake news cycle born from real research — likely fueled by misunderstood patriotism.
+
+👏 +1
+
+…
 
 # Threads, context, and caching
 
@@ -1106,6 +1481,10 @@ Now (especially if you’re going to work with Anthropic models), go read this a
 
 * [200k Tokens Is Plenty](https://ampcode.com/notes/200k-tokens-is-plenty)&#x20;*&#x20;Amp.* 2025-12-09
 
+👏 +1
+
+…
+
 ## Prompt caching
 
 [Section titled “Prompt caching”](#prompt-caching)
@@ -1114,6 +1493,10 @@ TL;DR: Prompt caching is an optimization for LLM APIs that lets the model *reuse
 
 * [Lessons from Building Claude Code: Prompt Caching Is Everything](https://x.com/trq212/status/2024574133011673516)&#x20;*&#x20;Thariq Shihipar.* 2026-02-19
 * [Prompt caching](https://platform.openai.com/docs/guides/prompt-caching)&#x20;*&#x20;OpenAI.*
+
+👏 +1
+
+…
 
 ## Compaction
 
@@ -1124,6 +1507,10 @@ TL;DR: Compaction extends the effective context length for long-running conversa
 * [Compaction](https://platform.claude.com/docs/en/build-with-claude/compaction)&#x20;*&#x20;Anthropic.*
 * [Compaction](https://developers.openai.com/api/docs/guides/compaction)&#x20;*&#x20;OpenAI.*
 * [Pi Compaction Prompt](https://github.com/badlogic/pi-mono/blob/380236a003ec7f0e69f54463b0f00b3118d78f3c/packages/coding-agent/src/core/compaction/compaction.ts#L444-L475)&#x20;*&#x20;Mario Zechner.*
+
+👏 +1
+
+…
 
 # What to read next
 
@@ -1143,6 +1530,10 @@ Signal strength: 🟢 Low (\~1 post/week), 🟡 Medium (\~2-3 posts/week), 🔴 
 * 🔴 [Andrej Karpathy (@karpathy) on X](https://x.com/karpathy)
 * 🔴 [Weblog](https://simonwillison.net/)&#x20;*&#x20;Simon Willison.*
 
+👏 +1
+
+…
+
 ## Harness Developers
 
 [Section titled “Harness Developers”](#harness-developers)
@@ -1155,6 +1546,10 @@ Signal strength: 🟢 Low (\~1 post/week), 🟡 Medium (\~2-3 posts/week), 🔴 
 * 🔴 [Tibo (@thsottiaux) on X](https://x.com/thsottiaux)
 * 🔴 [Thorsten Ball (@thorstenball) on X](https://x.com/thorstenball)
 
+👏 +1
+
+…
+
 ## Product and engineering blogs
 
 [Section titled “Product and engineering blogs”](#product-and-engineering-blogs)
@@ -1164,6 +1559,10 @@ Signal strength: 🟢 Low (\~1 post/week), 🟡 Medium (\~2-3 posts/week), 🔴 
 * 🟡 [Cursor Blog](https://cursor.com/blog)
 * 🟡 [Google Gemini (@GeminiApp) on X](https://x.com/GeminiApp)
 * 🟡 [OpenAI Engineering News](https://openai.com/news/engineering/)
+
+👏 +1
+
+…
 
 # First steps in mature projects
 
@@ -1194,6 +1593,10 @@ Mature projects predate the agentic engineering era, so their codebases are usua
    * Many projects defer testing to sophisticated CI. Agents need to run checks locally just in time.
 
 From a distance, these points are strongly correlated. You do not need to address each one separately.
+
+👏 +1
+
+…
 
 ## A first surgical feature delivery in 8 steps
 
@@ -1271,6 +1674,10 @@ For more examples, look out on the internet for shared agent threads, some quali
 * [Reproduce fuzz crash with test case](https://ampcode.com/threads/T-019cafee-1be2-72ab-bcec-28c6d41b753b)&#x20;*&#x20;Mitchell Hashimoto (via Amp).* 2026-03-02
 * [Tmux control mode protocol documentation](https://ampcode.com/threads/T-f02e59f8-e474-493d-9558-11fddf823672)&#x20;*&#x20;Mitchell Hashimoto (via Amp).* 2025-12-01
 
+👏 +1
+
+…
+
 ## Rules of thumb
 
 [Section titled “Rules of thumb”](#rules-of-thumb)
@@ -1322,6 +1729,10 @@ Tip
 
 Agents also like running `ls` in directories and calling `--help`; you can use this to keep supplementary instructions close to the code. A skill may just tell the agent about a utility and ask it to call for help.
 
+👏 +1
+
+…
+
 ## Agent use must be negotiated
 
 [Section titled “Agent use must be negotiated”](#agent-use-must-be-negotiated)
@@ -1340,6 +1751,10 @@ If that is clear, you can use agents to support your work. In external collabora
 Remember
 
 In the end, you are the one who takes ownership of shipped code.
+
+👏 +1
+
+…
 
 ## Footnotes
 
@@ -1391,6 +1806,10 @@ So yes, this chapter will show you tricks. But tricks are not enough. You need p
 
 That is how you begin to build intuition. And once you have a bit of real experience, the rest of this book will become much more useful.
 
+👏 +1
+
+…
+
 ## Two practical paths
 
 [Section titled “Two practical paths”](#two-practical-paths)
@@ -1416,6 +1835,10 @@ The other path is to jump into an existing codebase and use agents to move faste
 This path is about using agents to understand unfamiliar systems and make surgical changes without losing control of the code. It does not matter whether that project is old or new. It does not matter whether it is tiny or huge. It does not matter whether you knew the project before you became interested in AI, or whether you want to learn the project and learn agentic engineering on top of it at the same time.
 
 For this path, feel free to jump to [First steps in mature projects](/getting-started/first-steps-in-mature-projects/).
+
+👏 +1
+
+…
 
 # How to set up a new repo?
 
@@ -1443,6 +1866,10 @@ perspective this thing should just happen in background and have no influence
 over what input/output devices does user set. write me a complete poc
 ```
 
+👏 +1
+
+…
+
 ## A first commit in 8 steps
 
 [Section titled “A first commit in 8 steps”](#a-first-commit-in-8-steps)
@@ -1469,6 +1896,10 @@ over what input/output devices does user set. write me a complete poc
 8. Finally, when you are happy with the results, it’s time for the initial commit. Let’s do something fun - tell your agent to make the commit itself! This works best if you switch to the initial thread where you crafted the plan and make the commit there - the agent will use all those insights and reasoning steps from thread history to produce a much better commit message.
 
 Here is an [example conversation where the author started building a desktop app](https://ampcode.com/threads/T-019c999d-a6a6-73db-8970-4804d16814c4)  (used Amp for its thread-sharing feature; used a GPT model to pack more prompts into a single thread, just so it’d be easier for you to read). Notice how gibberish such a conversation can be! Prompts can be misformatted and full of typos. LLMs are very capable of ignoring this noise! Notice how much of this thread is just questions or “do whatever you want” answers.
+
+👏 +1
+
+…
 
 ## A first bug fixed in 7 steps
 
@@ -1500,6 +1931,10 @@ With Debug Mode, instead of guessing, the agent can form clear hypotheses, add i
 
 7. That’s it! It’s an easy but powerful way to address bugs in your code.
 
+👏 +1
+
+…
+
 ## A first design implemented in 4 steps
 
 [Section titled “A first design implemented in 4 steps”](#a-first-design-implemented-in-4-steps)
@@ -1523,6 +1958,10 @@ If you’re curious, also check out:
 
 * [From Claude Code to Figma: Turning Production Code into Editable Figma Designs](https://www.figma.com/blog/introducing-claude-code-to-figma/)&#x20;*&#x20;Figma.* 2026-02-17
 
+👏 +1
+
+…
+
 # Towards self-improvement
 
 > Start adapting your repository to coding agents with a minimal `AGENTS.md` and a few simple setup conventions.
@@ -1533,78 +1972,94 @@ An essential aspect of becoming productive while working with agents is to *blen
 
 [Section titled “AGENTS.md”](#agentsmd)
 
-One way to steer agents toward doing the right things is to have an `AGENTS.md` file in the repository root. This file is read by the agent in each thread.
+One way to steer agents toward doing the right things is to have an `AGENTS.md` file in the repository root. This file is read by the agent in each thread and defines basic guidance for how it should operate.
 
-This file is standardized and supported by most coding agents, except Claude Code. There are also tool-specific mechanisms, like `CLAUDE.md` or [Cursor Rules](https://cursor.com/docs/context/rules) .
+You might see different variants of this file across tools — `GEMINI.md`, `COPILOT.md`, `AGENT.md`, `CLAUDE.md`, and others. **In practice, one file is enough: `AGENTS.md`.** It’s supported by nearly all coding agents except Claude Code, which still expects a separate `CLAUDE.md`.
 
-1. Write a minimal `AGENTS.md` file. The goal is just to steer the agent to do the right thing every time. Here are some good examples:
+The simplest solution to keep both files in sync is to create a symlink (symbolic link) from `AGENTS.md` to `CLAUDE.md` — see the command below.
 
-   * Example1
+Keep this file minimal. Its role is to make sure the agent “does the right thing” every time — not to over‑specify every step.
 
-     ```md
-     # [Project name]
+* Example1
 
-
-     ## Rules
-
-
-     - you may be running in parallel with other agents; cooperate to avoid
-       conflicts, but avoid committing changes made by others
-     - add test coverage for new logic and regression fixes where practical
-     - run `npm lint` to format code and run linters; run `npm test` to run tests
-     - ignore any backward compatibility - break stuff everywhere if needed
-     ```
-
-     Source: [Marek Kaput](https://github.com/mkaput) ’s template.
-
-   * Example 2
-
-     ```md
-     # Sample AGENTS.md file
+  ```md
+  # [Project name]
 
 
-     ## Dev environment tips
+  ## Rules
 
 
-     - Use `pnpm dlx turbo run where «project_name»` to jump to a package
-       instead of scanning with `ls`.
-     - Run `pnpm install --filter «project_name»` to add the package to your
-       workspace so Vite, ESLint, and TypeScript can see it.
-     - Use `pnpm create vite@latest «project_name» -- --template react-ts` to
-       spin up a new React + Vite package with TypeScript checks ready.
-     - Check the name field inside each package's package.json to confirm the
-       right name - skip the top-level one.
+  - you may be running in parallel with other agents; cooperate to avoid
+    conflicts, but avoid committing changes made by others
+  - add test coverage for new logic and regression fixes where practical
+  - run `npm lint` to format code and run linters; run `npm test` to run tests
+  - ignore any backward compatibility - break stuff everywhere if needed
+  ```
+
+  Source: [Marek Kaput](https://github.com/mkaput) ’s template.
+
+* Example 2
+
+  ```md
+  # Sample AGENTS.md file
 
 
-     ## Testing instructions
+  ## Dev environment tips
 
 
-     - Find the CI plan in the .github/workflows folder.
-     - Run `pnpm turbo run test --filter «project_name»` to run every check
-       defined for that package.
-     - From the package root you can just call `pnpm test`. The commit should
-       pass all tests before you merge.
-     - To focus on one step, add the Vitest pattern:
-       `pnpm vitest run -t "«test name»"`.
-     - Fix any test or type errors until the whole suite is green.
-     - After moving files or changing imports, run
-       `pnpm lint --filter «project_name»` to be sure ESLint and TypeScript
-       rules still pass.
-     - Add or update tests for the code you change, even if nobody asked.
+  - Use `pnpm dlx turbo run where «project_name»` to jump to a package
+    instead of scanning with `ls`.
+  - Run `pnpm install --filter «project_name»` to add the package to your
+    workspace so Vite, ESLint, and TypeScript can see it.
+  - Use `pnpm create vite@latest «project_name» -- --template react-ts` to
+    spin up a new React + Vite package with TypeScript checks ready.
+  - Check the name field inside each package's package.json to confirm the
+    right name - skip the top-level one.
 
 
-     ## PR instructions
+  ## Testing instructions
 
 
-     - Title format: [«project_name»] «Title»
-     - Always run `pnpm lint` and `pnpm test` before committing.
-     ```
+  - Find the CI plan in the .github/workflows folder.
+  - Run `pnpm turbo run test --filter «project_name»` to run every check
+    defined for that package.
+  - From the package root you can just call `pnpm test`. The commit should
+    pass all tests before you merge.
+  - To focus on one step, add the Vitest pattern:
+    `pnpm vitest run -t "«test name»"`.
+  - Fix any test or type errors until the whole suite is green.
+  - After moving files or changing imports, run
+    `pnpm lint --filter «project_name»` to be sure ESLint and TypeScript
+    rules still pass.
+  - Add or update tests for the code you change, even if nobody asked.
 
-     Source: [agents.md](https://agents.md/)  website.
 
-2. Run `ln -s AGENTS.md CLAUDE.md` because Anthropic refuses to adopt someone else’s standards.
+  ## PR instructions
 
-3. Commit both files to the repo (if you can).
+
+  - Title format: [«project_name»] «Title»
+  - Always run `pnpm lint` and `pnpm test` before committing.
+  ```
+
+  Source: [agents.md](https://agents.md/)  website.
+
+### Claude integration
+
+[Section titled “Claude integration”](#claude-integration)
+
+Create a symbolic link for Claude:
+
+```plaintext
+ln -s AGENTS.md CLAUDE.md
+```
+
+This command creates a file `CLAUDE.md` that points to `AGENTS.md`. Claude will then read the same rules as all other agents without needing a separate copy.
+
+If possible, commit both files to your repository.
+
+👏 +1
+
+…
 
 ## More utilities await
 
@@ -1612,11 +2067,15 @@ This file is standardized and supported by most coding agents, except Claude Cod
 
 `AGENTS.md` is the simplest place to start, because it gives you immediate leverage without adding much complexity.
 
-As you get comfortable with that baseline, you can introduce more advanced utilities around the agent: skills for reusable workflows, more structured guidance for larger codebases, and MCP integrations for connecting the model to external tools and services.
+As you get comfortable with that baseline, you can introduce more advanced utilities around the agent: skills for reusable workflows, more structured guidance such as [Cursor Rules](https://cursor.com/docs/context/rules)  for larger codebases, and MCP integrations for connecting the model to external tools and services.
 
 You do not need all of that on day one. For now, it is enough to understand that these mechanisms exist and become more useful once you already have a stable basic workflow.
 
 When you are ready, continue with [Harness engineering](/becoming-productive/harness-engineering/), which covers these more advanced building blocks in detail.
+
+👏 +1
+
+…
 
 # What can AI agents even do?
 

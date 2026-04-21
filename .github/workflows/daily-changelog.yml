@@ -67,7 +67,7 @@ jobs:
         if: steps.patch.outputs.empty == 'false'
         id: ai
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           CHANGELOG_DATE: ${{ steps.patch.outputs.date }}
         run: |
           bun run scripts/changelog/generate-entry.mts /tmp/yesterday.patch > /tmp/ai-result.json

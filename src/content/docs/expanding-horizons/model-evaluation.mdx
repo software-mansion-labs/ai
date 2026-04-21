@@ -2,6 +2,7 @@
 title: Model Evaluation
 description: Learn how to evaluate LLM performance for agentic workflows using benchmarks, custom evals, and real-world testing.
 ---
+import ExternalLink from "../../../components/ExternalLink.astro";
 
 Traditional software testing relies on deterministic outputs where `assert response == "expected"` works every time.
 In the world of LLMs, this approach fails because the same prompt can yield slightly different (yet equally valid) results.
@@ -42,7 +43,7 @@ This "data-driven downsizing" is often the most significant optimization you can
 
 ## Metrics: How to Measure "Good"
 
-Because LLM outputs are non-deterministic, you cannot rely on a single boolean check. Instead, you should build a tiered evaluation system that uses different types of metrics to measure success, moving from automated checks to the human "Gold Standard."
+Because LLM outputs are non-deterministic, you cannot rely on a single boolean check. Instead, you should build a tiered evaluation system that uses different types of metrics to measure success.
 
 ### Deterministic Metrics
 
@@ -69,7 +70,7 @@ When your output is natural language, it’s hard to write a script to check for
 
 Despite the rise of automated "judges," human review remains the ultimate benchmark for quality, especially in high-stakes domains like legal, medical, or complex technical tasks.
 * **The "Ground Truth" Creator:** Humans are typically responsible for creating the initial high-quality datasets that automated systems use for comparison (Golden Dataset). 
-* **Feedback:** Real users or domain experts rank model responses (e.g., "Which of these two emails sounds more professional?"). 
+* **Feedback:** Real users can rank model responses too. 
 
 ## Evaluation as quality gate
 
@@ -81,6 +82,8 @@ Treating evals as unit tests ensures that every change to your prompts or model 
 You should integrate your evaluation scripts into GitHub Actions, GitLab CI, or any other automation tool you use.
 Every time a pull request is opened, the CI environment should run your **Golden Dataset** against the new version of your system.
 This automation removes the human bottleneck and prevents "vibe-based" deployments.
+
+You can use tools like <ExternalLink href="https://promptfoo.dev/" /> to accomplish this task.
 
 ### Setting performance thresholds
 

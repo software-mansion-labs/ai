@@ -140,3 +140,83 @@ Think of it like living without antivirus software two decades ago.
 
 If you are unsure about the security of your setup, start with the default protections.
 Then gradually tune them or disable the parts that are too annoying for your workflow.
+
+## Vulnerability Research
+
+Before reaching for AI, make sure the basics are covered.
+<ExternalLink href="https://github.com/anchore/grype" /> paired with <ExternalLink href="https://github.com/anchore/syft" />, `npm audit`, and keeping packages and Docker base images up to date will catch a large class of known vulnerabilities cheaply and reliably.
+AI is the right tool for the next layer: novel vulnerabilities in your own code that no database knows about yet.
+
+### Signal vs. noise
+
+For most of 2024 and 2025, AI-assisted vulnerability scanning produced more noise than signal.
+Most tools applied pattern matching dressed up as reasoning, surfacing the same classes of issues that static analysis had already flagged.
+
+That changed with frontier models.
+<ExternalLink href="https://red.anthropic.com/2026/mythos-preview/" /> documents what Anthropic's latest model found when applied to real codebases: a 27-year-old integer overflow in OpenBSD's TCP stack, a 16-year-old codec bug in FFmpeg that had survived extensive automated fuzzing, and a 17-year-old remote code execution path in FreeBSD's NFS implementation.
+The projects behind <ExternalLink href="https://www.anthropic.com/glasswing" /> and <ExternalLink href="https://claude.com/claude-code-security" /> — and <ExternalLink href="https://developers.openai.com/codex/security" /> on OpenAI's side — signal that major labs now treat this as a serious defensive capability.
+
+<ExternalLink href="https://simonwillison.net/tags/ai-security-research/" /> tracks this space closely.
+One useful framing that emerged from that coverage is economic: you need to spend more tokens discovering exploits than an attacker will spend exploiting them.
+At the moment, frontier access is still restricted to vetted partners, and off-the-shelf tooling still produces noisy results for most teams.
+
+Real capability exists, but it is early and uneven.
+AI augments a security review; it does not replace it.
+A false positive is annoying; a false negative you acted on is dangerous.
+
+### Doing it yourself
+
+A few practices make the difference between noise and useful output when running a focused audit:
+
+1. **Narrow the scope.**
+   Point the agent at a specific attack surface — an authentication flow, a query layer, a deserialization path — rather than the entire repository.
+   The more context it has, the more precisely it can reason; the more code you give it, the more it will hallucinate.
+
+2. **Name the vulnerability classes you care about.**
+   Injection flaws, authentication bypasses, insecure direct object references, privilege escalation, race conditions — naming them explicitly yields better results than a generic "find security issues" prompt.
+
+3. **Demand structured output.**
+   Ask for each finding to include severity, file path, line range, vulnerability class, explanation, and a suggested fix.
+   Structured output makes it much easier to triage and verify.
+
+4. **Verify every finding manually.**
+   LLMs hallucinate proof-of-concept exploits and misread control flow.
+   A finding is a hypothesis, not a confirmed bug.
+
+A starting prompt for a focused audit:
+
+```
+You are a security researcher. Audit the following code for vulnerabilities.
+For each finding, output: severity (critical/high/medium/low), file path, line range,
+vulnerability class, explanation, and a minimal fix.
+Focus on: SQL injection, authentication bypasses, privilege escalation, insecure deserialization.
+Do not report issues that are clearly handled by framework-level defenses.
+
+<code>
+...
+</code>
+```
+
+### CI workflow
+
+The tooling changes quickly, but the underlying pattern is stable.
+
+1. **Trigger on security-sensitive changes.**
+   Run AI-assisted analysis on pull requests that touch authentication, payments, or data access layers, and consider a nightly full-repo scan.
+   Scanning everything on every commit is usually too expensive to be useful.
+
+2. **Feed the diff, not the whole codebase.**
+   Give the model the changed files plus enough surrounding context.
+   Diff-only scanning keeps token costs proportional to the amount of new code introduced.
+
+3. **Get structured findings.**
+   Design your prompt to return findings as structured data — JSON works well — rather than prose.
+   This makes it straightforward to gate on severity, route to a review queue, or track trends over time.
+
+4. **Gate on severity, not on volume.**
+   Block the pull request only on critical findings.
+   Route lower-severity findings to a review queue and address them on a schedule.
+   If you block on everything, developers will learn to ignore the scanner.
+
+5. **Treat AI findings like notes from a junior reviewer.**
+   Worth reading, but not merge-blocking without a human confirming the issue is real.

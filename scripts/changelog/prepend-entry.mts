@@ -17,7 +17,7 @@ if (typeof raw.entry !== "string" || raw.entry.trim() === "") {
 
 const entry: string = raw.entry;
 
-const MARKER = "<!-- ENTRIES_START -->" as const;
+const MARKER = "{/* ENTRIES_START */}" as const;
 const changelogPath = "src/content/docs/changelog.mdx" as const;
 const utf8 = "utf-8" as const;
 

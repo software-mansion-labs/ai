@@ -4,14 +4,7 @@ Given a git patch showing changes to the guide's content files (MDX), write a co
 
 ## Output format
 
-Respond with a single JSON object and nothing else:
-
-```json
-{
-  "trivial": false,
-  "entry": "## YYYY-MM-DD\n\n..."
-}
-```
+Call the `submit_changelog_entry` tool with your result.
 
 ## Entry style
 

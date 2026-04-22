@@ -35,3 +35,11 @@ const response = await fetch(webhookUrl, {
 });
 
 console.log(`[slack] HTTP status: ${response.status}`);
+
+if (!response.ok) {
+  const responseText = await response.text();
+  console.error(
+    `[slack] Webhook request failed with status ${response.status}. Response body: ${responseText}`,
+  );
+  process.exit(1);
+}

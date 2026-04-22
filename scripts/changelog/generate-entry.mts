@@ -1,5 +1,3 @@
-export {};
-
 const patchFile = process.argv[2];
 if (!patchFile) {
   console.error("Usage: generate-entry.mts <patch_file>");

@@ -1,22 +1,23 @@
 name: Daily Changelog
 
 # Runs every night at 3 AM UTC.
-# Generates an AI changelog entry from yesterday's content changes,
-# prepends it to changelog.mdx, and posts to Slack #aiaiai.
+# Checks for content changes in src/content/docs/ from the previous day.
+# If changes exist, generates a scannable changelog entry via Claude (Anthropic),
+# prepends it to changelog.mdx, commits, and posts to Slack #aiaiai.
+# No-ops if patch is empty or AI deems changes trivial.
 #
 # Required GitHub secrets:
-#   SLACK_WORKFLOW_WEBHOOK_URL — webhook URL from a Slack Workflow Builder trigger
+#   ANTHROPIC_API_KEY          — Anthropic API key
+#   SLACK_WORKFLOW_WEBHOOK_URL — Webhook URL from Slack Workflow Builder
 #
 # Slack Workflow Builder setup (one-time, done in Slack UI):
-#   1. Create a new Workflow → trigger: Webhook
-#   2. Add two webhook variables: "date" (text), "message" (text)
-#   3. Add step: "Send a message to a channel"
-#      - Channel: #aiaiai
-#      - Bot name: Guide Bot 🍌
-#      - Bot icon: :banana: (or upload a custom nano-banana image)
-#      - Message: use {{message}} variable + a "View changelog" button
-#        linking to https://agentic-engineering.swmansion.com/changelog
-#   4. Publish the workflow and copy the webhook URL into the GitHub secret above.
+#   Workflow name: "Agentic Engineering Guide — Changelog"
+#   1. New Workflow → trigger: Webhook
+#   2. Add two variables: "date" (text), "message" (text)
+#   3. Step: Send a message to #aiaiai
+#      - Bot name: Agentic Engineering Guide - Changelog
+#      - Message: `{{message}}`
+#   4. Publish → copy webhook URL → save as SLACK_WORKFLOW_WEBHOOK_URL secret
 
 on:
   schedule:

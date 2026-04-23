@@ -50,7 +50,9 @@ https://developers.openai.com/codex/cli/features#run-local-code-review,Codex CLI
 https://developers.openai.com/codex/integrations/github/,Use Codex in GitHub,,,2026-03-05
 https://developers.openai.com/codex/multi-agent/,Codex Multi-agents,OpenAI,,2026-03-13
 https://docs.conductor.build/guides/spotlight-testing,Using spotlight testing - Conductor,,,2026-03-10
+https://docs.github.com/en/code-security/dependabot,Securing your supply chain,GitHub,,2026-04-15
 https://docs.github.com/en/copilot/how-tos/use-copilot-agents/request-a-code-review,GitHub Copilot code review,,,2026-03-05
+https://docs.renovatebot.com/,Renovate documentation,Mend,,2026-04-15
 https://embracethered.com/blog/posts/2026/scary-agent-skills/,Hidden Unicode Instructions in Skills,Johann Rehberger,2026-02-11,2026-03-18
 https://factory.ai/pricing,Factory Subscription,,,2026-03-04
 https://github.com/anthropics/skills,anthropics/skills,Anthropic,,2026-03-12
@@ -106,6 +108,8 @@ https://skills.sh/expo/skills,expo/skills,Expo,,2026-03-04
 https://skills.sh/mitsuhiko/agent-stuff/tmux,tmux skill,Armin Ronacher,2026-01-23,2026-03-04
 https://skills.sh/vercel-labs/agent-browser/agent-browser,agent-browser,Vercel,2026-01-16,2026-03-04
 https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices,vercel-react-best-practices skill,Vercel,2026-01-16,2026-03-04
+https://snyk.io/,Snyk,,,2026-04-15
+https://socket.dev/,Socket,,,2026-04-15
 https://support.apple.com/guide/mac-help/mh40584/mac,Dictate messages and documents on Mac - Apple Support,,,2026-03-10
 https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-cowork,Schedule recurring tasks in Cowork,Anthropic,,2026-04-08
 https://support.microsoft.com/en-us/windows/use-voice-typing-to-talk-instead-of-type-on-your-pc-fec94565-c4bd-329d-e59a-af033fa5689f,Use voice typing to talk instead of type on your PC - Microsoft Support,,,2026-03-10

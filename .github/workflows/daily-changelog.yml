@@ -1,0 +1,202 @@
+name: Daily Changelog
+
+# Runs every night at 3 AM UTC.
+# Checks for content changes in src/content/docs/ from the previous day.
+# If changes exist, generates a scannable changelog entry via Claude (Anthropic),
+# opens a changelog pull request, and posts the entry to Slack #aiaiai.
+# No-ops if patch is empty or AI deems changes trivial.
+#
+# Required GitHub secrets:
+#   ANTHROPIC_API_KEY          — Anthropic API key
+#   SLACK_WORKFLOW_WEBHOOK_URL — Webhook URL from Slack Workflow Builder
+#
+# Slack Workflow Builder setup (one-time, done in Slack UI):
+#   Workflow name: "Agentic Engineering Guide — Changelog"
+#   1. New Workflow → trigger: Webhook
+#   2. Add two variables: "date" (text), "message" (text)
+#   3. Step: Send a message to #aiaiai
+#      - Bot name: Agentic Engineering Guide - Changelog
+#      - Message: `{{message}}`
+#   4. Publish → copy webhook URL → save as SLACK_WORKFLOW_WEBHOOK_URL secret
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prepare-changelog:
+    runs-on: ubuntu-latest
+
+    outputs:
+      date: ${{ steps.patch.outputs.date }}
+      empty: ${{ steps.changelog.outputs.empty }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6.3.0
+        with:
+          node-version-file: .nvmrc
+      - uses: oven-sh/setup-bun@v2.2.0
+
+      - name: Get yesterday's content patch
+        id: patch
+        run: |
+          YESTERDAY=$(date -d "yesterday" +%Y-%m-%d)
+          echo "date=${YESTERDAY}" >> "$GITHUB_OUTPUT"
+
+          if grep -qx "## ${YESTERDAY}" src/content/docs/changelog.mdx; then
+            echo "empty=true" >> "$GITHUB_OUTPUT"
+            echo "Changelog already contains an entry for ${YESTERDAY}, skipping."
+            exit 0
+          fi
+
+          git log \
+            --since="${YESTERDAY} 00:00:00" \
+            --until="${YESTERDAY} 23:59:59" \
+            -p \
+            -- "src/content/docs/" \
+            ":(exclude)src/content/docs/changelog.mdx" \
+            > /tmp/yesterday.patch 2>/dev/null || true
+
+          if [ ! -s /tmp/yesterday.patch ]; then
+            echo "empty=true" >> "$GITHUB_OUTPUT"
+            echo "No content changes on ${YESTERDAY}, skipping."
+          else
+            echo "empty=false" >> "$GITHUB_OUTPUT"
+            echo "Found content changes on ${YESTERDAY}."
+          fi
+
+      - name: Generate changelog entry via AI
+        if: steps.patch.outputs.empty == 'false'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CHANGELOG_DATE: ${{ steps.patch.outputs.date }}
+        run: bun run scripts/changelog/generate-entry.mts /tmp/yesterday.patch > /tmp/ai-result.json
+
+      - name: Set changelog outputs
+        id: changelog
+        run: |
+          if [ "${{ steps.patch.outputs.empty }}" = "true" ]; then
+            echo "empty=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if jq -e '.trivial == true' /tmp/ai-result.json >/dev/null; then
+            echo "empty=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if ! jq -e 'type == "object" and .trivial == false and (.entry | type == "string" and test("\\S"))' /tmp/ai-result.json >/dev/null; then
+            echo "Expected a non-trivial changelog entry in /tmp/ai-result.json" >&2
+            exit 1
+          fi
+
+          echo "empty=false" >> "$GITHUB_OUTPUT"
+
+      - name: Upload changelog entry
+        if: steps.changelog.outputs.empty == 'false'
+        uses: actions/upload-artifact@v4
+        with:
+          name: changelog-entry
+          path: /tmp/ai-result.json
+          if-no-files-found: error
+
+  create-changelog-pr:
+    needs: prepare-changelog
+    if: needs.prepare-changelog.outputs.empty == 'false'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+
+      - uses: actions/setup-node@v6.3.0
+        with:
+          node-version-file: .nvmrc
+      - uses: oven-sh/setup-bun@v2.2.0
+
+      - name: Download changelog entry
+        uses: actions/download-artifact@v4
+        with:
+          name: changelog-entry
+          path: /tmp
+
+      - name: Update changelog.mdx
+        run: bun run scripts/changelog/prepend-entry.mts /tmp/ai-result.json
+
+      - name: Commit and open pull request
+        env:
+          BRANCH_NAME: changelog/${{ needs.prepare-changelog.outputs.date }}
+          BASE_BRANCH: ${{ github.event.repository.default_branch }}
+          CHANGELOG_DATE: ${{ needs.prepare-changelog.outputs.date }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- src/content/docs/changelog.mdx; then
+            echo "No changelog changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git switch -c "$BRANCH_NAME"
+          git add src/content/docs/changelog.mdx
+          git commit -m "changelog: ${CHANGELOG_DATE}"
+          git fetch origin "+refs/heads/${BRANCH_NAME}:refs/remotes/origin/${BRANCH_NAME}" || true
+          git push --force-with-lease origin "$BRANCH_NAME"
+
+          PR_BODY="Generated automatically by the Daily Changelog workflow for ${CHANGELOG_DATE}."
+          PR_NUMBER=$(gh pr view "$BRANCH_NAME" --repo "$GITHUB_REPOSITORY" --json number --jq .number 2>/dev/null || true)
+
+          if [ -n "$PR_NUMBER" ]; then
+            gh pr edit "$PR_NUMBER" \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "changelog: ${CHANGELOG_DATE}" \
+              --body "$PR_BODY"
+          else
+            gh pr create \
+              --repo "$GITHUB_REPOSITORY" \
+              --base "$BASE_BRANCH" \
+              --head "$BRANCH_NAME" \
+              --title "changelog: ${CHANGELOG_DATE}" \
+              --body "$PR_BODY"
+          fi
+
+  post-slack:
+    needs: prepare-changelog
+    if: needs.prepare-changelog.outputs.empty == 'false'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - uses: actions/setup-node@v6.3.0
+        with:
+          node-version-file: .nvmrc
+      - uses: oven-sh/setup-bun@v2.2.0
+
+      - name: Download changelog entry
+        uses: actions/download-artifact@v4
+        with:
+          name: changelog-entry
+          path: /tmp
+
+      - name: Post to Slack
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WORKFLOW_WEBHOOK_URL }}
+          CHANGELOG_DATE: ${{ needs.prepare-changelog.outputs.date }}
+        run: bun run scripts/changelog/post-slack.mts /tmp/ai-result.json

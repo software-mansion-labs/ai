@@ -15,6 +15,12 @@ export function remarkClapButtons(headingDepth = 2) {
     const relative = path.relative(DOCS, filePath);
     const articleSlug = relative.replace(/\.mdx?$/, "");
 
+    const { clapButtons = true } = vfile.data.astro?.frontmatter ?? {};
+
+    if (!clapButtons) {
+      return;
+    }
+
     const importPath = path
       .relative(fileDirectory, path.join(COMPONENTS, "ClapButton.astro"))
       .split(path.sep)

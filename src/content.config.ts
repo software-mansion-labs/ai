@@ -18,6 +18,7 @@ export const collections = {
         /** All pages all require to have a meaningful description. */
         description: z.string().min(1),
         jsonLd: z.array(jsonLdNodeSchema).optional(),
+        clapButtons: z.boolean().default(true),
       }),
     }),
   }),

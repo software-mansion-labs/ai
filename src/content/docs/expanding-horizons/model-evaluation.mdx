@@ -1,0 +1,100 @@
+---
+title: Evaluation
+description: Learn how to evaluate LLM performance for agentic workflows using benchmarks, custom evals, and real-world testing.
+---
+import ExternalLink from "../../../components/ExternalLink.astro";
+
+Traditional software testing relies on deterministic outputs where `assert response == "expected"` works every time.
+In the world of LLMs, this approach fails because the same prompt can yield slightly different (yet equally valid) results.
+
+The most common trap in agentic development is the "vibe check" dilemma.
+This happens when developers manually test a few prompts, see a good result, and assume the system is production-ready.
+However, small changes to a prompt or a model update can introduce regressions to your system.
+Establishing a evaluation pipeline is the bridge between "playing with AI" and "engineering AI systems."
+
+## Metrics: How to Measure "Good"
+
+Because LLM outputs are non-deterministic, you cannot rely on a single boolean check. Instead, you should build a tiered evaluation system that uses different types of metrics to measure success.
+
+### Deterministic Metrics
+
+These are the fastest, cheapest, and most objective checks. They work best for technical constraints and structured outputs where the rules are black and white.
+* **Regex and Keyword Checks:** Ensuring specific mandatory terms are present or that forbidden "hallucinated" terms are absent.
+* **Format Validation:** Using tools to verify that the model produced a valid, parsable JSON object or Markdown structure that matches your expected schema.
+
+### Semantic Similarity
+
+When your output is natural language, exact matching is too restrictive.
+This approach compares the meaning of the model's output against a reference answer rather than just looking at the literal characters.
+* **Meaning-based Matching:** It identifies if the model's response is "close enough" in intent, even if it uses different wording or sentence structure.
+* **Continuous Scoring:** Instead of a binary pass/fail, you get a similarity score that allows for granular analysis of performance trends over time.
+* **Efficiency:** It provides a middle ground that is faster and cheaper than using an LLM-as-a-judge while being more flexible than deterministic checks.
+
+### LLM-as-a-Judge
+
+In this case you can use a superior "frontier" model (e.g., GPT-5.4 or Claude Opus 4.6) to grade a smaller, faster model.
+* **Rubric-Based Scoring:** You provide the "Judge" with a specific set of criteria (e.g., "Score this summary from 1-5 based on factual density") and the model's output.
+* **Scalability:** This allows you to evaluate thousands of responses in minutes. While it adds token costs, it captures nuances like tone, sentiment, and reasoning that simple scripts miss.
+* **Reference Comparison:** The judge can compare the model's output against a golden dataset to see if the core meaning remains intact despite different wording.
+
+### Human Evaluation
+
+Despite the rise of automated "judges," human review remains the ultimate benchmark for quality, especially in high-stakes domains like legal, medical, or complex technical tasks.
+* **The "Ground Truth" Creator:** Humans are typically responsible for creating the initial high-quality datasets that automated systems use for comparison (golden dataset). 
+* **Feedback:** Real users can rank your's model responses too. 
+
+## Model selection through evaluation
+
+Model selection is the process of choosing the best candidate for a specific job based on empirical data rather than marketing claims.
+An effective selection process uses your evaluation pipeline to find the most efficient model for each sub-task in your agentic system.
+
+### Defining task-specific benchmarks
+
+General benchmarks are useful for broad comparisons, but they rarely reflect the specific domain of your application.
+You should create a test suite that directly mirrors your production tasks, such as "triage of customer messages" or "extraction of data from legacy PDF documents."
+A model that ranks first on coding benchmarks might perform poorly on nuanced sentiment analysis or specialized legal reasoning.
+
+### Side-by-side (A/B) testing
+
+The most reliable way to compare models is by running them against a **Golden Dataset**.
+A Golden Dataset is a curated collection of 20–50 high-quality input/output pairs that represent the core edge cases and requirements of your application.
+By running the same dataset across multiple candidates—such as frontier models (GPT-5.4, Claude Opus 4.6) and lightweight alternatives (Gemini 3.1 Flash-Lite) you can see exactly where each model succeeds or fails.
+
+### The efficiency frontier
+
+You can map candidate models on a three-axis grid of **Quality**, **Cost**, and **Latency**.
+This visualization helps identify the "Sweet Spot" for your specific business requirements.
+For example, a customer-facing chatbot might prioritize low latency and cost, whereas an automated security audit agent must prioritize exhaustive reasoning and absolute precision, even if it results in significantly higher latency.
+
+### Data-driven downsizing
+
+Evaluation scores provide the evidence needed to move from premium models to cheaper, faster alternatives.
+You can use your benchmarks to prove whether a lightweight model can match 95% or more of a premium model's performance for your specific use case.
+This "data-driven downsizing" is often the most significant optimization you can make to your system's operational cost.
+
+## Evaluation as quality gate
+
+To maintain long-term reliability, evaluation must be moved out of local notebooks and into your continuous integration pipeline.
+Treating evals as unit tests ensures that every change to your prompts or model selection is validated before it hits production.
+
+### Automating the pipeline
+
+You should integrate your evaluation scripts into GitHub Actions, GitLab CI, or any other automation tool you use.
+Every time a pull request is opened, the CI environment should run your **Golden Dataset** against the new version of your system.
+This automation removes the human bottleneck and prevents "vibe-based" deployments.
+
+You can use tools like <ExternalLink href="https://promptfoo.dev/" /> to accomplish this task.
+
+### Setting performance thresholds
+
+A "passing" build in agentic engineering is defined by meeting a specific quality threshold.
+For example, you might define a failing build as one where the average "LLM-as-a-Judge" score drops by more than 5% compared to the main branch.
+By setting these guardrails, you ensure that performance never silently degrades over time.
+
+### Regression testing
+
+The most difficult bugs to catch are those where fixing an issue for one user breaks the experience for another.
+Comprehensive evaluation allows you to run regression tests across your entire dataset.
+If a prompt change fixes a tool-calling error in one scenario but causes a hallucination in three others, your evaluation pipeline will catch it immediately.
+This systematic approach is the only way to build agentic systems that scale without collapsing under their own complexity.
+

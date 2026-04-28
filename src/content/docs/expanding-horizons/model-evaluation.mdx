@@ -32,7 +32,7 @@ This approach compares the meaning of the model's output against a reference ans
 
 ### LLM-as-a-Judge
 
-In this case you can use a superior "frontier" model (e.g., GPT-5.4 or Claude Opus 4.6) to grade a smaller, faster model.
+In this case you can use a superior "frontier" model (e.g., GPT-5.5 or Claude Opus 4.7) to grade a smaller, faster model.
 * **Rubric-Based Scoring:** You provide the "Judge" with a specific set of criteria (e.g., "Score this summary from 1-5 based on factual density") and the model's output.
 * **Scalability:** This allows you to evaluate thousands of responses in minutes. While it adds token costs, it captures nuances like tone, sentiment, and reasoning that simple scripts miss.
 * **Reference Comparison:** The judge can compare the model's output against a golden dataset to see if the core meaning remains intact despite different wording.

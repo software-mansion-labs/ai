@@ -24,9 +24,6 @@ A triage agent connected to your issue tracker can:
 For example, OpenAI uses scheduled triage automations for exactly this, as covered in the [High-level harnesses](/expanding-horizons/high-level-harnesses/) chapter.
 The agent runs on a fixed schedule, processes new issues, and only escalates what really needs a human decision.
 
-If the agents fare well on these non-coding issues, you can also decide to gradually give them more authority and have them prepare fix PRs.
-The process can be performed by the triage agent itself or delegated to a coding agent with the necessary context. An example of such functionality is the <ExternalLink href="https://docs.sentry.io/product/ai-in-sentry/seer/autofix/" />
-
 ## Customer support
 
 Most often, customers ask what has already been asked before, so support queues are repetitive and high-volume. Most of the incoming tickets can be handled by an agent provided with documentation, changelogs and previously resolved tickets.
@@ -73,6 +70,9 @@ Agents wired into the observability loop can:
 - Annotate alerts with human-readable explanations, not just threshold values
 
 The engineer still reviews and approves changes, but the expensive initial investigation steps that they would perform anyways happens automatically.
+
+You can also decide to gradually give the agents authority and have them prepare fix PRs.
+The process can be performed by the triage agent itself or delegated to a coding agent with the necessary context. An example of such functionality is the <ExternalLink href="https://docs.sentry.io/product/ai-in-sentry/seer/autofix/" />
 
 ## Release notes and changelogs
 

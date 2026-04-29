@@ -3,16 +3,17 @@ title: Beyond coding
 description: Agents aren't limited to writing code. This page covers the soft side of project work — issue triage, customer support, observability, meeting notes, and more.
 ---
 
+import { Steps } from "@astrojs/starlight/components";
 import ExternalLink from "../../../components/ExternalLink.astro";
 
 The previous sections focused on agents writing, reviewing, and shipping code.
-But a software project involves a lot of work that is not code: triaging issues, answering support questions, synthesizing meeting notes or responding to production incidents.
-Agents handle all of these, but the same principles from the previous chapters apply, mainly — give them good context and verify their replies.
+However, there are a lot of actions involved in building a software project that is not coding itself, like triaging issues, answering support questions, synthesizing meeting notes or reacting to issues.
+Agents can also be of help in these, assumed they are given good context and their replies are verified.
 
 ## Issue triage
 
-Incoming issues accumulate fast.
-Deciding which ones are duplicates, which are actionable, and which need more information is a great task for agents, as the work is tedious and pattern-heavy.
+Incoming issues accumulate fast and not every one of them can be treated the same. The engineer needs to decide which are duplicates, which are actionable, and which require more information. 
+Because of these patterns, handling the triage of issues can be delegated to an agent.
 
 A triage agent connected to your issue tracker can:
 - Tag and label issues automatically based on title and description
@@ -23,94 +24,72 @@ A triage agent connected to your issue tracker can:
 For example, OpenAI uses scheduled triage automations for exactly this, as covered in the [High-level harnesses](/expanding-horizons/high-level-harnesses/) chapter.
 The agent runs on a fixed schedule, processes new issues, and only escalates what really needs a human decision.
 
-:::tip
-Start with read-only triage: the agent labels and comments, but never closes or assigns.
-Once you have validated its judgment on a few hundred issues, gradually give it more authority.
-:::
+If the agents fare well on these non-coding issues, you can also decide to gradually give them more authority and have them prepare fix PRs.
+The process can be performed by the triage agent itself or delegated to a coding agent with the necessary context. An example of such functionality is the <ExternalLink href="https://docs.sentry.io/product/ai-in-sentry/seer/autofix/" />
 
 ## Customer support
 
-Support queues are high-volume and often repetitive.
-Agents can handle a large share of incoming tickets by relying on documentation, changelogs, and past resolved tickets as context.
+Most often, customers ask what has already been asked before, so support queues are repetitive and high-volume. Most of the incoming tickets can be handled by an agent provided with documentation, changelogs and previously resolved tickets.
 
-Things agents handle well:
-- Answering "how do I..." questions against product docs
-- Collecting structured reproduction steps for bug reports before escalating
-- Drafting responses to common error messages or known limitations
-- Translating support tickets into structured bug reports for engineering
+Agents easily handle "how do I..." questions, drafting responses to common error messages or translating tickets into bug reports for engineers. 
 
-Things to watch:
-- Agents should escalate when uncertain, not guess
-- Every outgoing message should be attributable — customers should know when they are talking to an automated system
+However, LLMs don't like to admit that they don't know something. Their goal is to provide an answer that *seems* plausible, but not always is. Therefore, it is important to include **reflection** in the agent's workflow, like asking it "Does the documentation provide enough information for the user's question?". 
+
+If the agent cannot solve the issue, it should escalate it to the person in charge. To make the process easier, the agent can be asked to extract reproduction steps from the user's problem.
 
 :::caution
-Do not let a support agent close tickets autonomously until you have built confidence in its judgment.
+Do not let a support agent close tickets autonomously, at least not without any possibility of appeal.
 A closed ticket a customer considers unresolved is worse than a slow response.
 :::
 
 ## Meeting notes and action items
 
-Meetings produce commitments that scatter across memory, Slack threads, and inbox tabs.
-Agents connected to transcription services can close this loop automatically.
+Meetings usually produce commitments that are woth remembering. Unless there is a person delegated to track them, some can be forgot.
+Agents connected to transcription services can analyze what was said and come up with a doc on relevant issues.
 
 A typical setup:
-1. A transcription tool (Otter, Fireflies, Grain, or similar) produces a raw transcript.
+
+<Steps>
+
+1. A transcription tool produces a raw transcript.
 2. An agent reads the transcript and extracts: decisions made, open questions, and action items with owners.
 3. The output lands in a shared doc, a project management tool, or as comments on relevant issues.
 
-The value is not a summary — it is the structured extraction.
-A good action item note names a person, a task, and a deadline.
-An agent is better at finding these in a noisy transcript than a person skimming it two days later.
+</Steps>
 
-:::note[Remember]
-Agents work best here when the meeting has a clear structure — standups, retros, design reviews.
-For exploratory or creative discussions, the raw transcript often carries information that a summary loses.
-:::
+The agent can handle these right after the meeting and is less prone to omit something in a noisy transcript than a person skimming it some days later.
+
+Agents work best here when the meeting has a clear structure, more creative discussions can be harder to sum-up, as they hold value in their entirety.
 
 ## Observability and incident response
 
 Production incidents are time-sensitive and require pulling context from many places at once: error logs, stack traces, recent deployments, related tickets.
-Agents can do a significant share of this triage automatically, before any engineer has responded.
+Agents can do a significant share of this triage automatically, as soon as the notification happens.
 
 Agents wired into the observability loop can:
 - Read a stack trace, search the codebase for the relevant code path, identify the root cause, and propose a fix
-- Summarize the blast radius of a deployment ("these three endpoints regressed after this PR")
+- Summarize the scope ("these three endpoints regressed after this PR")
 - Correlate errors with recent commits and flag the likely culprit
-- Draft incident post-mortems from collected timeline data
 - Annotate alerts with human-readable explanations, not just threshold values
 
-The engineer still reviews and approves changes, but the expensive initial investigation step happens automatically.
-
-:::tip
-Wire agents into your alerting pipeline at the notification stage.
-An alert that arrives with a preliminary root-cause summary is significantly easier to act on than a raw error rate chart.
-:::
+The engineer still reviews and approves changes, but the expensive initial investigation steps that they would perform anyways happens automatically.
 
 ## Release notes and changelogs
 
 Writing release notes is easy to skip and hard to do well under deadline.
-Agents can generate a first draft from merged PRs and commit messages, filtered and grouped by audience.
+Agents can generate a draft from merged PRs and commit messages, filtered and grouped by audience, which you can later refine.
 
-The output quality depends heavily on what you give the agent to work with:
-- PR titles and descriptions that are consistently written — or pre-processed by a PR review agent
-- A template that defines what a release note should contain
-- An audience definition: internal release notes and customer-facing changelogs have different tones and levels of detail
+In order for this to work, the PR titles and descriptions should be written consistently. It's good to include a template of what a release note should contain (for older projects, previous release notes can be used as examples) and specify the audience.
 
-The result usually needs editing, but editing is much faster than writing from scratch.
+The result usually needs editing, but it is still faster than writing from scratch.
 
 ## Dependency and security hygiene
 
-Keeping dependencies up to date and catching known vulnerabilities requires constant vigilance that most teams deprioritize.
-Scheduled bots open PRs for dependency updates on a fixed schedule.
-An agent can review whether a major-version bump is safe given your actual usage of the library before you spend time on it.
+Larger projects can contain lots of dependencies, and keeping them up to date is often troublesome. 
+An agent can review whether a major-version update is safe given your actual usage of the library before you spend time on it.
 Security scanners can be wired to an agent that triages CVEs and drafts upgrade paths.
 
 - <ExternalLink href="https://docs.github.com/en/code-security/dependabot" />
 - <ExternalLink href="https://docs.renovatebot.com/" />
 - <ExternalLink href="https://snyk.io/" />
 - <ExternalLink href="https://socket.dev/" />
-
-:::caution
-Auto-merging dependency updates without a passing test suite is risky.
-The safe pattern is agent-drafted PRs verified by CI and reviewed by a human — not unattended upgrades straight to main.
-:::

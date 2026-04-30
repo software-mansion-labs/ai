@@ -4,12 +4,14 @@ import starlightLlmsTxt from "starlight-llms-txt";
 import { remarkClapButtons } from "./src/plugins/remark-clap-buttons";
 
 const site = "https://agentic-engineering.swmansion.com/";
+const base = process.env.BASE_PATH;
 const repo = `https://github.com/software-mansion/agentic-engineering/`;
 const defaultOgImage = `${site}og-default.png?v0`;
 
 // https://astro.build/config
 export default defineConfig({
   site,
+  base,
   integrations: [
     starlight({
       title: "Software Mansion Agentic Engineering Guide",

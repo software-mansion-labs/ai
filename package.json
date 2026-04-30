@@ -6,10 +6,11 @@
   "scripts": {
     "astro": "astro",
     "build": "astro build",
-    "check": "prettier --check . && astro check && bun links --check",
+    "check": "prettier --check . && astro check && bun links --check && bun mailmap --check",
     "dev": "astro dev",
-    "lint": "prettier --write . && astro check && bun links",
+    "lint": "prettier --write . && astro check && bun links && bun mailmap",
     "links": "bun run scripts/links.ts",
+    "mailmap": "bun run scripts/mailmap.ts",
     "preview": "astro preview",
     "start": "astro dev"
   },

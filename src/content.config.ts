@@ -10,16 +10,33 @@ const jsonLdNodeSchema = z.looseObject({
   "@type": z.string().min(1),
 });
 
+const attributionSchema = z
+  .object({
+    authors: z.array(z.string().min(1)).optional(),
+    showAttribution: z.boolean().default(true),
+  })
+  .superRefine((value, ctx) => {
+    if (value.showAttribution && !value.authors?.length) {
+      ctx.addIssue({
+        code: "custom",
+        message: "authors is required when showAttribution is true.",
+        path: ["authors"],
+      });
+    }
+  });
+
 export const collections = {
   docs: defineCollection({
     loader: docsLoader(),
     schema: docsSchema({
-      extend: z.object({
-        /** All pages all require to have a meaningful description. */
-        description: z.string().min(1),
-        jsonLd: z.array(jsonLdNodeSchema).optional(),
-        clapButtons: z.boolean().default(true),
-      }),
+      extend: z
+        .object({
+          /** All pages are required to have a meaningful description. */
+          description: z.string().min(1),
+          jsonLd: z.array(jsonLdNodeSchema).optional(),
+          clapButtons: z.boolean().default(true),
+        })
+        .and(attributionSchema),
     }),
   }),
   links: defineCollection({

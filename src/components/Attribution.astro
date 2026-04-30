@@ -1,12 +1,13 @@
 ---
 import { getAuthors, getContributors } from "../lib/githubAttribution";
 
-const authors = await getAuthors(Astro);
-const contributors = await getContributors(Astro);
+const { showAttribution } = Astro.locals.starlightRoute.entry.data;
+const authors = showAttribution ? await getAuthors(Astro) : [];
+const contributors = showAttribution ? await getContributors(Astro) : [];
 ---
 
 {
-  Astro.locals.starlightRoute.entry.data.showAttribution && (
+  showAttribution && (
     <section class="attribution" aria-labelledby="page-attribution-title">
       <h2 id="page-attribution-title">Attribution</h2>
       <div class="attribution-groups">

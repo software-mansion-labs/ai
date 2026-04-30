@@ -1,4 +1,5 @@
 import { readFile } from "node:fs/promises";
+import path from "node:path";
 
 export type MailmapProfile = {
   github: string;
@@ -9,7 +10,7 @@ export type MailmapEntry = MailmapProfile & {
   emails: string[];
 };
 
-export const mailmapPath = new URL("../../.mailmap", import.meta.url);
+export const mailmapPath = path.join(process.cwd(), ".mailmap");
 
 export const getGithubFromEmail = (email: string) =>
   email

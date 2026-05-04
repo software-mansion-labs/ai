@@ -3,7 +3,7 @@
 import { existsSync } from "node:fs";
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { $ } from "bun";
+import { execa } from "execa";
 import { type MailmapEntry, Mailmap, mailmapPath } from "../src/lib/mailmap";
 
 type CommitAuthor = {
@@ -80,8 +80,13 @@ async function loadCommitAuthors(): Promise<CommitAuthor[]> {
   const commitAuthors: CommitAuthor[] = [];
 
   for (const file of await loadDocFiles()) {
-    const stdout =
-      await $`git log --follow --format=%H%x09%aN%x09%aE -- ${file}`.text();
+    const { stdout } = await execa("git", [
+      "log",
+      "--follow",
+      "--format=%H%x09%aN%x09%aE",
+      "--",
+      file,
+    ]);
 
     for (const line of stdout.split("\n")) {
       const [sha, name, email] = line.split("\t");

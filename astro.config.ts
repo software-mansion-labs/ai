@@ -66,6 +66,7 @@ export default defineConfig({
             { slug: "expanding-horizons/model-pricing" },
             { slug: "expanding-horizons/high-level-harnesses" },
             { slug: "expanding-horizons/autoresearch" },
+            { slug: "expanding-horizons/beyond-coding" },
             { slug: "expanding-horizons/model-evaluation" },
             { slug: "expanding-horizons/what-to-read-next" },
           ],

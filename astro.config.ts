@@ -72,6 +72,7 @@ export default defineConfig({
             { slug: "expanding-horizons/beyond-coding" },
             { slug: "expanding-horizons/vulnerability-research" },
             { slug: "expanding-horizons/model-evaluation" },
+            { slug: "expanding-horizons/spec-driven-development" },
             { slug: "expanding-horizons/what-to-read-next" },
           ],
         },

@@ -1,5 +1,5 @@
 ---
-title: Spec Driven Development
+title: Spec-Driven Development
 description: Discover how to define, manage, and enforce a solution space for your AI agents.
 authors: [kasperski95]
 ---
@@ -13,7 +13,7 @@ import ExternalLink from "../../../components/ExternalLink.astro";
 
 ---
 
-## Playing the Long Game with Spec Driven Development
+## Playing the Long Game
 
 Creating a successful product in the age of LLMs has shifted focus from implementation toward deciding what to build.
 Choosing or modifying a list of high-level requirements and delivering fast plays a critical role in determining whether a product succeeds.
@@ -22,8 +22,8 @@ Meanwhile, the market has grown far more competitive.
 Almost all low-hanging fruit has been picked.
 Finding potentially profitable project opportunities is harder, and your project development strategy needs to be optimized for the long game.
 
-Spec Driven Development introduces a certain initial overhead, but promises a more optimized approach over the long run.
-The purpose of Spec Driven Development is to place requirements at the center of development — defining, managing, and building loops and pipelines around them while AI agents do the rest.
+Spec-Driven Development introduces a certain initial overhead, but promises a more optimized approach over the long run.
+The purpose of Spec-Driven Development is to place requirements at the center of development — defining, managing, and building loops and pipelines around them while AI agents do the rest.
 
 Consider the product development strategy below.
 Notice that after finding an opportunity, requirements play the critical role.
@@ -316,7 +316,7 @@ Feature: Standing Desk Edge Case Validation
 - **Focuses on "what," not "why"**: Captures scenario inputs and outputs without recording underlying business rationale.
 - **Struggles with non-binary rules**: Advisory or soft requirements (SHOULD, MAY) cannot be easily verified in deterministic scenarios.
 
-### Spec Driven Development
+### Spec-Driven Development
 
 There is no official industry machine-friendly standard for spec files (or at least I haven't found one). During my experiments with SDD, I ended up using requirement tables as tooling and human-friendly specification files.
 
@@ -503,7 +503,7 @@ Stakeholders frequently add or modify requirements, but rarely request their rem
 To prevent over-constraining the solution space, requirements should be systematically reviewed, refined, or removed.
 Because requirements are represented in a structured format in spec files, you can build an automated, time-based workflow (e.g., a scheduled job evaluating each requirement's "Reviewed At" date) that flags stale requirements and prompts stakeholders on Slack or via email to confirm whether those constraints are still valid.
 
-## So why and when should I use Spec Driven Development?
+## So why and when should I use Spec-Driven Development?
 
 A specification defines the boundaries of a solution space, allowing both human engineers and AI agents to deeply understand your system's intent.
 Beyond serving as plain-text documentation, representing requirements in a structured format can turn specifications into a foundation for automated, agent-native engineering workflows.

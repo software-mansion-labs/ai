@@ -51,7 +51,7 @@ Your job is to narrow down the space and prepare your AI agent to land.
 
 A complex product rarely exists as a single, isolated universe.
 It operates within a multiverse.
-Major features, external integrations, and subsystems each form their own distinct universes, connected by portals (contracts).
+Major features, external integrations, and subsystems each form their own distinct universes, connected by portals ([contracts](#contracts)).
 
 Meanwhile, cross-cutting concerns like security, logging, and error handling act as universal laws governing every realm in the system.
 And eventually, you have to open portals to the outside world for external visitors... some of whom will inevitably be hostile.
@@ -214,7 +214,7 @@ Height is a range: min < 70 cm AND max > 120 cm. (REQ-1..REQ-6)
 - **High retrieval friction for agents:** Git history isn't part of the agent's active context window. Uncovering constraints requires multi-step tool calls (`git blame`, `git log`) and filtering through unrelated commits.
 - **Fragmented across time:** The full specification is scattered across months of commit history rather than consolidated in a single view.
 
-### Executable Tests — Enforcement at cost of Business Visibility
+### Executable Tests
 
 Representing a solution space through executable tests that directly assert boundary conditions.
 
@@ -272,7 +272,7 @@ describe("corner cases (multiple dimensions at extremes)", () => {
 
 **Cons**
 
-- **High noise:** Business constraints get buried among hundreds of routine implementation, utility, and UI tests.
+- **High noise:** Business constraints get buried among hundreds of other tests.
 - **Strictly binary:** Asserts pass/fail criteria well, but struggles to model non-binary constraints (`SHOULD`, `MAY`, `RECOMMENDED` requirements).
 - **Missing rationale ("What" vs. "Why"):** Verifies that a boundary exists, but fails to explain the underlying business rationale.
 - **Tight coupling to the test stack:** The specification is bound to a specific language, test runner, and assertion library.
@@ -318,7 +318,7 @@ Feature: Standing Desk Edge Case Validation
 
 ### Spec Driven Development
 
-There is no official industry standard for spec files. However, during my experiments with SDD, I ended up using requirement tables as tooling and human friendly specification files.
+There is no official industry machine-friendly standard for spec files (or at least I haven't found one). During my experiments with SDD, I ended up using requirement tables as tooling and human-friendly specification files.
 
 **Example**
 
@@ -340,16 +340,17 @@ There is no official industry standard for spec files. However, during my experi
 **Cons**
 
 - **Multi-layer translation pipeline:** Introduces another indirection (e.g., `Prompt → Spec → (optionally) Acceptance Scenarios → Tests → Implementation`).
-- **Requires custom tooling:** Connections with test suites needs to be programmatically enforced to avoid code drift .
+- **Requires custom tooling:** Ideally, connections between requirements and test cases should be programmatically enforced.
 
 
 ## What is the Purpose of a Specification?
 
 In Spec-Driven Development (SDD), the purpose of a specification is to concisely define the boundaries of a solution space for both AI agents and human developers.
-The codebase—or the broader system implementation—is simply one concrete solution residing within that bounded space.
+The codebase (or system) is simply one concrete solution residing within that solution space.
 
 What is a spec, then?
-My proposed definition:
+
+Suggested definition:
 
 > **In the context of Spec-Driven Development, a specification is a description of a system's valid solution space.**
 
@@ -390,7 +391,6 @@ Concepts at the same abstraction level should be kept close to each other.
 
 A contract is a spec file focused on interactions between independent system components or actors.
 
-I like to think of them as stable requirements.
 Changing them carries consequences, such as breaking downstream dependents, violating SLAs, or damaging trust.
 
 ## A Spec for Spec Files
@@ -510,11 +510,13 @@ Beyond serving as plain-text documentation, representing requirements in a struc
 
 With Spec-Driven Development, you can:
 
-- **Detect conflicts and feasibility issues early**, resolving inconsistencies before writing a single line of code.
-- **Extract requirements interactively** during early phases by having an AI agent interview stakeholders, resolve ambiguities, and refine spec files.
-- **Bootstrap system architecture**, generating C4 container diagrams, tech-stack proposals, and project structures directly from structured requirements to avoid major project restructures.
 - **Explore the solution space** by prompting agents to generate multiple implementation variants with different tradeoffs from the same spec.
+- **Expose fragile and untested edge and corner cases** by using AI agents to surface boundary conditions and missing scenarios.
+- **Detect conflicts and feasibility issues early**, resolving inconsistencies before writing a single line of code.
 - **Establish end-to-end traceability** from stakeholders, through requirements to test cases.
+- **Extract more requirements interactively** during early phases by having an AI agent interview stakeholders, resolve ambiguities, and refine spec files.
+- **Bootstrap system architecture**, generating C4 container diagrams, tech-stack proposals, and project structures directly from structured requirements to avoid major project restructures.
+- **Detect code drift** by analyzing existing code against the spec to find unimplemented features without owner.
 - **Measure requirement coverage programmatically**
   ```text
   Req Type             Coverage                                  sat / tst / wAC / tot
@@ -530,8 +532,6 @@ With Spec-Driven Development, you can:
         The transcript shows a diff proposal but never states the ch…
   ```
 
-- **Detect code drift** by analyzing existing code against the spec to find unimplemented features without owner.
-- **Expose fragile and untested edge and corner cases** by using AI agents to surface boundary conditions and missing scenarios.
 
 ## The Takeaway
 

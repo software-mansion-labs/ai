@@ -318,8 +318,7 @@ Feature: Standing Desk Edge Case Validation
 
 ### Spec Driven Development
 
-Unlike REST APIs (OpenAPI) or database schemas, there is no official industry standard for spec files.
-However, during my experiments, I ended up using requirement tables as tooling-friendly specification files.
+There is no official industry standard for spec files. However, during my experiments with SDD, I ended up using requirement tables as tooling and human friendly specification files.
 
 **Example**
 
@@ -413,7 +412,7 @@ Create ./specs/index.spec.md compliant with ./specs/contracts/spec-md.spec.md ba
 ### spec-md.spec.md
 ```
 ---
-schema: swmansion.com/spec-md/1.0
+dialect: swmansion.com/spec-md/1.0
 custom:
   copied-from: https://agentic-engineering.swmansion.com/expanding-horizons/spec-driven-development/
 ---
@@ -423,8 +422,8 @@ custom:
 | Id | Statement | Reason |
 |----|-----------|--------|
 | `SPEC_MD__FRONTMATTER__SUPPORTED` | A SPEC MAY include a frontmatter block. | Frontmatter carries machine-readable metadata separate from the content. |
-| `SPEC_MD__FRONTMATTER__ALLOWLIST` | A SPEC's frontmatter MUST NOT have properties other than the ones specified by this spec (schema, custom). | Avoiding collisions between user data and potential new properties in future versions. |
-| `SPEC_MD__FRONTMATTER__SCHEMA_DECLARATION` | A SPEC published as a public contract SHOULD include `schema: swmansion.com/spec-md/1.0` in the frontmatter section. | A contract must be more explicit than an internal spec. |
+| `SPEC_MD__FRONTMATTER__ALLOWLIST` | A SPEC's frontmatter MUST NOT have properties other than the ones specified by this spec (dialect, custom). | Avoiding collisions between user data and potential new properties in future versions. |
+| `SPEC_MD__FRONTMATTER__DIALECT_DECLARATION` | A SPEC published as a public contract SHOULD include `dialect: swmansion.com/spec-md/1.0` in the frontmatter section. | A contract must be more explicit than an internal spec. |
 | `SPEC_MD__FRONTMATTER__CUSTOM` | A SPEC's frontmatter MAY have a `custom` property managed by a user. | Avoiding collisions between user data and potential new properties in future versions. |
 | `SPEC_MD__REQUIREMENTS_SECTION__SKIP_IF_EMPTY` | A SPEC MUST NOT have a `# Requirements` section if there are no requirements. | An empty section is noise; omit it until there is at least one requirement to record. |
 | `SPEC_MD__REQUIREMENTS_SECTION__ONLY_NON_EMPTY_TABLE` | `# Requirements` MUST have only a non-empty requirements table. | Adding metadata to requirements is easier when they are represented in table form. |

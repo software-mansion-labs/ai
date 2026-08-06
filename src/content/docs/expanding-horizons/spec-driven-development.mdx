@@ -76,7 +76,8 @@ For example, you can use them to find interesting corner cases, improve test sui
 Suppose we're designing a standing desk.
 The valid solution space is a 3D volume bounded by six requirements.
 
-![The valid standing desk solution space drawn as a box in three dimensions: load capacity, height range, and lift speed](../../../assets/spec-driven-development/standing-desk-solution-space.png)
+<span class="light:sl-hidden print:hidden sl-block">![The valid standing desk solution space drawn as a box in three dimensions: load capacity, height range, and lift speed](../../../assets/spec-driven-development/standing-desk-solution-space-dark.png)</span>
+<span class="dark:sl-hidden print:block sl-block">![The valid standing desk solution space drawn as a box in three dimensions: load capacity, height range, and lift speed](../../../assets/spec-driven-development/standing-desk-solution-space-light.png)</span>
 
 If you ask an AI agent to reverse-engineer those six boundary requirements by looking at a single concrete implementation, it will mistake a single point inside the space for the entire bounding box:
 

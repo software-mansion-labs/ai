@@ -209,3 +209,30 @@ At first, you may need to interactively install tools that the agent wants to us
 
 Got a huge log file, maybe a screenshot, and need to identify the bug?
 Paste everything you have into your agent prompt and tell it to find the exact log lines itself.
+
+## Prompt across threads
+
+### Hand off to a new thread
+
+Ask the current thread to create the next thread and write its first prompt.
+You can also tell the current thread to archive itself after the handoff.
+
+```md
+Hand this work off to a new thread in an isolated workspace on a fresh branch
+for ISSUE-123.
+Tell it to implement the retry approach we agreed on and include the relevant
+evidence, constraints, and acceptance criteria in its prompt.
+After the handoff succeeds, archive this thread.
+```
+
+### Queue work behind another thread
+
+You can tell a thread to wait for another thread to finish, then continue with dependent work.
+Give it an observable completion condition and the next action.
+For longer chains, use a [Chief of Staff loop](./designing-loops/#chief-of-staff), where one manager thread watches workers and starts dependent work when it is ready.
+
+```md
+Wait until <thread link> has shipped its pull request and archived itself.
+Then inspect its final result, rebase this work on top of ISSUE-432, and continue.
+Ask me before resolving any substantive design conflict.
+```
